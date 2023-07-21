@@ -1,0 +1,13 @@
+<div class="col-sm-12 video">
+      <div class="card" *ngIf="album">
+            <img class="card-img-top" src="../../assets/img/paris.jpg" alt="Group Music">
+            <div class="card-body">
+                  <h5 class="card-title"> {{ album.title }} </h5>
+                  <p class="card-text"> {{ album.name }} </p>
+                  <a href="#" class="btn btn-primary">Play >> </a>
+            </div>
+            <ul class="list-group">
+                  <li class="list-group-item active"  *ngFor = "let detailsLists of dLists"> {{ detailsLists }} </li>
+            </ul>
+      </div>
+</div>
