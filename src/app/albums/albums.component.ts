@@ -20,5 +20,8 @@ export class AlbumsComponent implements OnInit {
       onSelect (album: Album) : void {
             this.selectedAlbum = album;            
       }
+      playParent(event: any) {
+            console.log('Événement onPlay déclenché dans l\'élément enfant :', event);
+      }
 }
 

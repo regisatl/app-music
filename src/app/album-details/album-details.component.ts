@@ -1,6 +1,6 @@
 // Component enfant
 // la classe Input est nécessaire
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Album, List } from '../album';
 import { ALBUM_LISTS } from '../mock-albums';
 
@@ -17,13 +17,21 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       dLists!: Array<string> | undefined;
       constructor() { }
       ngOnInit() {
-            console.log(this.album); // pour l'instant c'est undefined ... C'est normal
+            this.album; // pour l'instant c'est undefined ... C'est normal
       }
 
       ngOnChanges() {
             if (this.album !== undefined) {
                   this.dLists = this.lists.find((element) => this.album.id === element.id)?.list;
             }
+      }
+
+      // AlbumDetailsComponent
+      @Output() onPlay: EventEmitter<Album> = new EventEmitter();
+
+      // AlbumDetailsComponent
+      play(album: Album) {
+            this.onPlay.emit(album); // émettre un album vers le parent
       }
 
 }

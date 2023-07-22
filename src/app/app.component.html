@@ -15,31 +15,28 @@
                               <!-- <a class="nav-link" href="#">Logout</a> -->
                         </div>
                   </div>
-                  <ul class="d-flex fw-semibold" role="time">
-                        <li>time : 0h 21 min 8s</li>
+                  <ul class="d-flex fw-semibold m-0" role="time">
+                        <li class="m-0">Time : <span class="fw-bold">{{ formattedDate }}</span> </li>
                   </ul>
             </div>
       </nav>
 
-      <!-- La navbar search début -->
-      <nav class="navbar bg-body-tertiary mb-2 rounded shadow p-4 mb-4 bg-white">
-            <div class="container-fluid">
-                  <a class="navbar-brand fw-bold">{{search}}</a>
-                  <form class="d-flex" role="search">
-                        <input class="form-control me-2 border-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-dark border-2" type="submit">Search</button>
-                  </form>
-            </div>
-      </nav>
-      <!-- La navbar search fin -->
+            <!-- La navbar search début -->
+            <nav class="navbar bg-body-tertiary mb-2 rounded shadow p-4 mb-4 bg-white">
+                  <div class="container-fluid">
+                        <a class="navbar-brand fw-bold">{{search}}</a>
+                        <form class="d-flex" role="search">
+                              <input class="form-control me-2 border-2" type="search" placeholder="Search" aria-label="Search" ng-model="query">
+                              <button class="btn btn-outline-dark border-2" type="submit">Search</button>
+                        </form>
+                  </div>
+            </nav>
+            <!-- La navbar search fin -->
 
       <div class="container-fuild principal">
             <nav class="navbar navbar-expand-lg navbar-light">
             </nav>
             <app-albums></app-albums>
       </div>
-
-
-
 
 </div>

@@ -1,7 +1,8 @@
 <div class="row content">
       <div class="col-sm-4 video">
             <!-- AlbumDetails communication parent vers enfant -->
-            <app-album-details [album]="selectedAlbum"></app-album-details>
+            <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)">
+            </app-album-details>
       </div>
 
       <div class="col-sm-8 float-end">
