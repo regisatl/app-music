@@ -15,6 +15,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       @Input() album!: Album;
       lists: List[] = ALBUM_LISTS;
       dLists!: Array<string> | undefined;
+      isPlaying: boolean = false; // Propriété pour suivre l'état de lecture
       constructor() { }
       ngOnInit() {
             this.album; // pour l'instant c'est undefined ... C'est normal
@@ -22,7 +23,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
 
       ngOnChanges() {
             if (this.album !== undefined) {
-                  this.dLists = this.lists.find((element) => this.album.id === element.id)?.list;
+                  this.dLists = this.lists.find((elmtDetails) => this.album.id === elmtDetails.id)?.list;
             }
       }
 
@@ -32,7 +33,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       // AlbumDetailsComponent
       play(album: Album) {
             this.onPlay.emit(album); // émettre un album vers le parent
+            this.isPlaying = !this.isPlaying; // Inverse l'état de lecture
       }
-
 }
 

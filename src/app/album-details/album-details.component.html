@@ -5,10 +5,16 @@
             <div class="card-body">
                   <h5 class="card-title"> {{ album.title }} </h5>
                   <p class="card-text"> {{ album.name }} </p>
-                  <a href="#" class="btn btn-primary fw-bold">Play >> </a>
+                  <button class="btn btn-primary fw-bold text-white px-5 py-3" (click)="play(album)"
+                        [ngClass]="{'fa fa-play-circle': !isPlaying, 'fas fa-play-circle': isPlaying}">
+                        <!-- Affichez le tag [play] uniquement lorsque le bouton est inactif (isPlaying = false) -->
+                        <span *ngIf="!isPlaying" class="text-white"> Play</span>
+                        <span *ngIf="isPlaying" class="text-white text-lowercase"> Stop</span>
+                  </button>
             </div>
             <ul class="list-group rounded-bottom">
-                  <li class="list-group-item list-group-item-action list-group-item-dark fw-semibold"  *ngFor = "let detailsLists of dLists"> {{ detailsLists }} </li>
+                  <li class="list-group-item list-group-item-action list-group-item-dark fw-semibold"
+                        *ngFor="let detailsLists of dLists"> {{ detailsLists }} </li>
             </ul>
       </div>
 </div>

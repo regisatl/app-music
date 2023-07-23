@@ -8,17 +8,17 @@ import { SearchComponent } from './search/search.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AlbumsComponent,
-    AlbumDetailsComponent,
-    SearchComponent,
-    
-  ],
-  imports: [
-    BrowserModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        AlbumsComponent,
+        AlbumDetailsComponent,
+        SearchComponent,
+
+    ],
+    imports: [
+        BrowserModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,17 +1,27 @@
+
+      <app-search (searchChanged)="onSearchChanged($event)"></app-search>
+
+
 <div class="row content">
+
       <div class="col-sm-4 video">
             <!-- AlbumDetails communication parent vers enfant -->
             <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)">
             </app-album-details>
       </div>
 
-      <div class="col-sm-8 float-end">
+      <div class="col-sm-8">
             <h1 class="fs-1 fw-bold">{{ titlePage }}</h1>
             <div class="card mb-2 shadow p-4 mb-4 bg-white" *ngFor="let album of albums">
                   <div class="card-header bg-dark text-light fw-bold">
                         {{album.ref}}
                   </div>
-                  <div class="card-body">
+                  <div class="card-body"  *ngFor="let album of filteredAlbums">
+                        <h1>
+                              <span *ngIf="selectedAlbum === album" class="text-dark"><i
+                                          class="fas fa-pause-circle"></i></span>
+                              {{ album.title }}
+                        </h1>
                         <h5 class="card-title fw-semibold"> {{album.title}} </h5>
                         <p class="card-text">{{album.description}}</p>
                         <ul class="list-group list-group-horizontal mb-3 col-sm-3 fw-bold" style="font-size: 0.6rem;">
@@ -31,5 +41,5 @@
                   </div>
             </div>
       </div>
-      <!-- .card -->
+
 </div>

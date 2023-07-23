@@ -10,7 +10,6 @@ import { DatePipe } from "@angular/common";
 })
 export class AppComponent {
     title = 'App-music';
-    search = 'Search Albums';
     formattedDate : string | null;
     
     constructor(
