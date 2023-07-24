@@ -3,45 +3,75 @@
 
 <div class="row content">
 
-      <div class="col-sm-4 video">
+      <div class="col-sm-4 pt-5 video">
             <!-- onPlay méthode enfant et playParent méthode parent -->
-            <app-album-details [album]="selectedAlbum" (onPlay) = "playParent($event)"></app-album-details>
+            <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"></app-album-details>
             <!-- AlbumDetails communication parent vers enfant -->
       </div>
 
-      <div class="col-sm-8 border-2">
-            <h1 class="fs-1 fw-bold text-dark mt-4 pt-3">{{ titlePage }}</h1>
-            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary w3-light-grey" *ngFor="let album of albums">
-                  <div class="card-header w3-red text-light fw-bold py-3">
+      <div class="col-sm-8 border-0">
+            <div class="d-flex justify-content-end">
+                  <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                              <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                              </li>
+                              <li class="page-item">
+                                    <a class="page-link" href="#">1</a>
+                              </li>
+                              <li class="page-item">
+                                    <a class="page-link" href="#">2</a>
+                              </li>
+                              <li class="page-item">
+                                    <a class="page-link" href="#">3</a>
+                              </li>
+                              <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                              </li>
+                        </ul>
+                  </nav>
+            </div>
+            <!-- .pagination -->
+
+            <h1 class="fs-1 fw-bold text-dark mt-4 ms-5 pt-3">{{ titlePage }}<span class="badge w3-red ms-5"> {{ count() }}
+            </span></h1>
+            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary w3-light-grey" *ngFor="let album of paginatedAlbums">
+                  <div>
+                        <!-- Ajouter un bouton de pagination pour changer de page-- > -->
+                        <!-- <button * ngFor="let pageNumber of getPageNumbers()" (click)="onPageChange(pageNumber)">
+                              {{ pageNumber }}
+                        </button> -->
+                  </div>
+                  <div class="card-header w3-blue text-light fs-5 fw-bold py-3">
                         {{album.ref}}
                   </div>
                   <div class="card-body">
-                        <h1 *ngIf="album.status ==='on' " class="text-info fw-bold fs-4">
+                        <h1 *ngIf="album.status ==='on' " class="w3-text-red fw-bold fs-4">
                               <span class="fas fa-pause-circle"></span>
                               {{ album.title }}
                         </h1>
-                        <h1 *ngIf="album.status !=='on' " class="text-info fw-bold fs-4">
+                        <h1 *ngIf="album.status !=='on' " class="w3-text-red fw-bold fs-4">
                               <span class="fas fa-play-circle"></span>
                               {{ album.title }}
                         </h1>
                         <h5 class="card-title fw-semibold"> {{album.title}} </h5>
                         <p class="card-text">{{album.description}}</p>
                         <ul class="list-group list-group-horizontal mb-3 col-sm-3 fw-bold" style="font-size: 0.9rem;">
-                              <li class="list-group-item list-group-item-action list-group-item-info badge badge-info mx-1 rounded border-2"
+                              <li class="list-group-item list-group-item-action w3-red badge badge-info mx-1 rounded"
                                     *ngFor="let tag of album.tags"> {{tag}}
                               </li>
                         </ul>
-                        <a class="btn btn-outline-dark fw-semibold px-4 py-2 border-3" href="#" role="button">En</a>
+                        <a class="btn btn-outline-primary fw-semibold px-4 py-2 border-3" href="#" role="button">En</a>
                         <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
                               src="../assets/svg/si-glyph-heart.svg" />
                         <small>{{album.like}}</small>
                         <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
                               src="../assets/svg/si-glyph-timer.svg" />
                         <small class="fw-semibold">{{album.duration}} min</small> <br>
-                        
-                              <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mt-3" href="#" role="button"
-                                    (click)="onSelect(album)">Details</a>
-                
+
+                        <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mt-3" href="#" role="button"
+                              (click)="onSelect(album)">Details</a>
+
                   </div>
             </div>
       </div>

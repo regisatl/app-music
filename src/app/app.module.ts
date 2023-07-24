@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { AlbumsComponent } from './albums/albums.component';
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { SearchComponent } from './search/search.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { SearchComponent } from './search/search.component';
 
     ],
     imports: [
-        BrowserModule
+        BrowserModule,
+        FormsModule // importez le module
     ],
     providers: [],
     bootstrap: [AppComponent]
