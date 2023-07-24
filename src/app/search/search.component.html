@@ -1,11 +1,11 @@
 <!-- La navbar  -->
-<nav class="navbar bg-body-tertiary mb-2 rounded shadow p-4 mb-4 bg-white">
+<nav class="navbar shadow-lg mb-5 bg-body-tertiary p-4 rounded bg-white">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold">{{search}}</a>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2 border-2" type="search" placeholder="Search a album..." aria-label="Search"
+        <form class="d-flex align-middle" role="search">
+            <input class="form-control me-2 border-2 fw-semibold" type="search" placeholder="Search a album..." aria-label="Search"
                 (input)="onSearchChange()">
-            <button class="btn btn-outline-dark border-2" type="submit" (click)="onSearchChange()">Search</button>
+            <button class="btn btn-outline-dark border-2 fw-semibold" type="submit" (click)="onSearchChange()">Search</button>
         </form>
     </div>
 </nav>

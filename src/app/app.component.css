@@ -1,2 +1,15 @@
 
-
+div.navbar-nav a {
+      background-color: #ced0d1;
+      margin: 1rem;
+      display: block;
+      border-radius: 0.5rem;
+}
+div.navbar-nav a:hover {
+      background-color: #0354e9;
+      color: white;
+}
+div.navbar-nav a.active {
+      background-color: #0354e9;
+      color: white;
+}
