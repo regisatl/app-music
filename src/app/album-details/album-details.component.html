@@ -3,9 +3,9 @@
       <div class="card overlay" *ngIf="album">
             <img class="card-img-top rounded-bottom" src="{{ album.url }}" alt="Group Music">
             <div class="card-body">
-                  <h5 class="card-title fs-4 fw-bold text-primary"> {{ album.title }} </h5>
+                  <h5 class="card-title fs-4 fw-bold text-info"> {{ album.title }} </h5>
                   <p class="card-text"> {{ album.name }} </p>
-                  <button class="btn btn-primary fw-bold px-5 py-3" (click)="play(album)"
+                  <button class="w3-red fw-bold px-3 py-2" (click)="play(album)"
                         [ngClass]="{'fa 1x': !isPlaying, 'fa-1x': isPlaying}">
                         <!-- Affichez le tag [play] uniquement lorsque le bouton est inactif (isPlaying = false) -->
                         <span *ngIf="!isPlaying" class="text-white text-uppercase"> Play <i class="fas fa-pause-circle"></i></span>
@@ -13,7 +13,7 @@
                   </button>
             </div>
             <ul class="list-group rounded-bottom">
-                  <li class="list-group-item list-group-item-action list-group-item-dark fw-semibold"
+                  <li class="list-group-item list-group-item-action w3-red fw-semibold"
                         *ngFor="let detailsList of albumsLists"> {{ detailsList }} </li>
             </ul>
       </div>

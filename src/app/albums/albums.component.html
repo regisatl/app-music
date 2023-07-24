@@ -11,8 +11,8 @@
 
       <div class="col-sm-8 border-2">
             <h1 class="fs-1 fw-bold text-dark mt-4 pt-3">{{ titlePage }}</h1>
-            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary" *ngFor="let album of albums">
-                  <div class="card-header bg-dark text-light fw-bold">
+            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary w3-light-grey" *ngFor="let album of albums">
+                  <div class="card-header w3-red text-light fw-bold py-3">
                         {{album.ref}}
                   </div>
                   <div class="card-body">
@@ -37,9 +37,11 @@
                         <small>{{album.like}}</small>
                         <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
                               src="../assets/svg/si-glyph-timer.svg" />
-                        <small class="fw-semibold">{{album.duration}} min</small>
-                        <a class="btn btn-dark fw-semibold px-4 py-2 mx-2" href="#" role="button"
-                              (click)="onSelect(album)">Details</a>
+                        <small class="fw-semibold">{{album.duration}} min</small> <br>
+                        
+                              <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mt-3" href="#" role="button"
+                                    (click)="onSelect(album)">Details</a>
+                
                   </div>
             </div>
       </div>

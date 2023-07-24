@@ -13,6 +13,7 @@ export class AlbumService {
       private albums: Album[] = [];
 
       getAlbums(): Album[] {
+            this.albums.sort((a, b) => a.title.localeCompare(b.title));
             return ALBUMS;
         }
     

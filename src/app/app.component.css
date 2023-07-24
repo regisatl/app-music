@@ -1,15 +1,32 @@
+body,
+h1,
+h2,
+h3,
+h4,
+h5 {
+      font-family: "Poppins", sans-serif
+}
 
 div.navbar-nav a {
-      background-color: #ced0d1;
+      padding: 0.5rem 1.5rem;
       margin: 1rem;
       display: block;
+      color: white;
       border-radius: 0.5rem;
+
 }
+
 div.navbar-nav a:hover {
-      background-color: #0354e9;
-      color: white;
+      background-color: white;
+      color: #212529;
 }
+
 div.navbar-nav a.active {
-      background-color: #0354e9;
-      color: white;
+      background-color: white;
+      color: #212529;
+}
+
+ul.hours {
+      font-weight: 900;
+      font-size: 1.5rem;
 }
