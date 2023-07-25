@@ -1,4 +1,4 @@
-import { Album, Img } from './album';
+import { Album} from './album';
 
 export const ALBUMS: Album[] = [
       {
@@ -58,7 +58,7 @@ export const ALBUMS: Album[] = [
             "title": "consequat excepteur",
             "description": "Cillum proident commodo do non esse cillum incididunt officia qui occaecat. Excepteur id voluptate esse tempor aliqua voluptate in labore anim incididunt ea nostrud nisi. Proident adipisicing adipisicing enim adipisicing nisi elit irure.\r\n",
             "duration": 840,
-            "url": "../assets/img/albums4.jpg",
+            "url": "../assets/img/albums10.jpg",
             "like": "Rather",
             "tags": [
                   "laborum",
@@ -89,7 +89,7 @@ export const ALBUMS: Album[] = [
             "title": "Lorem Lorem",
             "description": "Nostrud veniam dolor velit id occaecat cupidatat aliquip exercitation id aliqua nostrud. Ad mollit Lorem consectetur minim consequat est eiusmod deserunt pariatur est ullamco. Veniam anim veniam Lorem excepteur irure. Esse adipisicing nulla in incididunt. Consectetur fugiat exercitation aliquip excepteur ipsum ullamco ullamco magna commodo.\r\n",
             "duration": 360,
-            "url": "../assets/img/albums6.jpg",
+            "url": "../assets/img/albums11.jpg",
             "like": "Much",
             "tags": [
                   "consectetur",
@@ -129,7 +129,7 @@ export const ALBUMS: Album[] = [
             "title": "Lorem Potter II",
             "description": "Nostrud veniam dolor velit id occaecat cupidatat aliquip exercitation id aliqua nostrud. Ad mollit Lorem consectetur minim consequat est eiusmod deserunt pariatur est ullamco. Veniam anim veniam Lorem excepteur irure. Esse adipisicing nulla in incididunt. Consectetur fugiat exercitation aliquip excepteur ipsum ullamco ullamco magna commodo.\r\n",
             "duration": 240,
-            "url": "../assets/img/albums8.jpg",
+            "url": "../assets/img/albums12.jpg",
             "like": "Much",
             "tags": [
                   "consectetur",

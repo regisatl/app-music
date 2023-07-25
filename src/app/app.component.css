@@ -7,7 +7,8 @@ h5 {
       font-family: "Poppins", sans-serif
 }
 
-div.navbar-nav a {
+
+ul.navbar-nav a {
       padding: 0.5rem 1.5rem;
       margin: 1rem;
       display: block;
@@ -16,17 +17,12 @@ div.navbar-nav a {
 
 }
 
-div.navbar-nav a:hover {
+ul.navbar-nav a:hover {
       background-color: white;
       color: #212529;
 }
 
-div.navbar-nav a.active {
+ul.navbar-nav a.active {
       background-color: white;
       color: #212529;
-}
-
-ul.hours {
-      font-weight: 900;
-      font-size: 1.5rem;
 }

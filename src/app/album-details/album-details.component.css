@@ -1,5 +1,18 @@
+div.details {
+      width: 415px;
+      height: auto;
+      animation: details 4s ease;
+ 
+}
 
+@keyframes details {
 
-.overlay {
-      transition: .5s ease;
-    }
+      0% {
+         right: 0%;
+      }
+
+      100% {
+            left: 100%;
+      }
+
+}

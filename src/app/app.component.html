@@ -1,22 +1,25 @@
 <div class="container-fuild principal">
 
-      <nav class="navbar navbar-expand-lg bg-body-tertiary rounded text-white mb-2 shadow p-3 mb-4 w3-blue">
+      <nav class="navbar navbar-expand-sm bg-dark navbar-dark py-4 fw-bold fs-5 position-sticky top-0 z-1 shadow">
             <div class="container-fluid">
-                  <a class="navbar-brand fw-bold text-white fs-3" href="#">{{ title }}</a>
+                  <a class="navbar-brand" href="#">{{ title }}</a>
                   <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#AltNavbar" aria-controls="AltNavbar" aria-expanded="false"
-                        aria-label="Toggle navigation">
+                        data-bs-target="#collapsibleNavbar">
                         <span class="navbar-toggler-icon"></span>
                   </button>
-                  <div class="collapse navbar-collapse" id="AltNavbarp">
-                        <div class="navbar-nav">
-                              <a class="nav-link fw-semibold active" aria-current="page" href="#">Home</a>
-                              <a class="nav-link fw-semibold" href="#">Se Connecter</a>
-                              <!-- <a class="nav-link" href="#">Logout</a> -->
-                        </div>
+                  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                        <ul class="navbar-nav">
+                              <li class="nav-item">
+                                    <a class="nav-link active" href="#">Home</a>
+                              </li>
+                              <li class="nav-item">
+                                    <a class="nav-link" routerLink="/login" routerLinkActive="active">Se connecter</a>
+                              </li>
+                        </ul>
                   </div>
-                  <ul class="d-flex fw-semibold m-0 hours" role="time">
-                        <li class="m-0 list-group-item text-white"> <i class="fa fa-hourglass"></i> <span class="fw-bold mx-2">{{
+                  <ul class="d-flex m-0 hours" role="time">
+                        <li class="m-0 list-group-item text-white fw-bold fs-5"><i class="fa fa-hourglass"></i> <span
+                                    class="fw-bold mx-2">{{
                                     formattedDate }}</span> </li>
                   </ul>
             </div>

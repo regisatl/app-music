@@ -1,12 +1,19 @@
 <!-- La navbar  -->
-<nav class="navbar shadow-lg mb-5 bg-body-tertiary p-4 rounded  w3-white">
+<nav class="navbar shadow-lg mb-5 bg-dark py-4 rounded">
     <div class="container-fluid">
         <a class="navbar-brand fw-bold w3-text-blue">{{search}}</a>
-        <form class="d-flex align-middle" role="search" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
-            <input name="word" ngModel required class="form-control me-2 border-2 fw-semibold" type="search"
-                placeholder="Search a album..." aria-label="Search" [(ngModel)]="searchKeyword">
-            <button class="btn btn-outline-primary border-2 fw-semibold" type="submit"
-                (click)="searchAlbums()" [disabled]="formSearch.invalid">Search</button>
+        <form class="d-flex" role="search" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
+            <input name="word" ngModel required class="form-control me-2 border-primary-2 fw-semibold w3-white"
+                type="search" placeholder="Search a album..." aria-label="Search" [(ngModel)]="searchKeyword">
+            <button class="btn btn-outline-primary border-2 fw-bold" type="submit"
+                [disabled]="formSearch.invalid">Search</button>
+            <div * ngIf="searchResults.length > 0">
+                <ul>
+                    <li *ngFor="let album of searchResults">
+                        {{ album.title }}
+                    </li>
+                </ul>
+            </div>
         </form>
     </div>
 </nav>

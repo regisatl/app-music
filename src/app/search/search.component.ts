@@ -17,7 +17,7 @@ export class SearchComponent {
     constructor(private albumService: AlbumService) { }
 
     // Événement émis lorsque l'utilisateur effectue une recherche
-    @Output() searchChanged = new EventEmitter<string>();
+    @Output() searchChanged: EventEmitter<Album[]> = new EventEmitter();
 
     // Méthode pour déclencher l'événement de recherche avec le critère saisi
     searchAlbums() {
@@ -30,6 +30,9 @@ export class SearchComponent {
 
     onSubmit(form: NgForm): void {
         const keyword = form.value['word'];
+        console.log(keyword);
+
         this.searchResults = this.albumService.getAlbumsByKeyword(keyword);
+        this.searchChanged.emit(this.searchResults)
     }
 }

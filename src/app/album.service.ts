@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
-import { Album } from './album';
-import { ALBUMS } from './mock-albums';
+import { Album, List } from './album';
+import { ALBUMS, ALBUM_LISTS } from './mock-albums';
 // Une classe injectable est un service et peut recevoir d'autre(s) service(s)
 
 @Injectable({
       providedIn: 'root' // injecter de manière globale
 })
+
 export class AlbumService {
       constructor() { }
 
       selectedAlbum!: Album;
-      private albums: Album[] = [];
+      private albums: Album[]  = ALBUMS;
+      private albumsList: List[]  = ALBUM_LISTS
 
       getAlbums(): Album[] {
-            this.albums.sort((a, b) => a.title.localeCompare(b.title));
-            return ALBUMS;
+            this.albums.sort((a: Album, b: Album) => b.duration - a.duration);        
+            return this.albums;
       }
 
       getAlbum(id: string) {
@@ -26,20 +28,18 @@ export class AlbumService {
             return this.selectedAlbum;
       }
 
-      getAlbumList(id: string): string[] | undefined {
-            const album = this.albums.find(album => album.id === id);
-            return album ? album.tracks : undefined;
+      getAlbumList(id: string): List | undefined {
+           return this.albumsList.find(albumMusic => albumMusic.id === id); 
       }
 
       paginate(start: number, end: number): Album[] {
             return this.albums.slice(start, end);
       }
 
-      
-    getAlbumsByKeyword(keyword: string): Album[] {
-      keyword = keyword.trim().toLowerCase();
-      return this.albums.filter(album => album.title.toLowerCase().includes(keyword));
-  }
+      getAlbumsByKeyword(keyword: string): Album[] {
+            keyword = keyword.trim().toLowerCase();
+            return this.albums.filter(album => album.title.toLowerCase().includes(keyword));
+      }
 
 }
 

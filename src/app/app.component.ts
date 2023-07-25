@@ -17,7 +17,6 @@ export class AppComponent {
     ) {
         const  maDate = new Date(); 
          this.formattedDate = this.datePipe.transform(maDate, 'HH:mm:ss');
-        
     }
 
 }
