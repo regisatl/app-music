@@ -12,41 +12,43 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 
 
 const albumsRoutes: Routes = [
-    {
-        path: 'albums',
-        component: AlbumsComponent
-    },
-    {
-        path: '',
-        redirectTo: '/albums',
-        pathMatch: 'full'
-    },
-    {
-        path: 'login',
-        component: LoginComponent
-    },
-    {
-        path: 'album/:id',
-        component: AlbumDescriptionComponent
-    },
+      {
+            path: 'albums',
+            component: AlbumsComponent
+      },
+      {
+            path: '',
+            redirectTo: '/albums',
+            pathMatch: 'full'
+      },
+      {
+            path: 'login',
+            component: LoginComponent
+      },
+      {
+            path: 'album/:id',
+            component: AlbumDescriptionComponent
+      },
 ];
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        AlbumsComponent,
-        AlbumDetailsComponent,
-        SearchComponent,
-        LoginComponent,
-        AlbumDescriptionComponent
-    ],
-    imports: [
-        BrowserModule,
-        FormsModule,
-        RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+      declarations: [
+            AppComponent,
+            AlbumsComponent,
+            AlbumDetailsComponent,
+            SearchComponent,
+            LoginComponent,
+            AlbumDescriptionComponent
+      ],
+      imports: [
+            BrowserModule,
+            FormsModule,
+            RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application
+      ],
+      providers: [],
+      bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
+
+    
 

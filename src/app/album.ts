@@ -19,4 +19,8 @@ export class List {
       'list': Array<string>
 }
 
+export interface SortAlbumCallback {
+      (a: Album, b: Album) : number
+}
+
 
