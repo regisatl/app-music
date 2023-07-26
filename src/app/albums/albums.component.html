@@ -34,12 +34,12 @@
                         Albums <span
                               class="position-absolute top-0 start-100 translate-middle badge rounded-pill w3-red px-3 py-2">
                               {{
-                              count() }}
+                               count() }}
                         </span>
                   </button>
             </h1>
 
-            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary w3-white border-0"   *ngFor="let album of paginatedAlbums">
+            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary w3-white border-0" *ngFor="let album of paginatedAlbums">
                   <!-- Ajouter un bouton de pagination pour changer de page-->
                   <div class="card-header w3-blue text-light fs-5 fw-bold py-4">
                         {{album.ref}}
@@ -68,17 +68,11 @@
                               src="../assets/svg/si-glyph-timer.svg" />
                         <small class="fw-semibold">{{album.duration}} min</small>
 
-                        <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mx-2" href="#" role="button"
+                        <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mx-2" role="button"
                               (click)="onSelect(album)">Details</a>
 
                   </div>
             </div>
       </div>
-
-      <!-- <ul>
-            <li *ngFor="let album of paginatedAlbums">{{ album.name }}</li>
-      </ul> -->
-
-
 
 </div>

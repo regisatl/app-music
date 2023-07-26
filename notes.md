@@ -51,3 +51,8 @@ Lorsque nous utiliserons la directive `ngFor`, Angular cré un ensemble de varia
 - last : variable booléenne qui indique si l'élément est le dernier dans la liste.
 - even : variable booléenne qui indique si l'élement actuel est pair.
 - odd: variable booléenne qui indique si l'élément actuel est impair.
+
+# Les Formulaires Angular
+
+Un formulaire avec Angular se gère suivant deux approches : 
+- les réactifs (en : reactive forms) et les modèles (en : template-driven forms)

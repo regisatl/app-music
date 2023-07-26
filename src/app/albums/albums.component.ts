@@ -16,10 +16,10 @@ export class AlbumsComponent implements OnInit {
       filteredAlbums: Album[] = [];
       private start = 0;
       private end = 10;
-      paginatedAlbums!: Album[];
-      totalPages!: number;
-      currentPage!: number;
       public pageNumber!: number;
+      paginatedAlbums!: Album[];
+      currentPage!: number;
+      totalPages!: number;
 
       constructor(
             private albumService: AlbumService,
@@ -75,7 +75,7 @@ export class AlbumsComponent implements OnInit {
       }
 
       getPageNumbers(): number[] {
-            return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+            return Array.from({ length: this.totalPages }, (_ALBUM_LISTS, i) => i + 1);
       }
 
 }
