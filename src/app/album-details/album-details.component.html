@@ -8,16 +8,19 @@
             <div class="card-body">
                   <h5 class="card-title fs-4 fw-bold w3-text-blue"> {{ album.title }} </h5>
                   <p class="card-text fw-semibold"> {{ album.name }} </p>
-                  <button class="w3-button w3-red border-0 rounded fw-bold px-4 py-3 text-uppercase"
+                  <button class="btn btn-primary border-0 rounded fw-bold px-4 py-3 mx-2 text-uppercase"
                         (click)="play(album)" [ngClass]="{'fa 1x': !isPlaying, 'fa-1x': isPlaying}">
                         <!-- Affichez le tag [play] uniquement lorsque le bouton est inactif (isPlaying = false) -->
                         <span *ngIf="!isPlaying" class="text-white"> Play <i class="fas fa-pause-circle"></i></span>
                         <span *ngIf="isPlaying" class="text-white"> Stop <i class="fas fa-play-circle"></i></span>
                   </button>
+                  <button class="btn btn-success border-0 rounded fw-bold px-4 py-3 text-uppercase">
+                        <span (click)="listRandom()" class="text-white"> Aléatoire <i class="fas fa-random"></i></span>
+                  </button>
             </div>
             <ul class="list-group rounded-bottom m-0 border-0" *ngIf="albumsLists; else noalbumsLists">
                   <li class="list-group-item list-group-item-action w3-blue border-top-0 border-bottom-1 fw-semibold"
-                        *ngFor="let detailsList of albumsLists"> {{ detailsList }} 
+                        *ngFor="let detailsList of albumsLists"> {{ detailsList }}
                   </li>
             </ul>
             <!-- Au cas où nous n'avons pas de détails lists -->

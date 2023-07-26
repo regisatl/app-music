@@ -34,45 +34,60 @@
                         Albums <span
                               class="position-absolute top-0 start-100 translate-middle badge rounded-pill w3-red px-3 py-2">
                               {{
-                               count() }}
+                              paginatedAlbums.length }}
                         </span>
                   </button>
             </h1>
 
-            <div class="card mb-2 shadow-lg mb-5 bg-body-tertiary w3-white border-0" *ngFor="let album of paginatedAlbums">
-                  <!-- Ajouter un bouton de pagination pour changer de page-->
-                  <div class="card-header w3-blue text-light fs-5 fw-bold py-4">
-                        {{album.ref}}
-                  </div>
-                  <div class="card-body">
-                        <h1 *ngIf="album.status ==='on' " class="w3-text-red fw-bold fs-4">
-                              <span class="fas fa-pause-circle"></span>
-                              {{ album.title }}
-                        </h1>
-                        <h1 *ngIf="album.status !=='on' " class="w3-text-red fw-bold fs-4">
-                              <span class="fas fa-play-circle"></span>
-                              {{ album.title }}
-                        </h1>
-                        <h5 class="card-title fw-semibold"> {{album.title}} </h5>
-                        <p class="card-text">{{album.description}}</p>
-                        <ul class="list-group list-group-horizontal mb-3 col-sm-3 fw-bold" style="font-size: 1rem;">
-                              <li class="list-group-item list-group-item-action w3-red badge mx-1 rounded border-0"
-                                    *ngFor="let tag of album.tags"> {{tag}}
-                              </li>
-                        </ul>
-                        <a class="btn btn-outline-dark fw-semibold px-4 py-2 border-3" href="#" role="button">En</a>
-                        <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
-                              src="../assets/svg/si-glyph-heart.svg" />
-                        <small>{{album.like}}</small>
-                        <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
-                              src="../assets/svg/si-glyph-timer.svg" />
-                        <small class="fw-semibold">{{album.duration}} min</small>
+            <!-- la div card qui permet d'afficher la liste des différentes albums -->
+            <ng-container *ngIf="paginatedAlbums.length; else noAlbumsFound">
+                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0" *ngFor="let album of paginatedAlbums">
 
-                        <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mx-2" role="button"
-                              (click)="onSelect(album)">Details</a>
-
+                        <div class="card-header w3-blue text-light fs-5 fw-bold py-4">
+                              {{album.ref}}
+                        </div>
+                        <div class="card-body mb-5">
+                              <h1 *ngIf="album.status ==='on' " class="w3-text-red fw-bold fs-4">
+                                    <span class="fas fa-pause-circle"></span>
+                                    {{ album.title }}
+                              </h1>
+                              <h1 *ngIf="album.status !=='on' " class="w3-text-red fw-bold fs-4">
+                                    <span class="fas fa-play-circle"></span>
+                                    {{ album.title }}
+                              </h1>
+                              <div class="mb-3 detailsLink">
+                                    <a class="card-title fw-semibold fs-5 d-block py-2"
+                                          routerLink="/album/{{album.id}}">{{album.title}}</a>
+                              </div>
+                              <p class="card-text">{{album.description}}</p>
+                              <ul class="list-group list-group-horizontal py-1 col-sm-3 fw-bold" style="font-size: 1rem;">
+                                    <li class="list-group-item list-group-item-action w3-red badge mx-1 rounded border-0"
+                                          *ngFor="let tag of album.tags"> {{tag}}
+                                    </li>
+                              </ul>
+                              <div class="pt-3">
+                                    <a class="btn btn-outline-dark fw-semibold px-4 py-2 border-3" href="#"
+                                          role="button">En</a>
+                                    <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
+                                          src="../assets/svg/si-glyph-heart.svg" />
+                                    <small>{{album.like}}</small>
+                                    <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
+                                          src="../assets/svg/si-glyph-timer.svg" />
+                                    <small class="fw-semibold">{{album.duration}} min</small>
+                                    <a class="w3-button w3-red rounded fw-semibold px-4 mx-2" role="button"
+                                          (click)="onSelect(album)">Details</a>
+                              </div>
+      
+                        </div>
                   </div>
-            </div>
+            </ng-container>
+            <ng-template #noAlbumsFound>
+                  <ul class="list-group rounded-bottom mb-2 border-0 position-relative text-center">
+                        <li
+                              class="list-group-item list-group-item-action w3-blue py-4 border-0 fw-bold fs-1 found">
+                              {{ messageAlert }} </li>
+                  </ul>
+            </ng-template>
+            <!-- end div albums -->
       </div>
-
 </div>

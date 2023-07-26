@@ -16,7 +16,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
 
       // album est liée à une entrée [album] du parent dans le sélecteur
       lists: List[] = [];
-
+      randomList: string[] = [];
       albumsLists!: string[] | undefined;
 
       isPlaying: boolean = false; // Propriété pour suivre l'état de lecture
@@ -45,5 +45,8 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
             this.isPlaying = !this.isPlaying; // Inverse l'état de lecture
 
       };
+
+      listRandom() {
+      }
 }
 

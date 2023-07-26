@@ -14,18 +14,22 @@ export class LoginComponent {
       constructor() { }
 
       login() {
-            if (this.email === 'admin' && this.password === 'password') {
+            if (this.email === 'regisattolou21@outlook.fr' && this.password === 'regis21atl') {
                   this.isLoggedIn = true;
                   // Vous pouvez également effectuer une redirection vers une autre page après la connexion réussie.
             } else {
-                  alert('Nom d\'utilisateur ou mot de passe incorrect.');
+                  this.alertMessage ();
             }
+      };
+
+      alertMessage () {
+            alert("Nom d'utilisateur ou mot de passe incorrect.");
       }
 
       logout() {
             this.isLoggedIn = false;
             this.email = '';
             this.password = '';
-      }
+      };
 
 }

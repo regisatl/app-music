@@ -10,22 +10,23 @@ import { AlbumService } from '../album.service';
 })
 
 export class AlbumsComponent implements OnInit {
+      private start = 0;
+      private end = 10;
+      public pageNumber!: number;
       titlePage: string = "Page princiaple Albums Music";
       albums: Album[] = [];
       selectedAlbum!: Album;
       filteredAlbums: Album[] = [];
-      private start = 0;
-      private end = 10;
-      public pageNumber!: number;
       paginatedAlbums!: Album[];
       currentPage!: number;
       totalPages!: number;
+      messageAlert : string = "Aucun album de ce nom trouvé...." ;
 
       constructor(
             private albumService: AlbumService,
             private service: AlbumService
       ) {
-            this.paginatedAlbums = this.albumService.paginate(this.start, this.end);
+            this.paginatedAlbums = this.albumService.paginate(0, 2);
             this.totalPages = this.getTotalPages();
             this.currentPage = 1;
       }
@@ -58,16 +59,23 @@ export class AlbumsComponent implements OnInit {
 
       // méthode onSearchChanged qui permet de déclencher l'évènement
       onSearchChanged($event: Album[]) {
-            this.albums = $event;
+
+            if ($event) {
+                  this.paginatedAlbums = $event;
+            }
+            return  this.messageAlert;
+            
       }
 
       onPageChange(pageNumber: number) {
+
             if (pageNumber >= 1 && pageNumber <= this.totalPages) {
                   this.currentPage = pageNumber;
                   this.start = (this.currentPage - 1) * 2; // Remplacez 2 par le nombre d'albums par page
                   this.end = this.start + 2; // Remplacez 2 par le nombre d'albums par page
                   this.paginatedAlbums = this.albumService.paginate(this.start, this.end);
             }
+
       }
 
       getTotalPages(): number {

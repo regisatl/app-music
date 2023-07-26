@@ -13,6 +13,7 @@ export class SearchComponent {
     search = 'Search Albums';
     searchKeyword: string = '';
     searchResults: Album[] = [];
+    word: string = " ";
 
     constructor(private albumService: AlbumService) { }
 
@@ -26,13 +27,15 @@ export class SearchComponent {
         } else {
             this.searchResults = [];
         }
-    }
+    };
 
     onSubmit(form: NgForm): void {
         const keyword = form.value['word'];
-        console.log(keyword);
-
         this.searchResults = this.albumService.getAlbumsByKeyword(keyword);
-        this.searchChanged.emit(this.searchResults)
-    }
+        this.searchChanged.emit(this.searchResults);
+    };
+    onChangedEmit($event: string) {
+        this.searchResults = this.albumService.getAlbumsByKeyword($event);
+        this.searchChanged.emit(this.searchResults);
+    };
 }

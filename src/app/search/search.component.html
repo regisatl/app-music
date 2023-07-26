@@ -3,8 +3,7 @@
     <div class="container-fluid">
         <a class="navbar-brand fw-bold w3-text-blue">{{search}}</a>
         <form class="d-flex" role="search" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
-            <input name="word" ngModel required class="form-control me-2 border-primary-2 fw-semibold w3-white"
-                type="search" placeholder="Search a album..." aria-label="Search" [(ngModel)]="searchKeyword">
+            <input name="word" (ngModelChange)="onChangedEmit($event)" ngModel class="form-control me-2 border-primary-2 fw-semibold w3-white" type="search" placeholder="Search a album..." aria-label="Search" [(ngModel)]="word"  required>
             <button class="btn btn-outline-primary border-2 fw-bold" type="submit"
                 [disabled]="formSearch.invalid">Search</button>
             <div * ngIf="searchResults.length > 0">

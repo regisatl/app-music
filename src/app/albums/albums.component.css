@@ -1,0 +1,19 @@
+div.detailsLink a {
+      text-decoration: none;
+      color: #2196f3;
+}
+
+div.detailsLink a:hover {
+      text-decoration: underline;
+      color: #151515;
+}
+
+ul li.found {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+}

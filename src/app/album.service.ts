@@ -38,11 +38,11 @@ export class AlbumService {
 
       getAlbumsByKeyword(keyword: string): Album[] {
             keyword = keyword
-                                                .trim()
-                                                .toLowerCase();
-            return this.albums.filter(album => album.title
-                                                                                    .toLowerCase()
-                                                                                    .includes(keyword));
+                  .trim()
+                  .toLowerCase();
+            return this.albums.filter(album => album.ref
+                  .toLowerCase()
+                  .includes(keyword));
       };
 
       order(callback: SortAlbumCallback): AlbumService {

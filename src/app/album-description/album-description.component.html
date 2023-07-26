@@ -1,1 +1,25 @@
-<p>album-description works!</p>
+
+   <div class="card shadow-lg mb-5 bg-body-tertiary rounded w3-white border-0">
+
+      <div class="card-header w3-blue text-light fs-5 fw-bold py-4 rounded-top">
+            {{album.ref}}
+      </div>
+      <div class="card-body mb-5">
+            <h1 class="w3-text-red fw-bold fs-4">
+                  {{ album.title }}
+            </h1>
+            <p class="card-text fs-5">{{album.description}}</p>
+            <p><small class="fw-semibold fs-5">Duration: {{album.duration}} min</small></p>
+            <p><small class="fw-semibold fs-4">Like: {{album.like}} </small></p>
+            <ul class="list-group list-group-horizontal py-2 col-sm-3 fw-bold" style="font-size: 1rem;">
+                  <li class="list-group-item list-group-item-action w3-red badge mx-1 fs-5 rounded border-0"
+                        *ngFor="let tag of album.tags"> {{tag}}
+                  </li>
+            </ul>
+            <div class="text-center">
+                  <img class="img-fluid rounded"
+                        src=" {{ album.url }} " />  
+            </div>
+
+      </div>
+</div>
