@@ -2,18 +2,20 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { AlbumService } from '../album.service';
 import { Album } from '../album';
 import { NgForm } from '@angular/forms';
+import { fadeInAnimation } from '../animation.module';
 
 @Component({
     selector: 'app-search',
     templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css']
+    styleUrls: ['./search.component.css'],
+    animations: [fadeInAnimation]
 })
 export class SearchComponent {
     // Propriété pour stocker le critère de recherche saisi par l'utilisateur
     search = 'Search Albums';
     searchKeyword: string = '';
     searchResults: Album[] = [];
-    word: string = " ";
+    word: string = '';
 
     constructor(private albumService: AlbumService) { }
 

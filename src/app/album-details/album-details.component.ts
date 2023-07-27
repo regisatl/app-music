@@ -3,11 +3,13 @@
 import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 import { Album, List } from '../album';
 import { AlbumService } from '../album.service';
+import { fadeInAnimation } from '../animation.module';
 
 @Component({
       selector: 'app-album-details',
       templateUrl: './album-details.component.html',
-      styleUrls: ['./album-details.component.css']
+      styleUrls: ['./album-details.component.css'],
+      animations: [fadeInAnimation]
 })
 export class AlbumDetailsComponent implements OnInit, OnChanges {
 
@@ -18,7 +20,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       lists: List[] = [];
       randomList: string[] = [];
       albumsLists!: string[] | undefined;
-      showRandomList: boolean = false; // Propriété pour afficher/cacher la liste aléatoire
+      showRandomList: boolean = true; // Propriété pour afficher/cacher la liste aléatoire
       isPlaying: boolean = false; // Propriété pour suivre l'état de lecture
 
       constructor(

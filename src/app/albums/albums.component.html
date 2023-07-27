@@ -1,24 +1,6 @@
 <app-search (searchChanged)=" onSearchChanged($event)"></app-search>
 
-<div class="container">
-      <!-- Pagination -->
-      <ul class="pagination z-0">
-            <li class="page-item z-0" (click)="onPageChange(currentPage - 1)">
-                  <button class="page-link" href="#" [disabled]="currentPage === 1">Previous</button>
-            </li>
-            <li class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
-                  <a class="page-link" href="#" [class.active]="pageNumber === currentPage"
-                        (click)="onPageChange(pageNumber)">
-                        {{ pageNumber }}
-                  </a>
-            </li>
-            <li class="page-item z-0" (click)="onPageChange(currentPage + 1)">
-                  <button class="page-link" href="#" [disabled]="currentPage === totalPages">Next</button>
-            </li>
-      </ul>
-</div>
-
-<div class="row content">
+<div class="row content" [@fadeInAnimation]>
 
       <div class="col-sm-4 pt-4 video">
             <!-- onPlay méthode enfant et playParent méthode parent -->
@@ -47,7 +29,7 @@
                         <div class="card-header w3-blue text-light fs-5 fw-bold py-4">
                               {{album.ref}}
                         </div>
-                        <div class="card-body mb-5">
+                        <div class="card-body mb-0">
                               <h1 *ngIf="album.status ==='on' " class="w3-text-red fw-bold fs-4">
                                     <span class="fas fa-pause-circle"></span>
                                     {{ album.title }}
@@ -67,27 +49,44 @@
                                           *ngFor="let tag of album.tags"> {{tag}}
                                     </li>
                               </ul>
-                              <div class="pt-3">
-                                    <a class="btn btn-outline-dark fw-semibold px-4 py-2 border-3" href="#"
-                                          role="button">En</a>
-                                    <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
-                                          src="../assets/svg/si-glyph-heart.svg" />
-                                    <small>{{album.like}}</small>
-                                    <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
-                                          src="../assets/svg/si-glyph-timer.svg" />
-                                    <small class="fw-semibold">{{album.duration}} min</small>
-                                    <a class="w3-button w3-red rounded fw-semibold px-4 mx-2" role="button"
-                                          (click)="onSelect(album)">Details</a>
-                              </div>
-
+                        </div>
+                        <div class="card-footer">
+                              <a class="btn btn-outline-dark fw-semibold px-4 py-2 border-3" href="#"
+                                    role="button">Fr</a>
+                              <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
+                                    src="../assets/svg/si-glyph-heart.svg" />
+                              <small>{{album.like}}</small>
+                              <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
+                                    src="../assets/svg/si-glyph-timer.svg" />
+                              <small class="fw-semibold">{{album.duration}} min</small>
+                              <a class="w3-button w3-red rounded fw-semibold px-4 mx-2" role="button"
+                                    (click)="onSelect(album)">Details</a>
                         </div>
                   </div>
             </ng-container>
             <ng-template #noAlbumsFound class="position-relative">
                   <div class="alert alert-dark list-group d-flex align-items-center message">
-                        <strong class="fs-5 d-flex align-items-center mx-4 notif"><i class="fas fa-exclamation-triangle fa-4x"></i> {{ messageAlert }}</strong>
+                        <strong class="fs-5 d-flex align-items-center mx-4 notif"><i
+                                    class="fas fa-exclamation-triangle fa-4x"></i> {{ messageAlert }}</strong>
                   </div>
             </ng-template>
             <!-- end div albums -->
+      </div>
+      <div class="container">
+            <!-- Pagination -->
+            <ul class="pagination float-end fw-bold z-0">
+                  <li class="page-item z-0" (click)="onPageChange(currentPage - 1)">
+                        <button class="page-link" href="#" [disabled]="currentPage === 1">Previous</button>
+                  </li>
+                  <li class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
+                        <a class="page-link" href="#" [class.active]="pageNumber === currentPage"
+                              (click)="onPageChange(pageNumber)">
+                              {{ pageNumber }}
+                        </a>
+                  </li>
+                  <li class="page-item z-0" (click)="onPageChange(currentPage + 1)">
+                        <button class="page-link" href="#" [disabled]="currentPage === totalPages">Next</button>
+                  </li>
+            </ul>
       </div>
 </div>

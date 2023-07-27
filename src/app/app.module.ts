@@ -8,6 +8,9 @@ import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; // module des routes et classe de Typage
 import { SearchComponent } from './search/search.component';
+import { OpenCloseComponent } from './open-close/open-close.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const albumsRoutes: Routes = [
@@ -32,6 +35,12 @@ const albumsRoutes: Routes = [
             path: 'album/:id',
             component: AlbumDescriptionComponent
       },
+      {
+            path: 'openClose', component: OpenCloseComponent
+      },
+      {
+            path: '***',  component: PageNotFoundComponent
+      },
 ];
 
 @NgModule({
@@ -41,15 +50,18 @@ const albumsRoutes: Routes = [
             AlbumDetailsComponent,
             SearchComponent,
             LoginComponent,
-            AlbumDescriptionComponent
+            AlbumDescriptionComponent,
+            OpenCloseComponent,
+            PageNotFoundComponent
       ],
       imports: [
             BrowserModule,
             FormsModule,
+            BrowserAnimationsModule,
             RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application
       ],
       providers: [],
-      bootstrap: [AppComponent]
+      bootstrap: [AppComponent],
 })
 export class AppModule {}
 

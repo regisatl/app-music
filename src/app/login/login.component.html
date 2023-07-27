@@ -1,4 +1,4 @@
-<div class="container-fluid col-sm-8 mt-5 pt-5 text-white" *ngIf="!isLoggedIn">
+<div class="container-fluid col-sm-8 mt-5 pt-5 text-white" *ngIf="!isLoggedIn" [@fadeInAnimation]>
       <form action="./" (ngSubmit)="login()" method="post">
             <div class="mb-3 mt-3 fw-bold">
                   <label for="email" class="form-label">Email:</label>
