@@ -17,3 +17,16 @@ ul li.found {
       height: 100%;
       width: 100%;
 }
+
+div.message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      height: 100%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+}
+
+strong.notif {
+     padding: 30rem;
+}

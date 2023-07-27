@@ -41,7 +41,8 @@
 
             <!-- la div card qui permet d'afficher la liste des différentes albums -->
             <ng-container *ngIf="paginatedAlbums.length; else noAlbumsFound">
-                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0" *ngFor="let album of paginatedAlbums">
+                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0"
+                        *ngFor="let album of paginatedAlbums">
 
                         <div class="card-header w3-blue text-light fs-5 fw-bold py-4">
                               {{album.ref}}
@@ -60,7 +61,8 @@
                                           routerLink="/album/{{album.id}}">{{album.title}}</a>
                               </div>
                               <p class="card-text">{{album.description}}</p>
-                              <ul class="list-group list-group-horizontal py-1 col-sm-3 fw-bold" style="font-size: 1rem;">
+                              <ul class="list-group list-group-horizontal py-1 col-sm-3 fw-bold"
+                                    style="font-size: 1rem;">
                                     <li class="list-group-item list-group-item-action w3-red badge mx-1 rounded border-0"
                                           *ngFor="let tag of album.tags"> {{tag}}
                                     </li>
@@ -77,16 +79,14 @@
                                     <a class="w3-button w3-red rounded fw-semibold px-4 mx-2" role="button"
                                           (click)="onSelect(album)">Details</a>
                               </div>
-      
+
                         </div>
                   </div>
             </ng-container>
-            <ng-template #noAlbumsFound>
-                  <ul class="list-group rounded-bottom mb-2 border-0 position-relative text-center">
-                        <li
-                              class="list-group-item list-group-item-action w3-blue py-4 border-0 fw-bold fs-1 found">
-                              {{ messageAlert }} </li>
-                  </ul>
+            <ng-template #noAlbumsFound class="position-relative">
+                  <div class="alert alert-dark list-group d-flex align-items-center message">
+                        <strong class="fs-5 d-flex align-items-center mx-4 notif"><i class="fas fa-exclamation-triangle fa-4x"></i> {{ messageAlert }}</strong>
+                  </div>
             </ng-template>
             <!-- end div albums -->
       </div>

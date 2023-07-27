@@ -14,13 +14,17 @@
                         <span *ngIf="!isPlaying" class="text-white"> Play <i class="fas fa-pause-circle"></i></span>
                         <span *ngIf="isPlaying" class="text-white"> Stop <i class="fas fa-play-circle"></i></span>
                   </button>
-                  <button class="btn btn-success border-0 rounded fw-bold px-4 py-3 text-uppercase">
-                        <span (click)="listRandom()" class="text-white"> Aléatoire <i class="fas fa-random"></i></span>
+                  <button class="btn btn-success border-0 rounded fw-bold mx-2 px-4 py-3 text-uppercase">
+                        <span (click)="shuffleAlbumsLists()" class="text-white"> Shuffle <i class="fas fa-random"></i></span>
+                  </button>
+                  <button class="btn btn-danger border-0 rounded fw-bold px-4 py-3 text-uppercase" (click)="toggleRandomList()">
+                        <span *ngIf="showRandomList" class="text-white"> Hide <i class="fas fa-toggle-off"></i></span>
+                        <span *ngIf="!showRandomList" class="text-white"> Show <i class="fas fa-toggle-on"></i></span>
                   </button>
             </div>
-            <ul class="list-group rounded-bottom m-0 border-0" *ngIf="albumsLists; else noalbumsLists">
+            <ul class="list-group rounded-bottom m-0 border-0" *ngIf="showRandomList && albumsLists; else noalbumsLists">
                   <li class="list-group-item list-group-item-action w3-blue border-top-0 border-bottom-1 fw-semibold"
-                        *ngFor="let detailsList of albumsLists"> {{ detailsList }}
+                  *ngFor="let detailsList of albumsLists"> {{ detailsList }}
                   </li>
             </ul>
             <!-- Au cas où nous n'avons pas de détails lists -->

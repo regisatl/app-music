@@ -1,0 +1,18 @@
+/* Style pour les boutons */
+.w3-button {
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    /* Style pour le bouton actif */
+    .w3-button.active {
+      background-color: #4CAF50; /* Couleur verte */
+      color: white;
+    }
+    
+    /* Style pour le bouton non actif */
+    .w3-button:not(.active) {
+      background-color: #f1f1f1; /* Couleur grise */
+      color: black;
+    }

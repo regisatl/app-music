@@ -18,7 +18,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       lists: List[] = [];
       randomList: string[] = [];
       albumsLists!: string[] | undefined;
-
+      showRandomList: boolean = false; // Propriété pour afficher/cacher la liste aléatoire
       isPlaying: boolean = false; // Propriété pour suivre l'état de lecture
 
       constructor(
@@ -46,7 +46,18 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
 
       };
 
-      listRandom() {
+      shuffleAlbumsLists() {
+            if (this.albumsLists && this.albumsLists.length > 1) {
+                  for (let i = this.albumsLists.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [this.albumsLists[i], this.albumsLists[j]] = [this.albumsLists[j], this.albumsLists[i]];
+                  }
+            }
+      };
+
+      // Méthode pour afficher/cacher la liste aléatoire
+      toggleRandomList() {
+            this.showRandomList = !this.showRandomList;
       }
 }
 
