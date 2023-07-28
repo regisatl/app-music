@@ -3,7 +3,7 @@
       <nav
             class="navbar navbar-expand-sm bg-black navbar-dark py-4 fw-bold fs-5 mb-4 position-sticky top-0 z-1 shadow rounded">
             <div class="navbar-brand">
-                  <a class="link" href="#"><i class="fas fa-music fa-2x"></i></a>
+                  <a class="link" href="#"><span class="fas fa-music fa-2x"></span></a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                   <span class="navbar-toggler-icon"></span>
@@ -12,27 +12,35 @@
                   <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav">
                               <li class="nav-item">
-                                    <a class="nav-link" routerLink="./albums" routerLinkActive="active">Home</a>
+                                    <a class="nav-link" routerLink="./albums" routerLinkActive="active"> <span
+                                                class="fas fa-home"></span> Home</a>
                               </li>
                               <li class="nav-item">
-                                    <a class="nav-link" routerLink="./login" routerLinkActive="active">Sign In</a>
+                                    <a class="nav-link" routerLink="./login" routerLinkActive="active"> <span
+                                                class="fas fa-sign-in-alt"></span> Sign In</a>
                               </li>
                               <li class="nav-item">
                                     <a class="nav-link" (click)="logout()" routerLink="./logout"
-                                          routerLinkActive="active">Logout</a>
+                                          routerLinkActive="active"> <span class="fas fa-sign-out-alt"></span>
+                                          Logout</a>
                               </li>
                         </ul>
                   </div>
                   <ul class="d-flex m-0" role="time">
                         <li class="m-0 list-group-item text-white fw-bold fs-5"><i class="fa fa-hourglass"></i> <span
                                     class="fw-bold mx-2">{{
-                                    formattedDate }}</span> </li>
+                                    formattedDate }}</span>
+                        </li>
                   </ul>
+                  <a class="nav-link text-white">
+                        <span class="fas fa-toggle-on fw-bold mx-2" *ngIf="!darkLight"></span>
+                        <span class="fas fa-toggle-off fw-bold mx-2" *ngIf="darkLight"></span>
+                  </a>
             </div>
       </nav>
 
       <router-outlet></router-outlet>
-<!-- 
+      <!-- 
       <app-first-comp></app-first-comp>
       <app-second-comp></app-second-comp> -->
 

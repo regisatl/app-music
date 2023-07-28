@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 })
 export class AppComponent {
       title = 'ATL Music';
-
+      darkLight : boolean = true;
       formattedDate: string | null;
 
       constructor(
