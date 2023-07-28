@@ -23,6 +23,7 @@ export class AlbumsComponent implements OnInit {
       currentPage!: number;
       totalPages!: number;
       messageAlert : string = "Aucun album de ce nom trouvé...." ;
+      seen: boolean = true; // Propriété pour afficher/cacher la liste aléatoire
 
       constructor(
             private albumService: AlbumService,
@@ -38,7 +39,9 @@ export class AlbumsComponent implements OnInit {
       }
 
       onSelect(album: Album) {
+            this.seen = true;
             return this.selectedAlbum = this.service.getAlbum(album.id);
+            
       }
 
       // Méthode pour gérer l'événement "onPlay" émis par le composant "album-details"
@@ -78,14 +81,18 @@ export class AlbumsComponent implements OnInit {
                   this.paginatedAlbums = this.albumService.paginate(this.start, this.end);
             }
 
-      }
+      };
 
       getTotalPages(): number {
             return Math.ceil(this.albumService.getAlbumsCount() / 2); // Remplacez 2 par le nombre d'albums par page
-      }
+      };
 
       getPageNumbers(): number[] {
             return Array.from({ length: this.totalPages }, (_ALBUM_LISTS, i) => i + 1);
+      };
+
+      toggleRandomList($event: boolean) {
+            this.seen = false;
       }
 
 }

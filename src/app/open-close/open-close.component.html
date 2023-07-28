@@ -1,4 +1,6 @@
-<div class="open-close-container mt-5 mb-5 py-5 bg-primary rounded" [@openClose]="isOpen ? 'open' : 'close' ">
-      <p class="text-center text-white py-5">This page is {{ !isOpen ? 'open' : 'close' }} </p>
+<div class="container back">
+      <div class="open-close-container mt-5 mb-5 py-5 bg-primary rounded" [@openClose]="isOpen ? 'open' : 'close' ">
+            <p class="text-center text-white py-5">This page is {{ !isOpen ? 'open' : 'close' }} </p>
+      </div>
 </div>
 <button type="button" (click)="toggle()" class="btn btn-success fw-bold">Toggle Open / Close</button>

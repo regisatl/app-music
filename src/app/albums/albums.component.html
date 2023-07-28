@@ -1,10 +1,28 @@
 <app-search (searchChanged)=" onSearchChanged($event)"></app-search>
 
-<div class="row content" [@fadeInAnimation]>
+<div class="row content fs-5" [@fadeInAnimation]>
 
+      <!-- Pagination -->
+      <div class="container mb-3 mt-3">
+            <ul class="pagination rounded float-end fw-bold z-0">
+                  <li class="page-item z-0" (click)="onPageChange(currentPage - 1)">
+                        <button class="page-link" href="#" [disabled]="currentPage === 1">Previous</button>
+                  </li>
+                  <li class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
+                        <a class="page-link" href="#" [class.active]="pageNumber === currentPage"
+                              (click)="onPageChange(pageNumber)">
+                              {{ pageNumber }}
+                        </a>
+                  </li>
+                  <li class="page-item z-0" (click)="onPageChange(currentPage + 1)">
+                        <button class="page-link" href="#" [disabled]="currentPage === totalPages">Next</button>
+                  </li>
+            </ul>
+      </div>
       <div class="col-sm-4 pt-4 video">
             <!-- onPlay méthode enfant et playParent méthode parent -->
-            <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"></app-album-details>
+            <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"
+                  (toggleDetails)="toggleRandomList($event)" *ngIf="seen"></app-album-details>
             <!-- AlbumDetails communication parent vers enfant -->
       </div>
 
@@ -29,12 +47,12 @@
                         <div class="card-header w3-blue text-light fs-5 fw-bold py-4">
                               {{album.ref}}
                         </div>
-                        <div class="card-body mb-0">
-                              <h1 *ngIf="album.status ==='on' " class="w3-text-red fw-bold fs-4">
+                        <div class="card-body mb-0 bg-black bg-gradient bg-opacity-100">
+                              <h1 *ngIf="album.status ==='on' " class="text-warning fw-bold fs-4">
                                     <span class="fas fa-pause-circle"></span>
                                     {{ album.title }}
                               </h1>
-                              <h1 *ngIf="album.status !=='on' " class="w3-text-red fw-bold fs-4">
+                              <h1 *ngIf="album.status !=='on' " class="text-warning fw-bold fs-4">
                                     <span class="fas fa-play-circle"></span>
                                     {{ album.title }}
                               </h1>
@@ -42,24 +60,24 @@
                                     <a class="card-title fw-semibold fs-5 d-block py-2"
                                           routerLink="/album/{{album.id}}">{{album.title}}</a>
                               </div>
-                              <p class="card-text">{{album.description}}</p>
+                              <p class="card-text text-light">{{album.description}}</p>
                               <ul class="list-group list-group-horizontal py-1 col-sm-3 fw-bold"
                                     style="font-size: 1rem;">
-                                    <li class="list-group-item list-group-item-action w3-red badge mx-1 rounded border-0"
+                                    <li class="list-group-item list-group-item-action w3-warning badge mx-1 rounded border-0"
                                           *ngFor="let tag of album.tags"> {{tag}}
                                     </li>
                               </ul>
                         </div>
                         <div class="card-footer">
-                              <a class="btn btn-outline-dark fw-semibold px-4 py-2 border-3" href="#"
-                                    role="button">Fr</a>
+                              <a class="btn btn-outline-dark fw-semibold px-4 py-1 border-3" href="#" role="button"><i
+                                          class="fas fa-language fa-2x"></i></a>
                               <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
                                     src="../assets/svg/si-glyph-heart.svg" />
                               <small>{{album.like}}</small>
                               <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
                                     src="../assets/svg/si-glyph-timer.svg" />
                               <small class="fw-semibold">{{album.duration}} min</small>
-                              <a class="w3-button w3-red rounded fw-semibold px-4 mx-2" role="button"
+                              <a class="w3-button w3-red rounded fw-semibold px-4 py-2 mx-2 fs-5" role="button"
                                     (click)="onSelect(album)">Details</a>
                         </div>
                   </div>
@@ -68,7 +86,8 @@
                   <div class="message" [@fadeInAnimation]>
                         <div class="text-white list-group d-flex align-items-center notif">
                               <p>
-                                    <strong class="fs-5 d-flex align-items-center mx-4"><i class="fas fa-exclamation-triangle fa-4x"></i></strong>
+                                    <strong class="fs-5 d-flex align-items-center mx-4"><i
+                                                class="fas fa-exclamation-triangle fa-4x"></i></strong>
                               </p>
                               <p class="fs-1 fw-bold"> {{ messageAlert }} </p>
                         </div>
@@ -76,21 +95,5 @@
             </ng-template>
             <!-- end div albums -->
       </div>
-      <div class="container">
-            <!-- Pagination -->
-            <ul class="pagination float-end fw-bold z-0">
-                  <li class="page-item z-0" (click)="onPageChange(currentPage - 1)">
-                        <button class="page-link" href="#" [disabled]="currentPage === 1">Previous</button>
-                  </li>
-                  <li class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
-                        <a class="page-link" href="#" [class.active]="pageNumber === currentPage"
-                              (click)="onPageChange(pageNumber)">
-                              {{ pageNumber }}
-                        </a>
-                  </li>
-                  <li class="page-item z-0" (click)="onPageChange(currentPage + 1)">
-                        <button class="page-link" href="#" [disabled]="currentPage === totalPages">Next</button>
-                  </li>
-            </ul>
-      </div>
+
 </div>

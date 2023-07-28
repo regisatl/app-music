@@ -41,6 +41,8 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
 
       @Output() onPlay: EventEmitter<Album> = new EventEmitter();
 
+      @Output() toggleDetails: EventEmitter<boolean> = new EventEmitter();
+
       play(album: Album) {
 
             this.onPlay.emit(album); // émettre un album vers le parent AlbumsComponent
@@ -58,8 +60,8 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       };
 
       // Méthode pour afficher/cacher la liste aléatoire
-      toggleRandomList() {
-            this.seen = !this.seen;
+      toggleList() {
+            this.toggleDetails.emit(this.seen);
       }
 }
 

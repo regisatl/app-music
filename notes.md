@@ -56,3 +56,45 @@ Lorsque nous utiliserons la directive `ngFor`, Angular cré un ensemble de varia
 
 Un formulaire avec Angular se gère suivant deux approches : 
 - les réactifs (en : reactive forms) et les modèles (en : template-driven forms)
+
+# Observable : Intention
+# Observable : Le problème
+# Observable : La solution
+
+
+# paginate 
+
+- Etape 1: 
+  Tapez dans la console la ligne de commande : `ng generate component paginate`
+- Etape 2:  
+      Créez la méthode qui renvoi le nombre d'album qu'on aura par page.
+      créez dans le dossier src/app/ un dossier nommé `environment/environment.ts`
+
+
+      ```js
+      paginateNumberPage(): number  {
+            return environment.numberPage;
+      }
+      ```
+
+      
+
+      ```js
+
+      /**
+       * Méthode qui signale à tous les composants la page actuelle 
+       @params numberPage numéro de la page actuelle 
+       @returns Retourne la liste de tous les albums
+       */
+
+      currentPage (numberPage: number) {
+
+      }
+
+      ```
+      ```js
+
+      environment.ts
+      export { 
+
+      }

@@ -2,7 +2,6 @@ div.card {
       width: 415px;
       height: auto;
       animation: details 4s ease;
- 
 }
 
 @keyframes details {
@@ -15,4 +14,43 @@ div.card {
             transform: translateY(0px);
       }
 
+}
+
+div button.white {
+      background-color: #faf7f7;
+      width: 25px;
+      height: 25px;
+      color: white;
+      border-radius: 50%;
+}
+
+button.buttonPlay {
+      color: white;
+      background-color: #0671c8;
+      border: none;
+      border-radius: 0.5rem;
+      display: block;
+      cursor: pointer;
+      padding-block: 1.3rem;
+      padding-inline: 3rem;
+}
+
+button.buttonPlay:hover {
+      color: white;
+      background-color: #178ded;
+}
+
+button.buttonShuffle {
+      color: white;
+      background-color: #07922e;
+      border: none;
+      border-radius: 0.5rem;
+      display: block;
+      cursor: pointer;
+      padding-block: 1rem;
+      padding-inline: 2rem;
+}
+button.buttonShuffle:hover {
+      color: white;
+      background-color: #057d27;
 }

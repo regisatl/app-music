@@ -26,3 +26,7 @@ ul.navbar-nav a.active {
       background-color: white;
       color: #212529;
 }
+
+div a.link {
+      color: #2196f3;
+}

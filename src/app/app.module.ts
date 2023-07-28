@@ -6,15 +6,17 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router'; // module des routes et classe de Typage
+import { Routes, RouterModule } from '@angular/router'; 
 import { SearchComponent } from './search/search.component';
 import { OpenCloseComponent } from './open-close/open-close.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FirstComponent } from './first-comp/first-comp.component';
+import { SecondComponent } from './second-comp/second-comp.component';
 
 
 const albumsRoutes: Routes = [
-      { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: '', redirectTo: '/albums', pathMatch: 'full' },
       { path: 'albums', component: AlbumsComponent },
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent },
@@ -33,7 +35,9 @@ const albumsRoutes: Routes = [
             LoginComponent,
             AlbumDescriptionComponent,
             OpenCloseComponent,
-            PageNotFoundComponent
+            PageNotFoundComponent,
+            FirstComponent,
+            SecondComponent
       ],
       imports: [
             BrowserModule,

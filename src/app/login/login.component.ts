@@ -24,7 +24,9 @@ export class LoginComponent {
       login() {
 
             if (this.email === undefined && this.password === undefined) {
+
                   alert("S'il vous plaît veuillez remplir tous les champs");
+
             }
             else
 
@@ -39,7 +41,8 @@ export class LoginComponent {
 
       logout() {
             this.authService.logout();
-      }
+          }
+
 
 }
 

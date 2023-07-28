@@ -1,11 +1,11 @@
-div.detailsLink a {
+div.detailsLink a:hover {
       text-decoration: none;
       color: #2196f3;
 }
 
-div.detailsLink a:hover {
+div.detailsLink a {
       text-decoration: underline;
-      color: #151515;
+      color: white;
 }
 
 div.message {
@@ -18,3 +18,6 @@ div.message {
       padding: 35rem;
 }
 
+strong.notif {
+     padding: 30rem;
+}

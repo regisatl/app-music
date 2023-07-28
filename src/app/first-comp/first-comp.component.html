@@ -1,0 +1,10 @@
+<div class="container-fluid col-sm-8 mt-5 pt-5 pb-5 text-white border border-light rounded">
+      <form action="./" (ngSubmit)="onButtonClick(formLogin)" method="post" #formLogin="ngForm">
+            <div class="mb-3 mt-3 fw-bold">
+                  <label for="email" class="form-label px-5">Email:</label>
+                  <input type="email" class="form-control py-4 px-5 fw-bold rounded-pill" id="email"
+                        placeholder="Enter email" name="email" [(ngModel)]="email" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100 rounded-pill p-4 fw-bold">Submit</button>
+      </form>
+</div>
