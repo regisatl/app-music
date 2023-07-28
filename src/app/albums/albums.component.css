@@ -15,8 +15,6 @@ div.message {
       height: 100%;
       width: 100%;
       transform: translate(-50%, -50%);
+      padding: 35rem;
 }
 
-strong.notif {
-     padding: 30rem;
-}

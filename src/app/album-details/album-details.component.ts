@@ -20,7 +20,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       lists: List[] = [];
       randomList: string[] = [];
       albumsLists!: string[] | undefined;
-      showRandomList: boolean = true; // Propriété pour afficher/cacher la liste aléatoire
+      seen: boolean = true; // Propriété pour afficher/cacher la liste aléatoire
       isPlaying: boolean = false; // Propriété pour suivre l'état de lecture
 
       constructor(
@@ -59,7 +59,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
 
       // Méthode pour afficher/cacher la liste aléatoire
       toggleRandomList() {
-            this.showRandomList = !this.showRandomList;
+            this.seen = !this.seen;
       }
 }
 

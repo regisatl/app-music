@@ -1,30 +1,35 @@
-<div class="col-sm-12 video shadow-lg position-relative bg-body-tertiary rounded" [@fadeInAnimation]>
+<div class="col-sm-12 video shadow-lg position-sticky overflow-hidden bg-body-tertiary rounded" [@fadeInAnimation]>
 
       <h2 class="fs-4 fw-bold w3-text-red w3-white rounded m-1 p-4">Détails de chaque album:</h2>
 
-      <div class="card" *ngIf="album">
-
+      <div class="card details" *ngIf="album" [@fadeInAnimation]>
+            <div class="px-2 modal-header border-0">
+                  <h4 class="modal-title">Close Details</h4>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
             <img class="card-img-top rounded-bottom img-fluid p-0" src="{{ album.url }}" alt="Group Music">
             <div class="card-body">
                   <h5 class="card-title fs-4 fw-bold w3-text-blue"> {{ album.title }} </h5>
                   <p class="card-text fw-semibold"> {{ album.name }} </p>
-                  <button class="btn btn-primary border-0 rounded fw-bold px-4 py-3 mx-2 text-uppercase"
+                  <button class="btn btn-primary border-0 rounded fw-bold px-1 py-3 mx-1 w-25 text-uppercase"
                         (click)="play(album)" [ngClass]="{'fa 1x': !isPlaying, 'fa-1x': isPlaying}">
                         <!-- Affichez le tag [play] uniquement lorsque le bouton est inactif (isPlaying = false) -->
                         <span *ngIf="!isPlaying" class="text-white"> Play <i class="fas fa-pause-circle"></i></span>
                         <span *ngIf="isPlaying" class="text-white"> Stop <i class="fas fa-play-circle"></i></span>
                   </button>
-                  <button class="btn btn-success border-0 rounded fw-bold mx-2 px-4 py-3 text-uppercase">
-                        <span (click)="shuffleAlbumsLists()" class="text-white"> Shuffle <i class="fas fa-random"></i></span>
+                  <button class="btn btn-success border-0 rounded fw-bold mx-0 px-4 py-3 w-50 text-uppercase">
+                        <span (click)="shuffleAlbumsLists()" class="text-white"> Shuffle <i
+                                    class="fas fa-random"></i></span>
                   </button>
-                  <button class="btn btn-danger border-0 rounded fw-bold px-4 py-3 text-uppercase" (click)="toggleRandomList()">
-                        <span *ngIf="showRandomList" class="text-white"> Hide <i class="fas fa-toggle-off"></i></span>
-                        <span *ngIf="!showRandomList" class="text-white"> Show <i class="fas fa-toggle-on"></i></span>
+                  <button class="w3-button w3-red border-0 rounded fw-bold px-2 py-3 text-uppercase w-75 mx-1 mt-2"
+                        (click)="toggleRandomList()">
+                        <span *ngIf="seen" class="text-white"> Hide <i class="fas fa-toggle-off"></i></span>
+                        <span *ngIf="!seen" class="text-white"> Show <i class="fas fa-toggle-on"></i></span>
                   </button>
             </div>
-            <ul class="list-group rounded-bottom m-0 border-0" *ngIf="showRandomList && albumsLists; else noalbumsLists">
+            <ul class="list-group rounded-bottom m-0 border-0" *ngIf="seen && albumsLists; else noalbumsLists">
                   <li class="list-group-item list-group-item-action w3-blue border-top-0 border-bottom-1 fw-semibold"
-                  *ngFor="let detailsList of albumsLists"> {{ detailsList }}
+                        *ngFor="let detailsList of albumsLists"> {{ detailsList }}
                   </li>
             </ul>
             <!-- Au cas où nous n'avons pas de détails lists -->
@@ -32,9 +37,45 @@
                   <ul class="list-group rounded-bottom m-0 border-0">
                         <li
                               class="list-group-item list-group-item-action w3-blue border-top-0 border-bottom-1 fw-semibold">
-                             Click on <strong class="bg-warning px-1 rounded">Show</strong> and see the albumsLists</li>
+                              Click on <strong class="bg-warning px-1 rounded">Show</strong> and see the albumsLists
+                        </li>
                   </ul>
             </ng-template>
       </div>
+
+            <div class="container mt-3 z-100">
+                  <h3>Modal Example</h3>
+                  <p>Click on the button to open the modal.</p>
+
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        Open modal
+                  </button>
+            </div>
+
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                  <div class="modal-dialog">
+                        <div class="modal-content">
+
+                              <!-- Modal Header -->
+                              <div class="modal-header">
+                                    <h4 class="modal-title">Modal Heading</h4>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                              </div>
+
+                              <!-- Modal body -->
+                              <div class="modal-body">
+                                    Modal body..
+                              </div>
+
+                              <!-- Modal footer -->
+                              <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                              </div>
+
+                        </div>
+                  </div>
+            </div>
+
 
 </div>

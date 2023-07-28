@@ -65,9 +65,13 @@
                   </div>
             </ng-container>
             <ng-template #noAlbumsFound class="position-relative">
-                  <div class="alert alert-dark list-group d-flex align-items-center message">
-                        <strong class="fs-5 d-flex align-items-center mx-4 notif"><i
-                                    class="fas fa-exclamation-triangle fa-4x"></i> {{ messageAlert }}</strong>
+                  <div class="message" [@fadeInAnimation]>
+                        <div class="text-white list-group d-flex align-items-center notif">
+                              <p>
+                                    <strong class="fs-5 d-flex align-items-center mx-4"><i class="fas fa-exclamation-triangle fa-4x"></i></strong>
+                              </p>
+                              <p class="fs-1 fw-bold"> {{ messageAlert }} </p>
+                        </div>
                   </div>
             </ng-template>
             <!-- end div albums -->

@@ -14,33 +14,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 const albumsRoutes: Routes = [
-      {
-            path: 'albums',
-            component: AlbumsComponent
-      },
-      {
-            path: '',
-            redirectTo: '/albums',
-            pathMatch: 'full'
-      },
-      {
-            path: 'login',
-            component: LoginComponent
-      },
-      {
-            path: 'logout',
-            component: LoginComponent
-      },
-      {
-            path: 'album/:id',
-            component: AlbumDescriptionComponent
-      },
-      {
-            path: 'openClose', component: OpenCloseComponent
-      },
-      {
-            path: '***',  component: PageNotFoundComponent
-      },
+      { path: '', redirectTo: '/login', pathMatch: 'full' },
+      { path: 'albums', component: AlbumsComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'logout', component: LoginComponent },
+      { path: 'album/:id', component: AlbumDescriptionComponent },
+      { path: 'openClose', component: OpenCloseComponent },
+      // Redirection vers PageNotFoundComponent pour toutes les autres routes
+      { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -63,7 +44,7 @@ const albumsRoutes: Routes = [
       providers: [],
       bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
 
-    
+
 

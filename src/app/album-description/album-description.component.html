@@ -16,7 +16,7 @@
                         *ngFor="let tag of album.tags"> {{tag}}
                   </li>
             </ul>
-            <div class="text-center">
+            <div class="text-center"  [@fadeInAnimation]>
                   <img class="img-fluid rounded"
                         src=" {{ album.url }} " />  
             </div>

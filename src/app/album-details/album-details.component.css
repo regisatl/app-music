@@ -1,4 +1,4 @@
-div.details {
+div.card {
       width: 415px;
       height: auto;
       animation: details 4s ease;
@@ -8,11 +8,11 @@ div.details {
 @keyframes details {
 
       0% {
-         right: 0%;
+        transform: translateY(-800px);
       }
 
       100% {
-            left: 100%;
+            transform: translateY(0px);
       }
 
 }

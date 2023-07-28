@@ -9,4 +9,7 @@ import { fadeInAnimation } from '../animation.module';
 })
 export class PageNotFoundComponent {
 
+  chiffreNotFound : string = " 404 ";
+  messageNotFound : string = " Not Found ";
+
 }

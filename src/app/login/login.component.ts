@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { fadeInAnimation } from '../animation.module';
+import { AuthService } from '../auth.service';
 
 @Component({
       selector: 'app-login',
@@ -12,26 +14,34 @@ export class LoginComponent {
       email!: string;
       password!: string;
       isLoggedIn: boolean = false;
+      alertMessage: string = 'Nom d\'utilisateur ou mot de passe incorrect.';
 
-      constructor() { }
+      constructor(
+            private router: Router,
+            private authService: AuthService
+      ) { }
 
       login() {
-            if (this.email === 'regisattolou21@outlook.fr' && this.password === 'regis21atl') {
-                  this.isLoggedIn = true;
-                  // Vous pouvez également effectuer une redirection vers une autre page après la connexion réussie.
-            } else {
-                  this.alertMessage ();
-            }
-      };
 
-      alertMessage () {
-            alert("Nom d'utilisateur ou mot de passe incorrect.");
+            if (this.email === undefined && this.password === undefined) {
+                  alert("S'il vous plaît veuillez remplir tous les champs");
+            }
+            else
+
+                  if (this.email === 'regisattolou21@outlook.fr' && this.password === 'regis21atl') {
+                        this.isLoggedIn = true;
+                        this.router.navigate(['/albums']);
+                  } else {
+                        this.router.navigate(['/login']);
+                        alert('Nom d\'utilisateur ou mot de passe incorrect.');
+                  }
       }
 
       logout() {
-            this.isLoggedIn = false;
-            this.email = '';
-            this.password = '';
-      };
+            this.authService.logout();
+      }
 
 }
+
+
+
