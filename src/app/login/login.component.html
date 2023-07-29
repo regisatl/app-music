@@ -1,19 +1,24 @@
-<div class="container-fluid col-sm-8 mt-5 pt-5 pb-5 text-white border-5 border-light rounded" *ngIf="!isLoggedIn" style="padding: 10rem;" [@fadeInAnimation]>
-      <form action="./" (ngSubmit)="login()" method="post">
-            <div class="mb-3 mt-3 fw-bold">
-                  <label for="email" class="form-label px-5">Email:</label>
-                  <input type="email" class="form-control py-4 px-5 fw-bold rounded-pill" id="email" placeholder="Enter email" name="email" [(ngModel)]="email" required >
-                  <small id="email" class="form-text text-white px-5">We'll never share your email with anyone else.</small>
+
+<!-- container du formulaire de login -->
+<div class="container mt-3  text-light fw-bold d-flex justify-content-center p-5 mt-5">
+      <!-- <h2 class="text-light text-center">Connectez-vous</h2> -->
+      <form action="/" (ngSubmit)="login()" method="post" [@fadeInAnimation] class="col-sm-8">
+            <div class="form-floating mb-1 mt-3">
+                  <input type="text" class="form-control text-light bg-dark border-warning border border-1 px-3 focus-ring focus-ring-warning" id="email"
+                        placeholder="Enter email" name="email" [(ngModel)]="email" required>
+                  <label for="email">Email</label>
             </div>
-            <div class="mb-3 fw-bold">
-                  <label for="pwd" class="form-label px-5">Password:</label>
-                  <input type="password" class="form-control py-4 px-5 fw-bold rounded-pill" id="pwd" placeholder="Enter password" name="pwd" [(ngModel)]="password" required >
+            <small id="email" class="form-text">We'll never share your email with anyone
+                  else.</small>
+            <div class="form-floating mt-3 mb-3">
+                  <input type="password" class="form-control text-light bg-dark border-warning border border-1 px-3 focus-ring focus-ring-warning" id="pwd"
+                        placeholder="Enter password" name="pwd" [(ngModel)]="password" required>
+                  <label for="pwd">Password</label>
             </div>
-            <div class="form-check mb-3 fw-bold px-5">
-                  <label class="form-check-label">
-                        <input class="form-check-input" type="checkbox" name="check"> Check me out
-                  </label>
+            <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" name="check"> Check me out
+                  <label class="form-check-label"></label>
             </div>
-            <button type="submit" class="btn btn-primary w-100 rounded-pill p-4 fw-bold">Submit</button>
+            <button type="submit" class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3">Submit</button>
       </form>
 </div>

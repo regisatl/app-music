@@ -37,7 +37,7 @@ const albumsRoutes: Routes = [
             OpenCloseComponent,
             PageNotFoundComponent,
             FirstComponent,
-            SecondComponent
+            SecondComponent     
       ],
       imports: [
             BrowserModule,

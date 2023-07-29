@@ -1,25 +1,25 @@
+<div class="card shadow-xxl mb-5 bg-black bg-gradient bg-opacity-75 rounded border-0" [@fadeInAnimation]>
 
-   <div class="card shadow-lg mb-5 bg-body-tertiary rounded w3-white border-0" [@fadeInAnimation]>
-
-      <div class="card-header w3-blue text-light fs-5 fw-bold py-4 rounded-top">
+      <div class="card-header bg-warning w3-text-black fs-5 fw-bold py-4 rounded-top">
             {{album.ref}}
       </div>
-      <div class="card-body mb-5">
-            <h1 class="w3-text-red fw-bold fs-4">
+      <div class="card-body mb-3 text-light">
+            <h1 class="w3-text-white fw-bold fs-4">
                   {{ album.title }}
             </h1>
             <p class="card-text fs-5">{{album.description}}</p>
-            <p><small class="fw-semibold fs-5">Duration: {{album.duration}} min</small></p>
-            <p><small class="fw-semibold fs-4">Like: {{album.like}} </small></p>
-            <ul class="list-group list-group-horizontal py-2 col-sm-3 fw-bold" style="font-size: 1rem;">
-                  <li class="list-group-item list-group-item-action w3-red badge mx-1 fs-5 rounded border-0"
+            <p><small class="fw-bold fs-5 text-decoration-underline text-warning">Duration</small> : {{album.duration}} min</p>
+            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Like</small> : {{album.like}} </p>
+            <ul class="list-group list-group-horizontal py-2 col-sm-3 mb-3 fw-bold" style="font-size: 1rem;">
+                  <li class="list-group-item list-group-item-action w3-white badge mx-1 fs-5 rounded border-0"
                         *ngFor="let tag of album.tags"> {{tag}}
                   </li>
             </ul>
-            <div class="text-center"  [@fadeInAnimation]>
-                  <img class="img-fluid rounded"
-                        src=" {{ album.url }} " />  
+            <div class="text-center mb-0" [@fadeInAnimation]>
+                  <img class="img-fluid rounded" src=" {{ album.url }} " />
             </div>
-
+      </div>
+      <div class="card-footer text-center mb-3">
+            <button class="btn btn-warning fw-bold" routerLink="">Retourner à la page d'acceuil</button>
       </div>
 </div>

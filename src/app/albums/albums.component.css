@@ -10,14 +10,7 @@ div.detailsLink a {
 
 div.message {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      height: 100%;
-      width: 100%;
-      transform: translate(-50%, -50%);
-      padding: 35rem;
+      left: 30%;
+      top: 70%;
 }
 
-strong.notif {
-     padding: 30rem;
-}

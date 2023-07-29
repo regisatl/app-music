@@ -1,5 +1,5 @@
 div.card {
-      width: 415px;
+      width: 100%;
       height: auto;
       animation: details 4s ease;
 }
@@ -31,8 +31,9 @@ button.buttonPlay {
       border-radius: 0.5rem;
       display: block;
       cursor: pointer;
-      padding-block: 1.3rem;
-      padding-inline: 3rem;
+      padding-block: 1rem;
+      padding-inline: 2rem;
+      font-size: 0.8rem;
 }
 
 button.buttonPlay:hover {
@@ -47,8 +48,10 @@ button.buttonShuffle {
       border-radius: 0.5rem;
       display: block;
       cursor: pointer;
-      padding-block: 1rem;
-      padding-inline: 2rem;
+      padding-block: 0.6rem;
+      padding-inline: 1.5rem;
+      font-size: 1rem;
+      margin-left: 1rem;
 }
 button.buttonShuffle:hover {
       color: white;

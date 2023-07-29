@@ -1,4 +1,4 @@
-<div class="container-fuild principal mb-5">
+<div class="container-fuild principal mb-5"  [ngClass]="this.getPreferredTheme()">
 
       <nav
             class="navbar navbar-expand-sm bg-black navbar-dark py-4 fw-bold fs-5 mb-4 position-sticky top-0 z-1 shadow rounded">
@@ -22,7 +22,7 @@
                               <li class="nav-item">
                                     <a class="nav-link" (click)="logout()" routerLink="./logout"
                                           routerLinkActive="active"> <span class="fas fa-sign-out-alt"></span>
-                                          Logout</a>
+                                          Sign out</a>
                               </li>
                         </ul>
                   </div>
@@ -32,16 +32,16 @@
                                     formattedDate }}</span>
                         </li>
                   </ul>
-                  <a class="nav-link text-white">
-                        <span class="fas fa-toggle-on fw-bold mx-2" *ngIf="!darkLight"></span>
-                        <span class="fas fa-toggle-off fw-bold mx-2" *ngIf="darkLight"></span>
-                  </a>
+                  <button class="nav-link text-white" (click)="toggleDarkMode()">
+                        <span class="fas fa-toggle-on fw-bold mx-2"></span>
+                        <!-- <span class="fas fa-toggle-off fw-bold mx-2" *ngIf="">Light</span> -->
+                  </button>
             </div>
       </nav>
 
       <router-outlet></router-outlet>
-      <!-- 
-      <app-first-comp></app-first-comp>
-      <app-second-comp></app-second-comp> -->
-
+      
 </div>
+<!-- 
+<app-first-comp></app-first-comp>
+<app-second-comp></app-second-comp> -->

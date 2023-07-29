@@ -1,10 +1,10 @@
 <!-- La navbar  -->
-<nav class="navbar shadow-lg mb-5 bg-black py-4 rounded">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold w3-text-blue">{{search}}</a>
-        <form class="d-flex" role="search" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
-            <input name="word" (ngModelChange)="onChangedEmit($event)" ngModel class="form-control me-2 border-primary-2 fw-semibold w3-white" type="search" placeholder="Search a album..." aria-label="Search" [(ngModel)]="word"  required>
-            <button class="btn btn-outline-primary border-2 fw-bold" type="submit"
+<div class="container-fluid">
+<nav class="navbar shadow-lg mb-5 bg-black rounded">
+        <form class="form-floating d-flex col-sm-12" role="search" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
+            <input name="word" (ngModelChange)="onChangedEmit($event)" ngModel class="form-control form-control-lg me-2 border-warning focus-ring focus-ring-warning border border-1 bg-black text-white fw-semibold py-4" type="search" placeholder="Search a album..." aria-label="Search" [(ngModel)]="word"  required>
+            <label for="form-search">Search a album...</label>
+            <button class="btn btn-outline-warning border-1 focus-ring focus-ring-warning fw-bold" type="submit"
                 [disabled]="formSearch.invalid">Search</button>
             <div * ngIf="searchResults.length > 0">
                 <ul>
@@ -14,6 +14,6 @@
                 </ul>
             </div>
         </form>
-    </div>
-</nav>
+    </nav>
+</div>
 <!-- La navbar search fin -->

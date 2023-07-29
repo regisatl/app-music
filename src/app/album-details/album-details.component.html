@@ -1,27 +1,27 @@
-<div class="col-sm-12 video shadow-lg position-relative overflow-hidden bg-body-tertiary bg-black bg-gradient bg-opacity-100 border-0 rounded">
+<div class="col-sm-12 video shadow-lg position-relative overflow-hidden bg-black bg-gradient bg-opacity-100 rounded">
 
-      <h2 class="fs-4 fw-bold w3-text-red rounded m-1 p-4">Détails de chaque album:</h2>
+      <h2 class="fs-4 fw-bold w3-text-white w3-black rounded m-1 p-4">Détails de chaque album:</h2>
 
-      <div class="card details" *ngIf="album">
+      <div class="card details bg-black bg-gradient bg-opacity-100" *ngIf="album">
             <div class="position-absolute top-0 end-0 rounded px-4 py-3">
                   <button type="button" (click)="toggleList()" class="btn-close white" data-bs-dismiss="card" aria-label="Close"></button>
             </div>
             <img class="card-img-top rounded-bottom img-fluid p-0" src="{{ album.url }}" alt="Group Music">
             <div class="card-body">
-                  <h5 class="card-title fs-4 fw-bold w3-text-blue"> {{ album.title }} </h5>
-                  <p class="card-text fw-semibold"> {{ album.name }} </p>
+                  <h5 class="card-title fs-4 fw-bold text-warning"> {{ album.title }} </h5>
+                  <p class="card-text text-light fw-semibold"> {{ album.name }} </p>
                   <div class="d-flex justify-content-between">
-                        <div class="button-group">
-                              <button class="buttonPlay fw-bold text-uppercase shadow-lg"
+                        <div class="button-group mt-1">
+                              <button class="btn btn-primary fw-bold text-uppercase shadow-lg px-5"
                                     (click)="play(album)" [ngClass]="{'fa 1x': !isPlaying, 'fa-1x': isPlaying}">
                                     <!-- Affichez le tag [play] uniquement lorsque le bouton est inactif (isPlaying = false) -->
-                                    <span *ngIf="!isPlaying" class="text-white"> Play <i class="fas fa-pause-circle"></i></span>
-                                    <span *ngIf="isPlaying" class="text-white"> Stop <i class="fas fa-play-circle"></i></span>
+                                    <span *ngIf="!isPlaying"> Play <i class="fas fa-pause-circle"></i></span>
+                                    <span *ngIf="isPlaying"> Stop <i class="fas fa-play-circle"></i></span>
                               </button>
                         </div>
-                        <div class="button-group">
-                              <button class="buttonShuffle fw-bold text-uppercase">
-                                    <span (click)="shuffleAlbumsLists()" class="text-white"> Shuffle <i
+                        <div class="button-group mt-1">
+                              <button class="btn btn-warning fw-bold text-uppercase shadow-lg px-4">
+                                    <span (click)="shuffleAlbumsLists()" class="text-dark"> Shuffle <i
                                                 class="fas fa-random"></i></span>
                               </button>
                         </div>
@@ -34,9 +34,9 @@
             </ul>
             <!-- Au cas où nous n'avons pas de détails lists -->
             <ng-template #noalbumsLists>
-                  <ul class="list-group rounded-bottom m-0 border-0">
+                  <ul class="list-group rounded-bottom m-0 border border-0">
                         <li
-                              class="list-group-item list-group-item-action w3-blue border-top-0 border-bottom-1 fw-semibold">
+                              class="list-group-item list-group-item-action bg-primary text-light border border-0 fw-bold">
                              Auncune liste dans cet album.
                         </li>
                   </ul>

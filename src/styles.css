@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+/* Styles for the Light theme */
+:root {
+    --bg-color: #000000;
+    --text-color: #ffffff;
+   
+  }
+  
+  /* Styles for the Dark theme */
+  [data-theme="dark"] {
+    --bg-color: #ffffff;
+    --text-color: #000000;
+  }
+  
+  /* Apply common styles for both themes */
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+  }
+  
