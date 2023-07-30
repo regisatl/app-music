@@ -3,7 +3,7 @@
       <nav
             class="navbar navbar-expand-sm bg-black navbar-dark py-4 fw-bold fs-5 mb-4 position-sticky top-0 z-1 shadow rounded">
             <div class="navbar-brand">
-                  <a class="link" href="#"><span class="fas fa-music fa-2x"></span></a>
+                  <a class="nav-link text-warning" routerLink="./"><span class="fas fa-music fa-2x"></span></a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                   <span class="navbar-toggler-icon"></span>
@@ -32,9 +32,9 @@
                                     formattedDate }}</span>
                         </li>
                   </ul>
-                  <button class="nav-link text-white" (click)="toggleDarkMode()">
-                        <span class="fas fa-toggle-on fw-bold mx-2"></span>
-                        <!-- <span class="fas fa-toggle-off fw-bold mx-2" *ngIf="">Light</span> -->
+                  <button class="nav-link text-white">
+                        <span class="fas fa-toggle-on fw-bold mx-2" *ngIf="!darkMode"></span>
+                        <span class="fas fa-toggle-off fw-bold mx-2" *ngIf="darkMode"></span>
                   </button>
             </div>
       </nav>

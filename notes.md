@@ -535,3 +535,386 @@ ng generate component nom-du-composant --skip-import
 Remplacez `nom-du-composant` par le nom souhaité pour votre nouveau composant. Cette commande générera le composant sans ajouter automatiquement l'importation du composant dans le module du composant parent.
 
 Encore une fois, veuillez noter que l'utilisation de `--skip-import` signifie que vous devrez ajouter manuellement l'importation du composant dans le module parent si vous souhaitez l'utiliser dans les templates de ce module.
+
+Bien sûr! Voici le CSS approprié pour les styles dans le mode sombre et le mode clair, basé sur l'HTML et le code TypeScript fournis :
+
+Assumons que votre fichier `styles.css` ressemble à ceci :
+
+```css
+/* styles.css */
+body {
+  background-color: #ffffff; /* Couleur de fond pour le mode clair */
+  color: #000000; /* Couleur du texte pour le mode clair */
+}
+
+.dark-theme {
+  background-color: #1f1f1f; /* Couleur de fond pour le mode sombre */
+  color: #ffffff; /* Couleur du texte pour le mode sombre */
+}
+```
+
+Les styles définis dans le fichier `styles.css` correspondent aux deux modes : clair et sombre. Lorsque le mode sombre est activé, le corps de la page (`body`) aura la classe `dark-theme` appliquée, ce qui modifiera les couleurs en conséquence.
+
+Si vous souhaitez personnaliser davantage les styles pour chaque mode, vous pouvez ajuster les propriétés CSS en conséquence dans le fichier `styles.css`.
+
+D'accord, nous allons combiner les deux codes TypeScript dans le fichier `app.component.ts`, et nous utiliserons l'HTML et le CSS global fournis. Voici le code résultant :
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-root',
+  template: `
+    <div class="container-fuild principal mb-5">
+      <button class="nav-link text-white" (click)="toggleDarkMode()">
+        <span class="fas fa-toggle-on fw-bold mx-2" *ngIf="darkMode">Dark Mode</span>
+        <span class="fas fa-toggle-off fw-bold mx-2" *ngIf="!darkMode">Light Mode</span>
+      </button>
+    </div>
+  `,
+  styleUrls: ['./app.component.css']
+})
+export class AppComponent {
+  darkMode = false;
+
+  toggleDarkMode(): void {
+    this.darkMode = !this.darkMode;
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    const theme = this.darkMode ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+}
+```
+
+Assurez-vous que le code HTML dans `app.component.ts` correspond au contenu de votre fichier HTML fourni, et le code CSS global dans le fichier `styles.css` correspond au contenu de votre fichier `style.css` fourni.
+
+Cela combinera les deux composants en un seul `AppComponent`, avec la logique de basculement entre les modes sombre et clair gérée directement dans ce composant, sans utiliser de services.
+
+Pour implémenter le basculement entre le mode sombre (Dark Mode) et le mode clair (Light Mode) sans utiliser les services, nous pouvons directement manipuler les classes du document body pour appliquer les styles associés aux thèmes. Voici le code TypeScript correspondant :
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dark-mode-toggle',
+  template: `
+    <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+  `
+})
+export class DarkModeToggleComponent {
+  darkMode = false;
+
+  toggleDarkMode(): void {
+    this.darkMode = !this.darkMode;
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    const theme = this.darkMode ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+}
+```
+
+Dans ce cas, nous avons directement incorporé la logique de gestion du thème dans le composant `DarkModeToggleComponent`. La propriété `darkMode` indique l'état actuel du mode, et la méthode `toggleDarkMode` est utilisée pour basculer entre les modes sombre et clair. Lorsque l'utilisateur clique sur le bouton, nous mettons à jour la propriété `darkMode` et appliquons le thème correspondant en manipulant les classes du document.
+
+Si vous préférez utiliser des méthodes séparées pour chaque thème (light et dark), vous pouvez modifier le code comme suit :
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-dark-mode-toggle',
+  template: `
+    <button (click)="toggleDarkMode()">Toggle Dark Mode</button>
+  `
+})
+export class DarkModeToggleComponent {
+  darkMode = false;
+
+  toggleDarkMode(): void {
+    this.darkMode = !this.darkMode;
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    if (this.darkMode) {
+      this.applyDarkTheme();
+    } else {
+      this.applyLightTheme();
+    }
+  }
+
+  private applyDarkTheme(): void {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }
+
+  private applyLightTheme(): void {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+}
+```
+
+Ici, nous avons séparé la logique d'application des thèmes sombre et clair en méthodes distinctes pour une meilleure lisibilité et maintenabilité du code. Le résultat final est similaire à la version précédente, mais sans l'utilisation explicite de services.
+
+Les décorateurs `@Input` et `@Output` sont des fonctionnalités clés d'Angular, un framework JavaScript populaire pour le développement d'applications web. Ils sont utilisés pour la communication entre composants, permettant ainsi de transmettre des données entre les composants parents et enfants. Voici des explications détaillées et des exemples d'utilisation pour chacun de ces décorateurs :
+
+## Le décorateur @Input :
+
+Le décorateur `@Input` est utilisé pour permettre à un composant parent de transmettre des données à un composant enfant. En définissant une propriété avec le décorateur `@Input`, le composant enfant peut recevoir les données de son composant parent. Les changements dans la propriété du composant parent sont automatiquement détectés et propagés au composant enfant.
+
+### Exemple d'utilisation :
+
+Supposons que nous ayons un composant parent appelé `ParentComponent` qui souhaite transmettre des données à un composant enfant `ChildComponent`.
+
+Dans `ChildComponent`, nous déclarons une propriété avec le décorateur `@Input` :
+
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: '<p>{{ dataFromParent }}</p>'
+})
+export class ChildComponent {
+  @Input() dataFromParent: string;
+}
+```
+
+Dans `ParentComponent`, nous utilisons `ChildComponent` en l'incluant dans son propre template, et nous passons les données via la propriété `dataFromParent` :
+
+```html
+<app-child [dataFromParent]="dataToSend"></app-child>
+```
+
+Ici, `dataToSend` est une propriété du `ParentComponent` qui contient les données que nous voulons transmettre au composant enfant. Dès que `dataToSend` change dans `ParentComponent`, la valeur de `dataFromParent` dans `ChildComponent` sera également mise à jour automatiquement.
+
+## Le décorateur @Output :
+
+Le décorateur `@Output` est utilisé pour permettre à un composant enfant d'émettre des événements vers son composant parent. Cela permet au composant parent de réagir aux événements émis par le composant enfant.
+
+### Exemple d'utilisation :
+
+Supposons que nous ayons à nouveau le composant parent `ParentComponent` et le composant enfant `ChildComponent`. Cette fois, nous voulons que `ChildComponent` émette un événement lorsque l'utilisateur clique sur un bouton, et que le composant parent réagisse à cet événement.
+
+Dans `ChildComponent`, nous déclarons une propriété avec le décorateur `@Output` et nous utilisons un `EventEmitter` pour émettre l'événement :
+
+```typescript
+import { Component, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: '<button (click)="emitEvent()">Cliquez ici</button>'
+})
+export class ChildComponent {
+  @Output() customEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  emitEvent() {
+    this.customEvent.emit();
+  }
+}
+```
+
+Dans `ParentComponent`, nous utilisons `ChildComponent` et nous écoutons l'événement `customEvent` :
+
+```html
+<app-child (customEvent)="handleCustomEvent()"></app-child>
+```
+
+Lorsque l'utilisateur clique sur le bouton dans `ChildComponent`, l'événement `customEvent` est émis. `ParentComponent` détecte cet événement grâce à l'écouteur `(customEvent)="handleCustomEvent()"` et exécute la méthode `handleCustomEvent()` définie dans le composant parent.
+
+Ces deux décorateurs, `@Input` et `@Output`, permettent de faciliter la communication entre composants dans une application Angular. Ils offrent une solution élégante pour échanger des données et des actions entre les différentes parties d'une application, améliorant ainsi la modularité et la réutilisabilité du code.
+
+Les directives `ngClass`, `ngSwitchCase` et `ngStyle` sont des fonctionnalités clés d'Angular qui permettent de manipuler la présentation visuelle des éléments HTML en fonction de certaines conditions ou états. Voici des explications détaillées et des exemples d'utilisation pour chacune de ces directives :
+
+## La directive ngClass :
+
+La directive `ngClass` permet d'ajouter ou de supprimer dynamiquement des classes CSS à un élément HTML en fonction d'une ou plusieurs conditions.
+
+### Exemple d'utilisation :
+
+Supposons que nous ayons une liste d'éléments avec un état et que nous souhaitons appliquer différentes couleurs en fonction de cet état. Nous pouvons utiliser `ngClass` pour accomplir cela.
+
+```html
+<ul>
+  <li *ngFor="let item of items" [ngClass]="{ 'active': item.status === 'active', 'inactive': item.status === 'inactive' }">
+    {{ item.name }}
+  </li>
+</ul>
+```
+
+Dans cet exemple, nous utilisons `ngClass` pour appliquer la classe CSS `active` lorsque l'état de l'élément est "actif" et la classe `inactive` lorsque l'état est "inactif". Ainsi, la couleur des éléments de la liste sera mise à jour en fonction de leur état.
+
+## La directive ngSwitchCase :
+
+La directive `ngSwitchCase` est utilisée en conjonction avec la directive `ngSwitch` pour effectuer un rendu conditionnel basé sur une valeur donnée.
+
+### Exemple d'utilisation :
+
+Supposons que nous ayons une variable `role` et que nous voulions afficher un message différent en fonction de la valeur de cette variable.
+
+```html
+<div [ngSwitch]="role">
+  <p *ngSwitchCase="'admin'">Bienvenue, Administrateur !</p>
+  <p *ngSwitchCase="'user'">Bienvenue, Utilisateur !</p>
+  <p *ngSwitchDefault>Connectez-vous pour accéder au contenu.</p>
+</div>
+```
+
+Dans cet exemple, nous utilisons `ngSwitch` pour définir la valeur à comparer (`role` dans ce cas). Ensuite, nous utilisons `ngSwitchCase` pour définir les différents cas possibles avec les messages correspondants qui seront affichés en fonction de la valeur de `role`.
+
+## La directive ngStyle :
+
+La directive `ngStyle` permet de définir dynamiquement des styles en ligne (CSS) pour un élément HTML en fonction de conditions ou de valeurs.
+
+### Exemple d'utilisation :
+
+Supposons que nous ayons une variable `fontSize` qui définit la taille de la police à appliquer à un élément.
+
+```html
+<p [ngStyle]="{ 'font-size.px': fontSize }">Ce texte a une taille de police dynamique.</p>
+```
+
+Dans cet exemple, nous utilisons `ngStyle` pour définir dynamiquement la taille de la police du paragraphe en fonction de la valeur de `fontSize`. La propriété `'font-size.px'` signifie que la valeur de `fontSize` sera interprétée en pixels.
+
+Ces directives, `ngClass`, `ngSwitchCase` et `ngStyle`, sont très utiles pour manipuler la présentation visuelle des éléments HTML en fonction de conditions dynamiques dans une application Angular. Elles permettent de rendre le code plus lisible, maintenable et flexible lorsqu'il s'agit de gérer la présentation des composants en fonction de l'état et des valeurs de l'application.
+
+Bien sûr ! Dans cet exemple, nous allons utiliser la directive `ngStyle` pour animer un bouton en fonction d'une valeur booléenne (vraie ou fausse). Lorsque la valeur est vraie, nous appliquerons un style CSS pour animer le bouton, et lorsque la valeur est fausse, nous le rétablirons à son style initial.
+
+Supposons que nous ayons une variable `isButtonAnimated` qui détermine si nous devons animer le bouton ou non. Lorsque `isButtonAnimated` est vrai, nous souhaitons ajouter une animation au bouton, et lorsque c'est faux, nous voulons supprimer cette animation.
+
+Voici comment nous pouvons le faire avec la directive `ngStyle` :
+
+```html
+<button [ngStyle]="{ 'animation': isButtonAnimated ? 'pulse 2s infinite' : 'none' }" (click)="toggleAnimation()">Cliquez pour animer le bouton</button>
+```
+
+Dans cet exemple, nous utilisons `ngStyle` pour appliquer un style d'animation CSS au bouton. Lorsque `isButtonAnimated` est vrai, la propriété `'animation'` sera définie avec la valeur `'pulse 2s infinite'`, qui est le nom de l'animation CSS (pulse) suivie de sa durée (2 secondes) et du nombre d'itérations (infini). Cela créera une animation de pulsation infinie sur le bouton.
+
+Lorsque `isButtonAnimated` est faux, nous définissons la propriété `'animation'` à `'none'`, ce qui supprime toute animation du bouton.
+
+Pour que cela fonctionne, nous devons également définir l'animation CSS "pulse" dans notre feuille de style globale (style.css ou app.component.css) :
+
+```css
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+```
+
+Enfin, nous devons définir la logique pour activer/désactiver l'animation en changeant la valeur de `isButtonAnimated` dans le composant :
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-button-animation',
+  templateUrl: './button-animation.component.html',
+  styleUrls: ['./button-animation.component.css']
+})
+export class ButtonAnimationComponent {
+  isButtonAnimated: boolean = false;
+
+  toggleAnimation() {
+    this.isButtonAnimated = !this.isButtonAnimated;
+  }
+}
+```
+
+Maintenant, lorsque nous cliquons sur le bouton, l'animation pulse sera activée si `isButtonAnimated` est vrai et désactivée si c'est faux, offrant ainsi une animation visuelle lorsque la valeur change entre vraie et fausse.
+
+Les Observables sont un concept clé de la programmation réactive, et ils sont utilisés dans de nombreux frameworks et bibliothèques JavaScript tels qu'Angular, RxJS, etc. Un Observable est une séquence de valeurs diffusées au fil du temps. Il permet de gérer facilement les flux de données asynchrones, les événements, et les opérations asynchrones telles que les requêtes HTTP.
+
+Voici quelques points importants à connaître sur les Observables :
+
+1. **Séquence de valeurs diffusées :** Un Observable émet des valeurs successivement au fil du temps. Ces valeurs peuvent être de n'importe quel type (nombres, objets, tableaux, etc.).
+
+2. **Gestion de l'asynchronisme :** Les Observables sont parfaits pour gérer les opérations asynchrones comme les appels HTTP, les timers, les interactions avec l'utilisateur, etc. Ils permettent de réagir aux événements lorsqu'ils se produisent et d'exécuter du code en réponse.
+
+3. **Traitement des erreurs :** Les Observables peuvent émettre des erreurs, et vous pouvez les gérer à l'aide de méthodes spécifiques. Cela permet de gérer les erreurs de manière centralisée plutôt que d'utiliser les blocs try-catch à plusieurs endroits du code.
+
+4. **Abonnement :** Pour commencer à recevoir les valeurs émises par un Observable, vous devez vous abonner à lui. L'abonnement est généralement réalisé dans les composants Angular, et il peut être nettoyé automatiquement lorsque le composant est détruit.
+
+5. **Opérations de transformation et de manipulation des données :** RxJS, une bibliothèque de programmation réactive utilisée dans Angular, fournit une multitude d'opérateurs pour transformer, filtrer, combiner, et manipuler les données émises par les Observables.
+
+Voici un exemple simple d'utilisation d'un Observable dans Angular pour effectuer une requête HTTP à une API et traiter les données :
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-data-fetch',
+  template: '<div *ngIf="data$ | async as data">{{ data | json }}</div>'
+})
+export class DataFetchComponent implements OnInit {
+  data$: Observable<any>;
+
+  constructor(private http: HttpClient) {}
+
+  ngOnInit() {
+    this.data$ = this.http.get<any>('https://api.example.com/data');
+  }
+}
+```
+
+Dans cet exemple, nous utilisons l'Observable `data$` pour effectuer une requête HTTP en utilisant le service `HttpClient` d'Angular. L'opérateur `async` est utilisé dans le template pour s'abonner automatiquement à `data$` et afficher les données dès qu'elles sont disponibles.
+
+En utilisant les Observables, Angular offre une approche élégante pour gérer les flux de données asynchrones de manière réactive. Cela rend le code plus lisible, maintenable et facilite la gestion des événements et des opérations asynchrones dans les applications Angular.
+
+Le décorateur `@Input` et le décorateur `@Output` sont tous les deux des fonctionnalités d'Angular permettant de faciliter la communication entre composants, mais ils sont utilisés dans des directions différentes :
+
+1. **@Input :**
+
+Le décorateur `@Input` est utilisé pour permettre à un composant parent de transmettre des données à un composant enfant. En définissant une propriété avec le décorateur `@Input`, le composant enfant peut recevoir les données de son composant parent. Les données sont passées du composant parent vers le composant enfant.
+
+Exemple d'utilisation :
+```typescript
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: '<p>{{ dataFromParent }}</p>'
+})
+export class ChildComponent {
+  @Input() dataFromParent: string;
+}
+```
+
+Dans cet exemple, `dataFromParent` est une propriété du composant enfant `ChildComponent`, et elle peut recevoir des données du composant parent en utilisant l'attribut `[dataFromParent]="someData"` lors de l'utilisation du composant enfant dans le template du composant parent.
+
+2. **@Output :**
+
+Le décorateur `@Output` est utilisé pour permettre à un composant enfant d'émettre des événements vers son composant parent. Cela permet au composant enfant de communiquer avec son composant parent en émettant des événements personnalisés. Les données sont passées du composant enfant vers le composant parent.
+
+Exemple d'utilisation :
+```typescript
+import { Component, Output, EventEmitter } from '@angular/core';
+
+@Component({
+  selector: 'app-child',
+  template: '<button (click)="emitEvent()">Cliquez ici</button>'
+})
+export class ChildComponent {
+  @Output() customEvent: EventEmitter<void> = new EventEmitter<void>();
+
+  emitEvent() {
+    this.customEvent.emit();
+  }
+}
+```
+
+Dans cet exemple, le composant enfant `ChildComponent` émet un événement personnalisé `customEvent` lorsqu'un bouton est cliqué. Le composant parent peut écouter cet événement en utilisant `(customEvent)="handleCustomEvent()"` lors de l'utilisation du composant enfant dans son propre template.
+
+En résumé, `@Input` est utilisé pour transmettre des données du composant parent vers le composant enfant, tandis que `@Output` est utilisé pour permettre au composant enfant d'émettre des événements vers son composant parent. Ils constituent une approche puissante pour communiquer entre composants dans une application Angular et facilitent le partage de données et d'actions entre différentes parties de l'application.

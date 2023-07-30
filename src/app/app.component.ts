@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 export class AppComponent {
       title = 'ATL Music';
       formattedDate: string | null;
+      darkMode: boolean = false;
       private readonly THEME_KEY = 'theme';
       private readonly DARK_THEME = 'dark';
       private readonly LIGHT_THEME = 'light';
