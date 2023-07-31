@@ -1,10 +1,10 @@
 <!-- container du formulaire de login -->
-<div class="container mt-3  text-light fw-bold d-flex justify-content-center p-5 mt-5">
-      <!-- <h2 class="text-light text-center">Connectez-vous</h2> -->
+<div class="container text-light fw-bold d-flex justify-content-center pt-5 mt-5">
+      <h2 class="text-light text-center">Login</h2>
       <form action="/" (ngSubmit)="login()" method="post" [@fadeInAnimation] class="col-sm-8">
             <div class="form-floating mb-1 mt-3">
-                  <input type="text"
-                        class="form-control text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning"
+                  <input type="email"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning"
                         id="email" placeholder="Enter email" name="email" [(ngModel)]="email" required>
                   <label for="email">Email</label>
             </div>
@@ -12,7 +12,7 @@
                   else.</small>
             <div class="form-floating mt-3 mb-3">
                   <input type="password"
-                        class="form-control text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning"
                         id="pwd" placeholder="Enter password" name="pwd" [(ngModel)]="password" required>
                   <label for="pwd">Password</label>
             </div>
@@ -23,12 +23,12 @@
             <button type="submit"
                   class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3">Submit
             </button>
-            <div class="container d-flex justify-content-between mt-5 p-0">
+            <div class="container d-flex justify-content-between mt-5">
                   <div class="btn-group">
-                        <a routerLink="../" class="btn btn-light fw-bold">Cancel</a>
+                        <button routerLink="./" class="btn btn-light fw-bold">Cancel</button>
                   </div>
                   <div class="link-item">
-                        <span>Forgot <a href="#" class="text-light">password ?</a></span>
+                        <span>Forgot <a routerLink="../forgetPassword" class="text-light">password?</a></span>
                   </div>
             </div>
       </form>

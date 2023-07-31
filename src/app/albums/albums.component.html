@@ -28,13 +28,13 @@
                               <button class="page-link" [ngClass] = "{ 'disabled' : currentPage === 1}">Previous</button>
                         </li>
                         <li role="button" class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
-                              <a class="page-link" [ngClass]="{ 'active': pageNumber === currentPage}" [class.active]="pageNumber === currentPage"
+                              <a class="page-link" [ngClass]="{ 'active': pageNumber === currentPage}"
                                     (click)="onPageChange(pageNumber)">
                                     {{ pageNumber }}
                               </a>
                         </li>
                         <li role="button" class="page-item z-0" (click)="onPageChange(currentPage + 1)">
-                              <button class="page-link" href="#" [ngClass] = "{ 'disabled' : currentPage === totalPages}">Next</button>
+                              <button class="page-link" [ngClass] = "{ 'disabled' : currentPage === totalPages}">Next</button>
                         </li>
                   </ul>
             </div>
@@ -60,7 +60,7 @@
                               </div>
                               <p class="card-text text-light">{{album.description}}</p>
                               <ul class="list-group list-group-horizontal py-1 col-sm-3" style="font-size: 1.2rem;">
-                                    <li class="list-group-item list-group-item-action fw-bold w3-warning badge mx-1 rounded border-0"
+                                    <li class="list-group-item list-group-item-action shadow-lg fw-bold w3-warning badge mx-1 rounded border-0"
                                           *ngFor="let tag of album.tags"> {{tag}}
                                     </li>
                               </ul>

@@ -20,6 +20,7 @@ const albumsRoutes: Routes = [
       { path: 'albums', component: AlbumsComponent },
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent },
+      { path: 'forgetPassword', component: FirstComponent },
       { path: 'album/:id', component: AlbumDescriptionComponent },
       { path: 'openClose', component: OpenCloseComponent },
       // Redirection vers PageNotFoundComponent pour toutes les autres routes
