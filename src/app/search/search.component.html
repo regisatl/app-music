@@ -1,5 +1,5 @@
 <!-- La navbar  -->
-<div class="container-fluid">
+<div class="container-fluid p-0">
 <nav class="navbar shadow-lg mb-5 bg-black rounded">
         <form class="form-floating d-flex col-sm-12" role="search" (ngSubmit)="onSubmit(formSearch)" #formSearch="ngForm">
             <input name="word" (ngModelChange)="onChangedEmit($event)" ngModel class="form-control form-control-lg me-2 border-warning focus-ring focus-ring-warning border border-1 bg-black text-white fw-semibold py-4" type="search" placeholder="Search a album..." aria-label="Search" [(ngModel)]="word"  required>

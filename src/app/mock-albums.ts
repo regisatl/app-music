@@ -49,6 +49,7 @@ export const ALBUMS: Album[] = [
                   "incididunt",
                   "amet"
             ],
+            "like": "Rather",
             "status": "off"
       },
       {

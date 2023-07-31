@@ -22,37 +22,36 @@
                   </button>
             </h1>
             <!-- section de pagination -->
-            <div class="container mb-3 mt-3">
+            <div class="container mb-3 mt-3 p-0">
                   <ul class="pagination rounded fw-bold z-0">
-                        <li class="page-item z-0" (click)="onPageChange(currentPage - 1)">
-                              <button class="page-link" href="#" [disabled]="currentPage === 1">Previous</button>
+                        <li role="button" class="page-item z-0" (click)="onPageChange(currentPage - 1)">
+                              <button class="page-link" [ngClass] = "{ 'disabled' : currentPage === 1}">Previous</button>
                         </li>
-                        <li class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
-                              <a class="page-link" href="#" [class.active]="pageNumber === currentPage"
+                        <li role="button" class="page-item z-0" *ngFor="let pageNumber of getPageNumbers()">
+                              <a class="page-link" [ngClass]="{ 'active': pageNumber === currentPage}" [class.active]="pageNumber === currentPage"
                                     (click)="onPageChange(pageNumber)">
                                     {{ pageNumber }}
                               </a>
                         </li>
-                        <li class="page-item z-0" (click)="onPageChange(currentPage + 1)">
-                              <button class="page-link" href="#" [disabled]="currentPage === totalPages">Next</button>
+                        <li role="button" class="page-item z-0" (click)="onPageChange(currentPage + 1)">
+                              <button class="page-link" href="#" [ngClass] = "{ 'disabled' : currentPage === totalPages}">Next</button>
                         </li>
                   </ul>
             </div>
             <!-- la div card qui permet d'afficher la liste des différentes albums -->
             <ng-container *ngIf="paginatedAlbums.length; else noAlbumsFound">
-                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0"
-                        *ngFor="let album of paginatedAlbums">
+                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0" *ngFor="let album of paginatedAlbums">
 
-                        <div class="card-header bg-primary text-light fs-5 fw-bold py-4">
+                        <div class="card-header bg-warning text-black fs-4 fw-bold py-4 text-uppercase">
                               {{album.ref}}
                         </div>
                         <div class="card-body mb-0 bg-black bg-gradient bg-opacity-100">
-                              <h1 *ngIf="album.status ==='on' " class="text-warning fw-bold fs-4">
-                                    <span class="fas fa-pause-circle"></span>
+                              <h1 *ngIf="album.status ==='on' " class="text-warning fw-bold fs-4 text-capitalize">
+                                    <div class="float-end" [ngClass]="{ 'spinner-border text-warning': album.status === 'on' }"></div>
                                     {{ album.title }}
                               </h1>
-                              <h1 *ngIf="album.status !=='on' " class="text-warning fw-bold fs-4">
-                                    <span class="fas fa-play-circle"></span>
+                              <h1 *ngIf="album.status !=='on' " class="text-warning fw-bold fs-4 text-capitalize">
+                                    <div class="float-end" [ngClass]="{ 'spinner-border text-warning': album.status === 'on' }"></div>
                                     {{ album.title }}
                               </h1>
                               <div class="mb-3 detailsLink">
@@ -60,8 +59,7 @@
                                           routerLink="/album/{{album.id}}">{{album.title}}</a>
                               </div>
                               <p class="card-text text-light">{{album.description}}</p>
-                              <ul class="list-group list-group-horizontal py-1 col-sm-3"
-                                    style="font-size: 1.2rem;">
+                              <ul class="list-group list-group-horizontal py-1 col-sm-3" style="font-size: 1.2rem;">
                                     <li class="list-group-item list-group-item-action fw-bold w3-warning badge mx-1 rounded border-0"
                                           *ngFor="let tag of album.tags"> {{tag}}
                                     </li>
@@ -69,7 +67,7 @@
                         </div>
                         <div class="card-footer">
                               <a class="btn btn-outline-dark fw-semibold px-4 py-1 border-3" href="#" role="button"><i
-                                          class="fas fa-language fa-2x"></i></a>
+                                          class="fas fa-globe fa-2x"></i></a>
                               <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
                                     src="../assets/svg/si-glyph-heart.svg" />
                               <small>{{album.like}}</small>
