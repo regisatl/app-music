@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirstComponent } from './first-comp/first-comp.component';
 import { SecondComponent } from './second-comp/second-comp.component';
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
 
 
 const albumsRoutes: Routes = [
@@ -38,7 +39,8 @@ const albumsRoutes: Routes = [
             OpenCloseComponent,
             PageNotFoundComponent,
             FirstComponent,
-            SecondComponent     
+            SecondComponent,
+            AudioPlayerComponent     
       ],
       imports: [
             BrowserModule,

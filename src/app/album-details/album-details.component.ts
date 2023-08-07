@@ -47,6 +47,7 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
 
             this.onPlay.emit(album); // émettre un album vers le parent AlbumsComponent
             this.isPlaying = !this.isPlaying; // Inverse l'état de lecture
+            this.albumService.switchOn(album);
 
       };
 
