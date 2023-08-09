@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Output } from "@angular/core";
-import { FormControl, NgForm } from "@angular/forms";
+import { Component } from "@angular/core";
+import { NgForm } from "@angular/forms";
 import { fadeInAnimation } from "../animation.module";
 import { testService } from "../test.service";
 

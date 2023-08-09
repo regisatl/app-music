@@ -13,6 +13,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirstComponent } from './first-comp/first-comp.component';
 import { SecondComponent } from './second-comp/second-comp.component';
+import { AudioPlayerComponent } from './audio-player/audio-player.component';
 
 
 const albumsRoutes: Routes = [
@@ -20,6 +21,7 @@ const albumsRoutes: Routes = [
       { path: 'albums', component: AlbumsComponent },
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LoginComponent },
+      { path: 'forgetPassword', component: FirstComponent },
       { path: 'album/:id', component: AlbumDescriptionComponent },
       { path: 'openClose', component: OpenCloseComponent },
       // Redirection vers PageNotFoundComponent pour toutes les autres routes
@@ -37,7 +39,8 @@ const albumsRoutes: Routes = [
             OpenCloseComponent,
             PageNotFoundComponent,
             FirstComponent,
-            SecondComponent     
+            SecondComponent,
+            AudioPlayerComponent     
       ],
       imports: [
             BrowserModule,

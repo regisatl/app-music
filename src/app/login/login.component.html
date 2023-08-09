@@ -1,24 +1,35 @@
-
 <!-- container du formulaire de login -->
-<div class="container mt-3  text-light fw-bold d-flex justify-content-center p-5 mt-5">
-      <!-- <h2 class="text-light text-center">Connectez-vous</h2> -->
+<h2 class="text-light fw-bold fs-3 text-center pt-5 mt-5">Connectez-vous</h2>
+<div class="container text-light fw-bold d-flex justify-content-center mt-3">
       <form action="/" (ngSubmit)="login()" method="post" [@fadeInAnimation] class="col-sm-8">
             <div class="form-floating mb-1 mt-3">
-                  <input type="text" class="form-control text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning" id="email"
-                        placeholder="Enter email" name="email" [(ngModel)]="email" required>
+                  <input type="email"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning"
+                        id="email" placeholder="Enter email" name="email" [(ngModel)]="email" required>
                   <label for="email">Email</label>
             </div>
             <small id="email" class="form-text">We'll never share your email with anyone
                   else.</small>
             <div class="form-floating mt-3 mb-3">
-                  <input type="password" class="form-control text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning" id="pwd"
-                        placeholder="Enter password" name="pwd" [(ngModel)]="password" required>
+                  <input type="password"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning"
+                        id="pwd" placeholder="Enter password" name="pwd" [(ngModel)]="password" required>
                   <label for="pwd">Password</label>
             </div>
             <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" name="check"> Check me out
                   <label class="form-check-label"></label>
             </div>
-            <button type="submit" class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3">Submit</button>
+            <button type="submit"
+                  class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3">Submit
+            </button>
+            <div class="container d-flex justify-content-between mt-5">
+                  <div class="btn-group">
+                        <button routerLink="./" class="btn btn-light fw-bold">Cancel</button>
+                  </div>
+                  <div class="link-item">
+                        <span>Forgot <a routerLink="../forgetPassword" class="text-light">password?</a></span>
+                  </div>
+            </div>
       </form>
 </div>

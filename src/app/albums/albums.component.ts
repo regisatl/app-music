@@ -20,7 +20,7 @@ export class AlbumsComponent implements OnInit {
       selectedAlbum!: Album;
       filteredAlbums: Album[] = [];
       paginatedAlbums!: Album[];
-      currentPage!: number;
+      currentPage: number = 1;
       totalPages!: number;
       messageAlert : string = "Aucun album de ce nom trouvé...." ;
       seen: boolean = true; // Propriété pour afficher/cacher la liste aléatoire
@@ -29,20 +29,20 @@ export class AlbumsComponent implements OnInit {
             private albumService: AlbumService,
             private service: AlbumService
       ) {
-            this.paginatedAlbums = this.albumService.paginate(0, 2);
+            this.paginatedAlbums = this.albumService.paginate(0, 1);
             this.totalPages = this.getTotalPages();
             this.currentPage = 1;
       }
 
       ngOnInit() {
             return this.albums = this.albumService.getAlbums();
-      }
+      };
 
       onSelect(album: Album) {
             this.seen = true;
             return this.selectedAlbum = this.service.getAlbum(album.id);
             
-      }
+      };
 
       // Méthode pour gérer l'événement "onPlay" émis par le composant "album-details"
       playParent(album: Album) {
@@ -55,36 +55,32 @@ export class AlbumsComponent implements OnInit {
             album.status = 'on';
 
             return this.service.getAlbumList(album.id);
-      }
+      };
 
       // méthode count permettant de compter le nombre total de pages sur l'accueil
       count(): number {
             return this.albumService.getAlbums().length;
-      }
+      };
 
       // méthode onSearchChanged qui permet de déclencher l'évènement
       onSearchChanged($event: Album[]) {
-
             if ($event) {
                   this.paginatedAlbums = $event;
             }
             return  this.messageAlert;
-            
-      }
+      };
 
       onPageChange(pageNumber: number) {
-
             if (pageNumber >= 1 && pageNumber <= this.totalPages) {
                   this.currentPage = pageNumber;
-                  this.start = (this.currentPage - 1) * 2; // Remplacez 2 par le nombre d'albums par page
-                  this.end = this.start + 2; // Remplacez 2 par le nombre d'albums par page
+                  this.start = (this.currentPage - 1) * 1; 
+                  this.end = this.start + 1; 
                   this.paginatedAlbums = this.albumService.paginate(this.start, this.end);
             }
-
       };
 
       getTotalPages(): number {
-            return Math.ceil(this.albumService.getAlbumsCount() / 2); // Remplacez 2 par le nombre d'albums par page
+            return Math.ceil(this.albumService.getAlbumsCount() / 1); 
       };
 
       getPageNumbers(): number[] {
@@ -93,7 +89,7 @@ export class AlbumsComponent implements OnInit {
 
       toggleRandomList($event: boolean) {
             this.seen = false;
-      }
+      };
 
 }
 

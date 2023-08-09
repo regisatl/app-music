@@ -1,65 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DatePipe } from "@angular/common";
 import { fadeInAnimation } from './animation.module';
 import { AuthService } from './auth.service';
+import { interval, Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 
 @Component({
       selector: 'app-root',
       templateUrl: './app.component.html',
       styleUrls: ['./app.component.css'],
-      animations: [fadeInAnimation],
       providers: [DatePipe],
+      animations: [fadeInAnimation]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
       title = 'ATL Music';
       formattedDate: string | null;
       darkMode: boolean = false;
-      private readonly THEME_KEY = 'theme';
-      private readonly DARK_THEME = 'dark';
-      private readonly LIGHT_THEME = 'light';
+      receivedText: string | undefined;
+      timerObservable!: Observable<string>;
+      time!: string;
 
       constructor(
             private datePipe: DatePipe,
             private authService: AuthService,
-
       ) {
             const maDate = new Date();
             this.formattedDate = this.datePipe.transform(maDate, 'HH:mm:ss');
+      }
+
+      ngOnInit(): void {
+
+            this.timerObservable = interval(1000).pipe(
+                  take( 3600 * 12 ),
+                  map(num => {
+                        const hours = Math.floor(num / 3600);
+                        const minutes = Math.floor(num / 60);
+
+                        return `${this.format(hours)} : ${this.format(minutes - hours * 60)} : ${this.format(num - minutes * 60)}`;
+                  })
+            );
+
+            this.timerObservable.subscribe(timers => {
+                  this.time = timers
+            });
       };
+
+      format(num: number): string {
+            return (num < 10 ? '0' : '') + num;
+      }
+
+      parentReceive($event: string) {
+            this.receivedText = $event;
+      }
 
       logout() {
             this.authService.logout();
       };
-
-      toggleDarkMode(): void {
-            const currentTheme = this.getPreferredTheme();
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            this.setPreferredTheme(newTheme);
-            this.applyTheme(newTheme);
-      }
-
-      applyTheme(theme: string): void {
-            document.documentElement.setAttribute('data-theme', theme);
-      }
-
-
-      getPreferredTheme(): string {
-            const theme = localStorage.getItem(this.THEME_KEY);
-            return theme ? theme : this.LIGHT_THEME;
-      }
-
-      setPreferredTheme(theme: string): void {
-            localStorage.setItem(this.THEME_KEY, theme);
-      }
-
-      // constructor() { }
-
-      // receivedText: string |undefined;
-
-      // parentReceived($event: string) {
-      //      this.receivedText = $event;
-      // }
 
 }
 
