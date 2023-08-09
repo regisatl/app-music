@@ -1,6 +1,4 @@
-// Component enfant
-// la classe Input est nécessaire
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Album, List } from '../album';
 import { AlbumService } from '../album.service';
 import { fadeInAnimation } from '../animation.module';
@@ -11,58 +9,46 @@ import { fadeInAnimation } from '../animation.module';
       styleUrls: ['./album-details.component.css'],
       animations: [fadeInAnimation]
 })
+// à chaque "hook" son interface
 export class AlbumDetailsComponent implements OnInit, OnChanges {
+      @Input() album: Album | undefined; // propriété liée qui sera passée par le parent
+      @Output() onPlay: EventEmitter<Album> = new EventEmitter();
+      @Output() onHide: EventEmitter<Album> = new EventEmitter();
 
-      // Classe Input permet de récupérer les data de l'enfant
-      @Input() album!: Album;
-
-      // album est liée à une entrée [album] du parent dans le sélecteur
-      lists: List[] = [];
-      randomList: string[] = [];
-      albumsLists!: string[] | undefined;
-      seen: boolean = true; // Propriété pour afficher/cacher la liste aléatoire
-      isPlaying: boolean = false; // Propriété pour suivre l'état de lecture
+      albumLists: List[] = [];
+      /** tableau qui stock la liste des chansons de l'album */
+      songs: string[] | undefined = [];
+      isPlaying: boolean = false;
 
       constructor(
-            private albumService: AlbumService,
+            private albumService: AlbumService
       ) { }
 
-      ngOnInit() {
-            this.album;
-      };
+      ngOnInit(): void {
+      }
 
+      // quand il y a du nouveau
       ngOnChanges(): void {
-
-            if (this.album !== undefined) {
-                  this.albumsLists = this.albumService.getAlbumList(this.album.id)?.list;
+            if (this.album) {
+                  this.albumService.getAlbumList(this.album.id).subscribe(
+                        (albumList) => { this.songs = albumList.list }
+                  );
             }
 
-      };
+      }
 
-      @Output() onPlay: EventEmitter<Album> = new EventEmitter();
+      play(songs: Album) {
+            // emettre un album vers le parent
+            this.onPlay.emit(songs);
+            this.albumService.switchOn(songs);
+            this.isPlaying = !this.isPlaying;
+      }
 
-      @Output() toggleDetails: EventEmitter<boolean> = new EventEmitter();
+      shuffleAlbum(songs: string[]) {
+            this.songs = this.albumService.shuffle(songs);
+      }
 
-      play(album: Album) {
-
-            this.onPlay.emit(album); // émettre un album vers le parent AlbumsComponent
-            this.isPlaying = !this.isPlaying; // Inverse l'état de lecture
-            this.albumService.switchOn(album);
-
-      };
-
-      shuffleAlbumsLists() {
-            if (this.albumsLists && this.albumsLists.length > 1) {
-                  for (let i = this.albumsLists.length - 1; i > 0; i--) {
-                        const j = Math.floor(Math.random() * (i + 1));
-                        [this.albumsLists[i], this.albumsLists[j]] = [this.albumsLists[j], this.albumsLists[i]];
-                  }
-            }
-      };
-
-      // Méthode pour afficher/cacher la liste aléatoire
-      toggleList() {
-            this.toggleDetails.emit(this.seen);
+      hide(album: Album) {
+            this.onHide.emit(album);
       }
 }
-

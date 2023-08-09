@@ -1,94 +1,169 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map, Observable, Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Album, List } from './album';
-import { ALBUMS, ALBUM_LISTS } from './mock-albums';
-import { Subject } from 'rxjs';
-// Une classe injectable est un service et peut recevoir d'autre(s) service(s)
 
 @Injectable({
-      providedIn: 'root' // injecter de manière globale
+      providedIn: 'root'
 })
-
 export class AlbumService {
 
-      constructor() { }
+      private _albumsUrl: string = environment.albumUrl;
+      private _albumListUrl: string = environment.albumListUrl;
 
-      selectedAlbum!: Album;
-      private albums: Album[] = ALBUMS;
-      private albumsList: List[] = ALBUM_LISTS;
       subjectAlbum = new Subject<Album>();
+      // Observable qui notifie aux abonné la page actuelle
+      sendCurrentNumberPage = new Subject<number>();
 
-      getAlbums(): Album[] {
-            return this.albums;
-      };
+      constructor(private http: HttpClient) { }
 
-      getAlbum(id: string) {
-            ALBUMS.forEach(elAlbums => {
-                  if (elAlbums.id === id) {
-                        this.selectedAlbum = elAlbums;
-                  }
-            });
-            return this.selectedAlbum;
-      };
-
-      getAlbumsCount(): number {
-            return this.albums.length;
-      };
-
-      getAlbumList(id: string): List | undefined {
-            return this.albumsList.find(albumMusic => albumMusic.id === id);
-      };
-
-      getAlbumsByKeyword(keyword: string): Album[] {
-            keyword = keyword
-                  .trim()
-                  .toLowerCase();
-            return this.albums.filter(album => album.ref
-                  .toLowerCase()
-                  .includes(keyword));
-      };
-
-      paginate(start: number, end: number): Album[] {
-            return this.albums.slice(start, end);
-      };
       /**
-       * 
-       * Méthode qui permet de changer le status d'un album à 'on'
-       * @param album : l'album dont le status doit passer à "on"
+       * Fonction de recherche de tous les albums
+       * @returns Retourne la liste de tous les albums
        */
+      getAlbums(): Observable<Album[]> {
+            return this.http.get<Album[]>(this._albumsUrl).pipe(
+                  map((albums: Album[]) => {
+                        return albums.sort(
+                              (a: Album, b: Album) => b.duration - a.duration
+                        );
+                  })
+            );
+      }
 
-      switchOn(album: Album) {
+      /**
+       * Fonction de recherche d'un album particulier
+       * @param id identifiant de l'album à rechercher
+       * @returns Retourne l'album correspondant; undefined si aucun identifiant ne correspond
+       */
+      getAlbum(id: string): Observable<Album> | undefined {
+            return this.http.get<Album>(this._albumsUrl + '/' + id)
+                  .pipe(
+                        map((album: Album) => album)
+                  );
+      }
 
-            this.albums.forEach((a: Album) => {
-                  // si l'album actuel est celui qu'on joue 
-                  if (a.id === album.id) {
-                        //mettre le status à "on"
-                        a.status = "on"; // L'album est en train d'être écouté
-                        album.status = "on";
-                  }
-                  else {
-                        // sinon mettre le status à "off"
-                        a.status = "off"; // Désactive l'écoute de l'album
-                  }
-            });
-            // envoyez une notification à tous les abonnés
-            this.subjectAlbum.next(album);
 
-      };
+      /**
+       * Fonction de recherche des sons d'un albums
+       * @param id identifiant de l'album à rechercher
+       * @returns La référence sera retourné si elle existe; undefined si l'id n'existe pas dans la liste.
+       */
+      getAlbumList(id: string): Observable<List> {
+            return this.http.get<List>(this._albumListUrl + '/' + id);
+      }
 
-      switchOff(album: Album) {
-            album.status = 'off'; // Désactive l'écoute de l'album
-      };
+      /**
+       * Fonction qui retourne le nombre d'albums
+       * @returns Le nombre d'albums
+       */
+      count(): Observable<number> {
+            return this.http.get<Album[]>(this._albumsUrl).pipe(
+                  map((albums: Album[]) => albums.length)
+            );
+      }
 
-}
-
-export { Album };
 
       // order(callback: SortAlbumCallback): AlbumService {
-      //       this.albums.sort((a: Album, b: Album) => b.duration - a.duration);
-      //       return this;
-      // };
+      //   this._albums.sort(callback);
+      //   return this; // retourne le service pour permettre le chainage de méthodes
+      // }
 
-      // limit(start: number, end: number) {
-      //       this.albums = this.albums.slice(start, end);
-      //       return this;
-      // };
+      // limit(start: number, end: number): AlbumService {
+      //   this._albums = this._albums.slice(start, end)
+      //   return this; // retourne le service pour permettre le chainage de méthodes
+      // }
+
+      paginate(start: number, end: number): Observable<Album[]> {
+            return this.http.get<Album[]>(this._albumsUrl).pipe(
+                  map(
+                        (albums) => albums.sort(
+                              (a, b) => b.duration - a.duration
+                        ).slice(start, end)
+                  )
+            );
+      }
+      /**
+       * Type de requête
+       *
+       * get  => récupérer une resource
+       * post => envoyer une resource
+       * put  => m-à-j une resource
+       */
+      search(word: string): Observable<Album[]> {
+            return this.http.get<Album[]>(this._albumsUrl).pipe(
+                  map((albums: Album[]) => {
+                        // parcourir le tableau d'albums
+                        return albums.filter(album => {
+                              // retourner ceux contenant le string de la variable "word"
+                              return album.ref
+                                    .toLowerCase()
+                                    .includes(word.trim().toLowerCase());
+                        });
+
+                  })
+            )
+      }
+
+      // searchV2(word: string): Album[] {
+      //   let re = new RegExp(word.trim(), "g");
+      //   return this._albums.filter(album => album.title.match(re));
+      // }
+
+      shuffle(songs: string[]) {
+            for (let i = songs.length - 1; i > 0; i--) {
+                  const j = Math.floor(Math.random() * (i + 1));
+                  [songs[i], songs[j]] = [songs[j], songs[i]];
+            }
+            return songs;
+      }
+
+      /**
+       * Méthode qui renvoi le nombre d'album qu'on
+       * aura par page
+       */
+      paginateNumberPage(): number {
+            return environment.numberPage;
+      }
+
+      /**
+       * Méthode qui signale à tous les composants
+       * la page actuelle
+      * @param numberPage numéro de la page actuelle
+       * @returns
+       */
+      currentPage(numberPage: number) {
+            return this.sendCurrentNumberPage.next(numberPage);
+      }
+
+      /**
+       * Méthode qui permet de changer le status d'un album à "on"
+       * @param album : l'album dont le status doit passer à "on"
+      */
+      switchOn(album: Album): void {
+            album.status = "on";
+            // le code ci-dessous s'exécute car on y souscrit
+            this.http.put<void>(this._albumsUrl + '/' + album.id, album)
+                  .subscribe({
+                        next: (data) => console.log(data),
+                        error: (err) => console.warn(err),
+                        complete: () => this.subjectAlbum.next(album)
+                  })
+      }
+
+      /**
+        * Méthode qui permet de changer le status d'un album à "off"
+        * @param album : l'album dont le status doit passer à "off"
+        */
+      switchOff(album: Album): void {
+            album.status = "off";
+            /**
+             * renvoi un observable, est ne s'exécute
+             * donc qu'à la souscription. Du coup,
+             * il faut il souscrire, pour l'exécuter
+             */
+            this.http.put<void>(`${this._albumsUrl}/${album.id}`, album)
+                  .subscribe(() => { });
+      }
+}

@@ -14,6 +14,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FirstComponent } from './first-comp/first-comp.component';
 import { SecondComponent } from './second-comp/second-comp.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
+import { HttpClientModule } from "@angular/common/http";
+import { PaginateComponent } from './paginate/paginate.component';
 
 
 const albumsRoutes: Routes = [
@@ -40,13 +42,15 @@ const albumsRoutes: Routes = [
             PageNotFoundComponent,
             FirstComponent,
             SecondComponent,
-            AudioPlayerComponent     
+            AudioPlayerComponent,
+            PaginateComponent     
       ],
       imports: [
             BrowserModule,
             FormsModule,
             BrowserAnimationsModule,
             RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application
+            HttpClientModule,
       ],
       providers: [],
       bootstrap: [AppComponent],

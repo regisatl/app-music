@@ -1,7 +1,7 @@
-<div class="card shadow-xxl mb-5 bg-black bg-gradient bg-opacity-75 rounded border-0" [@fadeInAnimation]>
+<div class="card shadow-xxl mb-5 bg-black bg-gradient bg-opacity-75 rounded border-0" [@fadeInAnimation] *ngIf="album">
 
       <div class="card-header bg-black text-warning text-uppercase fs-5 fw-bold py-4 rounded-top">
-            {{album.ref}}
+            {{album.name}}
       </div>
       <div class="card-body mb-3 text-light">
             <h1 class="w3-text-white fw-bold fs-4">
@@ -9,15 +9,15 @@
                   <span> : {{ album.title }}</span>
             </h1>
             <p class="card-text" style="font-size: 1.2rem;">{{album.description}}</p>
-            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Duration</small><strong> : {{album.duration}}</strong>
+            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Duration</small><strong> : {{album.duration || 0 }} min </strong>
                   min</p>
-            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Like</small><strong> : {{album.like}}</strong> </p>
-            <ul class="list-group list-group-horizontal py-2 col-sm-3 mb-3 fw-bold" style="font-size: 1rem;">
+            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Like</small><strong> :  {{ album.like || 'Pas de Likes'}} </strong> </p>
+            <ul class="list-group list-group-horizontal py-2 col-sm-3 mb-3 fw-bold" style="font-size: 1rem;"  *ngIf="album.tags">
                   <li class="list-group-item list-group-item-action w3-white badge mx-1 shadow-lg rounded border-0"
                         *ngFor="let tag of album.tags" style="font-size: 1rem;"> {{tag}}
                   </li>
             </ul>
-            <div class="text-center mb-0" [@fadeInAnimation]>
+            <div class="text-center mb-0" [@fadeInAnimation]  *ngIf="album.url">
                   <img class="img-fluid rounded" src=" {{ album.url }} " width="300px" height="auto" />
             </div>
       </div>

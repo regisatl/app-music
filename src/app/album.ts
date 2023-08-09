@@ -1,26 +1,24 @@
 export class Album {
-
-      'id': string;
-      'ref': string;
-      'name': string;
-      'title': string;
-      'description': string;
-      'duration': number;
-      'status': string;
-      'url'?: string;
-      'tags'?: Array<string>;
-      'like'?: string;
-      'note'?: Array<number>
-}
-
-
-export class List {
-      'id': string;
-      'list': Array<string>
-}
-
-export interface SortAlbumCallback {
-      (a: Album, b: Album) : number
-}
-
-
+      constructor(
+        public id: string,
+        public ref: string,
+        public name: string,
+        public title: string,
+        public description: string,
+        public duration: number,
+        public status: string,
+        public url?: string,
+        public tags?: string[],
+        public like?: string,
+      ) { }
+    }
+    
+    export interface List {
+      id: string,
+      list: string[] // string[]
+    };
+    
+    export interface SortAlbumCallback {
+      (a: Album, b: Album): number;
+    }
+    

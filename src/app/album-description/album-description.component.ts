@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Album, AlbumService } from '../album.service';
+import { Album } from '../album';
+import { AlbumService } from '../album.service';
 import { fadeInAnimation } from '../animation.module';
 
 @Component({
@@ -8,22 +9,21 @@ import { fadeInAnimation } from '../animation.module';
       templateUrl: './album-description.component.html',
       styleUrls: ['./album-description.component.css'],
       animations: [fadeInAnimation]
+
 })
 export class AlbumDescriptionComponent implements OnInit {
-      album!: Album;
-      service: any;
-
+      album: Album | undefined;
       constructor(
             private route: ActivatedRoute,
-            private albumService: AlbumService
+            private aS: AlbumService // service
       ) { }
 
-      ngOnInit() {
-            this.route.params.subscribe(params => {
-                  const albumId = params['id'];
-                  this.album = this.albumService.getAlbum(albumId);
+      ngOnInit(): void {
+            // permet de récupérer l'identifiant
+            const id: string = this.route.snapshot.params["albumId"];
+            // const id = this.route.snapshot.paramMap.get('albumId');
+            this.aS.getAlbum(id)?.subscribe(album => {
+                  this.album = album;
             });
       }
 }
-
-

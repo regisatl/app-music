@@ -1,0 +1,16 @@
+<!-- section de pagination -->
+<div class="container mb-3 mt-3 p-0">
+      <ul class="pagination rounded fw-bold z-0">
+            <li role="button" class="page-item z-0" (click)="previous()">
+                  <button class="page-link" [ngClass]="{'disabled': currentPage === 1}">Previous</button>
+            </li>
+            <li role="button" class="page-item z-0" *ngFor="let page of pages" (click)="changePage(page)">
+                  <a class="page-link" [ngClass]="{'active': currentPage === page}">
+                        {{ page }}
+                  </a>
+            </li>
+            <li role="button" class="page-item z-0" (click)="next()">
+                  <button class="page-link" [ngClass]="{'disabled': currentPage === numberPages}">Next</button>
+            </li>
+      </ul>
+</div>

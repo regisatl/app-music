@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Album, AlbumService } from '../album.service';
+import { Album } from '../album';
+import { AlbumService } from '../album.service';
 
 @Component({
       selector: 'app-audio-player',
@@ -7,58 +8,48 @@ import { Album, AlbumService } from '../album.service';
       styleUrls: ['./audio-player.component.css']
 })
 export class AudioPlayerComponent implements OnInit {
-      // Variable permettant d'afficher ou non, le composant audio-player
-      showPlayer: boolean = false;
-      // Variable représentant l'album joué
+      /** Variable permettant d'afficher ou non, le composant audio-player */
+      showplayer: boolean = false;
+      /** Variable representant l'album joué */
       playedAlbum!: Album;
-      // variable représentant la manière de progression du son
-      progressRatio = 0;
-      // variable représentant le nombre total de sons dans l'album
+      /** Variable représentant le nombre total de sons dans l'album */
       total: number = 1;
-      // variable représentant le numéro du son joué actuellement (1/4)
+      /** Variable représentant le numéro du son joué actuellement (1 / 4) */
       currentSongNumber: number = 1;
-      // variable représentant la durée de chaque l'album
-      duration!: number;
-      // niveau d'étape
-      step!: number;
+      /** Variable représentant le pourcentage de sons joué (25% pour 1/4, 50% pour 2/4) */
+      ratio: number = 0;
 
-      constructor(
-            private albumService: AlbumService,
-      ) { }
+      constructor(private albumService: AlbumService) { }
 
       ngOnInit(): void {
-            // souscrire au Sujet "subjectAlbum" pour recevoir les notification
+            // souscrire au Sujet "subectAlbum" pour recevoir les notifications
             this.albumService.subjectAlbum.subscribe({
                   next: (a: Album) => {
                         this.playedAlbum = a;
                         // afficher le composant
-                        this.showPlayer = true;
+                        this.showplayer = true;
                         // le son joué en 1er est le n°1
                         this.currentSongNumber = 1;
-                        this.duration = this.playedAlbum.duration; // durée total de l'album
-                        this.total = Math.floor(this.duration / 120);
+                        let duration: number = this.playedAlbum.duration; // durée total de l'album
+                        this.total = Math.floor(duration / 120);
                         //
-                        this.progressRatio = (100 / this.total);
+                        this.ratio = (100 / this.total);
+                        /** Variable représentant le % à ajouter après chaque son dans la barre de progression */
+                        let step = this.ratio; // il faut à chaque augmenter le ratio%
 
-                        // variable représentan le % à ajouter après chaque son dans la barre de progression
-                        this.step = this.progressRatio; // il faut à chaque fois augmenter le progessRatio%
-
-                        // augmenter le niveau de la bar de progression chaque 2 minutes (120 000 milliseconds)
-
-                        const timerId = setInterval(() => {
+                        // augmenter le niveau de la barre de progression chaque 2min (et donc chaque 120 000 millisecondes)
+                        const intervalId = setInterval(() => {
                               this.currentSongNumber++;
-                              this.progressRatio += this.step;
-                              if (this.progressRatio > 100) {
-                                    clearInterval(timerId);
-                                    this.showPlayer = false;
+                              this.ratio += step;
+                              if (this.ratio > 100) {
+                                    clearInterval(intervalId);
+                                    this.showplayer = false;
                                     this.albumService.switchOff(this.playedAlbum);
                               }
-
-                        }, 1000)
+                        }, 1000);
 
                   }
-            })
+            });
       }
-
 
 }

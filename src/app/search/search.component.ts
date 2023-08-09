@@ -1,43 +1,39 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { AlbumService } from '../album.service';
-import { Album } from '../album';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { fadeInAnimation } from '../animation.module';
+import { Album } from '../album';
+import { AlbumService } from '../album.service';
 
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    styleUrls: ['./search.component.css'],
-    animations: [fadeInAnimation]
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-    // Propriété pour stocker le critère de recherche saisi par l'utilisateur
-    search = 'Search Albums';
-    searchKeyword: string = '';
-    searchResults: Album[] = [];
-    word: string = '';
+  word: string = '';
 
-    constructor(private albumService: AlbumService) { }
+  @Output() searchAlbums: EventEmitter<Album[]> = new EventEmitter(); // émetteur d'évenement
+  constructor(
+    private albumService: AlbumService
+  ) {}
 
-    // Événement émis lorsque l'utilisateur effectue une recherche
-    @Output() searchChanged: EventEmitter<Album[]> = new EventEmitter();
+  onSubmit(form: NgForm) {
+    const results = this
+          .albumService.search(form.value.word)
+          .subscribe({
+            next: (alb: Album[]) => {
+              if( alb.length > 0) {
+                this.searchAlbums.emit(alb);
+              }
+            }
+          });
+  }
 
-    // Méthode pour déclencher l'événement de recherche avec le critère saisi
-    searchAlbums() {
-        if (this.searchKeyword) {
-            this.searchResults = this.albumService.getAlbumsByKeyword(this.searchKeyword);
-        } else {
-            this.searchResults = [];
-        }
-    };
-
-    onSubmit(form: NgForm): void {
-        const keyword = form.value['word'];
-        this.searchResults = this.albumService.getAlbumsByKeyword(keyword);
-        this.searchChanged.emit(this.searchResults);
-    };
-    onChangedEmit($event: string) {
-        this.searchResults = this.albumService.getAlbumsByKeyword($event);
-        this.searchChanged.emit(this.searchResults);
-    };
+  onChangeEmit($event: string) {
+    const results = this.albumService.search($event)
+          .subscribe(
+            (alb: Album[]) => {
+              this.searchAlbums.emit(alb);
+            }
+          )
+  }
 }
