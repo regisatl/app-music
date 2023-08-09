@@ -918,3 +918,539 @@ export class ChildComponent {
 Dans cet exemple, le composant enfant `ChildComponent` émet un événement personnalisé `customEvent` lorsqu'un bouton est cliqué. Le composant parent peut écouter cet événement en utilisant `(customEvent)="handleCustomEvent()"` lors de l'utilisation du composant enfant dans son propre template.
 
 En résumé, `@Input` est utilisé pour transmettre des données du composant parent vers le composant enfant, tandis que `@Output` est utilisé pour permettre au composant enfant d'émettre des événements vers son composant parent. Ils constituent une approche puissante pour communiquer entre composants dans une application Angular et facilitent le partage de données et d'actions entre différentes parties de l'application.
+
+Les Observables sont une partie centrale de la programmation réactive en JavaScript, et ils sont souvent utilisés dans le contexte des appels réseau, comme les requêtes HTTP. Angular, par exemple, utilise des Observables pour gérer les appels HTTP via son service `HttpClient`.
+
+Voici comment vous pourriez utiliser des Observables pour lancer des requêtes HTTP avec `HttpClient` dans Angular :
+
+1. **Importez les modules nécessaires :** Tout d'abord, assurez-vous que vous avez importé les modules nécessaires dans votre fichier. Habituellement, vous aurez besoin d'importer le service `HttpClientModule` depuis `@angular/common/http`.
+
+```typescript
+import { HttpClientModule } from '@angular/common/http';
+```
+
+2. **Injectez le service `HttpClient` :** Dans votre composant ou service où vous souhaitez effectuer des requêtes HTTP, injectez le service `HttpClient`.
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+// ...
+constructor(private http: HttpClient) { }
+```
+
+3. **Utilisez des Observables pour les requêtes HTTP :** Vous pouvez utiliser des Observables pour les appels HTTP. Les méthodes du service `HttpClient` renvoient des Observables qui émettent des données lorsque la requête est terminée.
+
+```typescript
+// Exemple d'appel GET
+this.http.get('https://api.example.com/data').subscribe(
+  (response) => {
+    console.log('Réponse reçue :', response);
+  },
+  (error) => {
+    console.error('Erreur lors de la requête :', error);
+  }
+);
+
+// Exemple d'appel POST
+const postData = { name: 'John', age: 30 };
+this.http.post('https://api.example.com/save', postData).subscribe(
+  (response) => {
+    console.log('Réponse reçue :', response);
+  },
+  (error) => {
+    console.error('Erreur lors de la requête :', error);
+  }
+);
+```
+
+4. **Gérer les données émises par l'Observable :** Les Observables renvoient des données sous forme d'événements. Vous pouvez les traiter en utilisant les fonctions de rappel fournies dans la méthode `subscribe()`. La première fonction est appelée lorsque des données sont émises, et la deuxième fonction est appelée en cas d'erreur.
+
+C'est ainsi que vous pouvez utiliser des Observables pour gérer les requêtes HTTP avec le service `HttpClient` dans Angular. La programmation réactive offre des avantages en termes de gestion asynchrone et de manipulation des données, ce qui peut rendre le code plus propre et plus maintenable.
+
+<!-- app Music observables -->
+
+Pour utiliser les Observables avec les requêtes HTTP via le service `HttpClient` dans Angular pour accéder aux données à partir d'un serveur local (par exemple, `db.json`), vous pouvez suivre les étapes suivantes :
+
+1. **Importez les modules nécessaires :** Assurez-vous d'importer les modules requis, y compris `HttpClientModule` dans le module principal de votre application.
+
+```typescript
+import { HttpClientModule } from '@angular/common/http';
+```
+
+2. **Mettez à jour le service pour utiliser HttpClient et les Observables :** Modifiez votre service `AlbumService` pour qu'il utilise `HttpClient` pour effectuer des appels HTTP.
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Album, List, SortAlbumCallback } from './album';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AlbumService {
+
+  private apiUrl = 'http://localhost:3000'; // Mettez à jour l'URL du serveur local
+
+  constructor(private http: HttpClient) { }
+
+  // ...
+
+  getAlbums(): Observable<Album[]> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`);
+  }
+
+  getAlbum(id: string): Observable<Album | undefined> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => albums.find(album => album.id === id))
+    );
+  }
+
+  // ...
+
+  order(callback: SortAlbumCallback): Observable<Album[]> {
+    return this.getAlbums().pipe(
+      map(albums => albums.sort((a: Album, b: Album) => b.duration - a.duration))
+    );
+  }
+
+  limit(start: number, end: number): Observable<Album[]> {
+    return this.getAlbums().pipe(
+      map(albums => albums.slice(start, end))
+    );
+  }
+
+  paginate(start: number, end: number): Observable<Album[]> {
+    return this.getAlbums().pipe(
+      map(albums => albums.slice(start, end))
+    );
+  }
+
+}
+```
+
+3. **Utilisez le service dans vos composants :** Dans vos composants, vous pouvez maintenant utiliser les méthodes du service `AlbumService` comme des Observables.
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { AlbumService } from './album.service';
+import { Album } from './album';
+
+@Component({
+  selector: 'app-albums',
+  templateUrl: './albums.component.html',
+  styleUrls: ['./albums.component.css']
+})
+export class AlbumsComponent implements OnInit {
+
+  albums: Album[] = [];
+
+  constructor(private albumService: AlbumService) { }
+
+  ngOnInit(): void {
+    this.albumService.getAlbums().subscribe(
+      albums => this.albums = albums,
+      error => console.error('Erreur lors de la récupération des albums :', error)
+    );
+  }
+
+  // ...
+
+}
+```
+
+Assurez-vous d'ajuster l'URL de l'API (`apiUrl`) pour correspondre à votre serveur local. Cela suppose que vous avez un fichier `db.json` qui expose des endpoints pour les données d'albums.
+
+N'oubliez pas d'importer les modules nécessaires (`HttpClientModule`, `HttpClient`, `Observable`, `map`) et d'ajouter les gestionnaires d'erreurs appropriés pour vos abonnements.
+
+<!-- Albums.component -->
+
+Pour réécrire le code en utilisant les Observables et les fonctions dérivées, vous devez ajuster les méthodes du composant `AlbumsComponent` pour prendre en compte les Observables retournés par le service `AlbumService`. Voici comment vous pourriez faire cela :
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { Album } from '../album';
+import { AlbumService } from '../album.service';
+import { fadeInAnimation } from '../animation.module';
+
+@Component({
+  selector: 'app-albums',
+  templateUrl: './albums.component.html',
+  styleUrls: ['./albums.component.css'],
+  animations: [fadeInAnimation]
+})
+export class AlbumsComponent implements OnInit {
+  private start = 0;
+  private end = 2; // Nombre d'albums par page
+  titlePage: string = "Page principale Albums Music";
+  albums: Album[] = [];
+  selectedAlbum!: Album;
+  filteredAlbums: Album[] = [];
+  paginatedAlbums: Album[] = [];
+  currentPage: number = 1;
+  totalPages: number = 0;
+  messageAlert: string = "Aucun album de ce nom trouvé....";
+  seen: boolean = true;
+
+  constructor(private albumService: AlbumService) { }
+
+  ngOnInit(): void {
+    this.albumService.getAlbums().subscribe(albums => {
+      this.albums = albums;
+      this.totalPages = this.getTotalPages();
+      this.paginatedAlbums = this.paginateAlbums(this.currentPage);
+    });
+  }
+
+  onSelect(album: Album): void {
+    this.seen = true;
+    this.albumService.getAlbum(album.id).subscribe(selectedAlbum => this.selectedAlbum = selectedAlbum);
+  }
+
+  playParent(album: Album): void {
+    this.albums.forEach(a => a.status = a.id === album.id ? 'on' : 'off');
+    this.albumService.getAlbumList(album.id).subscribe(albumList => albumList);
+  }
+
+  onSearchChanged($event: Album[]): void {
+    if ($event.length > 0) {
+      this.paginatedAlbums = $event;
+      this.messageAlert = "";
+    } else {
+      this.paginatedAlbums = [];
+      this.messageAlert = "Aucun album de ce nom trouvé....";
+    }
+  }
+
+  onPageChange(pageNumber: number): void {
+    if (pageNumber >= 1 && pageNumber <= this.totalPages) {
+      this.currentPage = pageNumber;
+      this.paginatedAlbums = this.paginateAlbums(pageNumber);
+    }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.albums.length / this.end);
+  }
+
+  getPageNumbers(): number[] {
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  toggleRandomList($event: boolean): void {
+    this.seen = false;
+  }
+
+  private paginateAlbums(pageNumber: number): Album[] {
+    const start = (pageNumber - 1) * this.end;
+    const end = start + this.end;
+    return this.albums.slice(start, end);
+  }
+}
+```
+
+Il est important de noter que toutes les opérations asynchrones, comme les appels HTTP, doivent être gérées via des Observables. Vous devez donc vous abonner aux Observables renvoyés par les méthodes du service `AlbumService` et mettre à jour les propriétés du composant en conséquence lorsque les données sont disponibles.
+
+<!-- search.ts -->
+
+Pour réécrire le code en utilisant les Observables et les fonctions dérivées, vous devez ajuster les méthodes du composant `SearchComponent` pour utiliser les Observables retournés par le service `AlbumService`. Voici comment vous pourriez le faire :
+
+```typescript
+import { Component, Output, EventEmitter } from '@angular/core';
+import { AlbumService } from '../album.service';
+import { Album } from '../album';
+import { NgForm } from '@angular/forms';
+import { fadeInAnimation } from '../animation.module';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css'],
+  animations: [fadeInAnimation]
+})
+export class SearchComponent {
+  search = 'Search Albums';
+  searchKeyword: string = '';
+  searchResults: Album[] = [];
+  word: string = '';
+  
+  constructor(private albumService: AlbumService) { }
+  
+  @Output() searchChanged: EventEmitter<Album[]> = new EventEmitter();
+
+  // Utilisation d'un Observable pour gérer les événements de recherche
+  searchAlbums$: Observable<Album[]>;
+
+  ngOnInit(): void {
+    this.searchAlbums$ = this.albumService.searchAlbums$;
+  }
+
+  searchAlbums() {
+    this.albumService.searchAlbums(this.searchKeyword);
+  }
+
+  onSubmit(form: NgForm): void {
+    const keyword = form.value['word'];
+    this.albumService.searchAlbums(keyword);
+  }
+
+  onChangedEmit($event: string) {
+    this.albumService.searchAlbums($event);
+  }
+}
+```
+
+Dans le service `AlbumService`, ajoutez les modifications nécessaires pour introduire l'Observable et les opérateurs de RxJS :
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Album, List, SortAlbumCallback } from './album';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AlbumService {
+
+  private apiUrl = 'http://localhost:3000';
+  private albums$ = new BehaviorSubject<Album[]>([]);
+  searchAlbums$ = this.albums$.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  getAlbums(): Observable<Album[]> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => {
+        this.albums$.next(albums);
+        return albums;
+      })
+    );
+  }
+
+  getAlbum(id: string): Observable<Album | undefined> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => albums.find(album => album.id === id))
+    );
+  }
+
+  // ...
+
+  searchAlbums(keyword: string): void {
+    const filteredAlbums = this.albums$.getValue().filter(album =>
+      album.ref.toLowerCase().includes(keyword.trim().toLowerCase())
+    );
+    this.albums$.next(filteredAlbums);
+  }
+}
+```
+
+Dans cette version réécrite, nous utilisons un `BehaviorSubject` nommé `albums$` pour stocker les albums actuellement disponibles. Chaque fois que nous avons de nouvelles données d'albums, nous les émettons avec la méthode `next()`. Le composant `SearchComponent` utilise l'Observable `searchAlbums$` pour être notifié des changements dans les albums filtrés. Lorsque l'utilisateur effectue une recherche, le service `AlbumService` met à jour les albums filtrés en fonction du critère de recherche, ce qui déclenche automatiquement la mise à jour dans le composant.
+
+<!-- albums details -->
+
+Pour réécrire le code en utilisant les Observables et les fonctions dérivées, vous devez ajuster les méthodes du composant `AlbumDetailsComponent` pour utiliser les Observables retournés par le service `AlbumService`. Voici comment vous pourriez le faire :
+
+```typescript
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Album, List } from '../album';
+import { AlbumService } from '../album.service';
+import { fadeInAnimation } from '../animation.module';
+import { Observable } from 'rxjs';
+
+@Component({
+  selector: 'app-album-details',
+  templateUrl: './album-details.component.html',
+  styleUrls: ['./album-details.component.css'],
+  animations: [fadeInAnimation]
+})
+export class AlbumDetailsComponent implements OnInit, OnChanges {
+
+  @Input() album!: Album;
+  lists$: Observable<List[]> | undefined;
+  randomList: string[] = [];
+  albumsLists$: Observable<string[] | undefined> | undefined;
+  seen: boolean = true;
+  isPlaying: boolean = false;
+
+  constructor(
+    private albumService: AlbumService,
+  ) { }
+
+  ngOnInit() {
+    this.album;
+  }
+
+  ngOnChanges(): void {
+    if (this.album !== undefined) {
+      this.albumsLists$ = this.albumService.getAlbumList(this.album.id);
+    }
+  }
+
+  @Output() onPlay: EventEmitter<Album> = new EventEmitter();
+  @Output() toggleDetails: EventEmitter<boolean> = new EventEmitter();
+
+  play(album: Album) {
+    this.onPlay.emit(album);
+    this.isPlaying = !this.isPlaying;
+  }
+
+  shuffleAlbumsLists() {
+    if (this.albumsLists$) {
+      this.albumsLists$.subscribe(albumsLists => {
+        if (albumsLists && albumsLists.length > 1) {
+          for (let i = albumsLists.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [albumsLists[i], albumsLists[j]] = [albumsLists[j], albumsLists[i]];
+          }
+        }
+      });
+    }
+  }
+
+  toggleList() {
+    this.toggleDetails.emit(this.seen);
+  }
+}
+```
+
+Dans le service `AlbumService`, assurez-vous que les méthodes renvoient des Observables :
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Album, List, SortAlbumCallback } from './album';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AlbumService {
+
+  private apiUrl = 'http://localhost:3000';
+  private albums$ = new BehaviorSubject<Album[]>([]);
+  searchAlbums$ = this.albums$.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  getAlbums(): Observable<Album[]> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => {
+        this.albums$.next(albums);
+        return albums;
+      })
+    );
+  }
+
+  getAlbum(id: string): Observable<Album | undefined> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => albums.find(album => album.id === id))
+    );
+  }
+
+  getAlbumList(id: string): Observable<List | undefined> {
+    return this.http.get<List[]>(`${this.apiUrl}/lists`).pipe(
+      map(lists => lists.find(list => list.id === id))
+    );
+  }
+
+  // ...
+
+  searchAlbums(keyword: string): void {
+    const filteredAlbums = this.albums$.getValue().filter(album =>
+      album.ref.toLowerCase().includes(keyword.trim().toLowerCase())
+    );
+    this.albums$.next(filteredAlbums);
+  }
+}
+```
+
+En utilisant cette structure, les Observables sont correctement intégrés dans le composant `AlbumDetailsComponent`, ce qui lui permet de réagir aux changements de données du service `AlbumService` et de mettre à jour les informations affichées en conséquence.
+
+<!-- albums description -->
+Pour réécrire le code en utilisant les Observables et les fonctions dérivées, vous pouvez utiliser les Observables fournis par le service `AlbumService`. Voici comment vous pourriez le faire :
+
+```typescript
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Album, AlbumService } from '../album.service';
+import { fadeInAnimation } from '../animation.module';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+@Component({
+  selector: 'app-album-description',
+  templateUrl: './album-description.component.html',
+  styleUrls: ['./album-description.component.css'],
+  animations: [fadeInAnimation]
+})
+export class AlbumDescriptionComponent implements OnInit {
+  album$: Observable<Album | undefined>;
+
+  constructor(
+    private route: ActivatedRoute,
+    private albumService: AlbumService
+  ) { }
+
+  ngOnInit() {
+    this.album$ = this.route.params.pipe(
+      switchMap(params => {
+        const albumId = params['id'];
+        return this.albumService.getAlbum(albumId);
+      })
+    );
+  }
+}
+```
+
+Dans le service `AlbumService`, assurez-vous que la méthode `getAlbum` renvoie un Observable :
+
+```typescript
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Album, List, SortAlbumCallback } from './album';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AlbumService {
+
+  private apiUrl = 'http://localhost:3000';
+  private albums$ = new BehaviorSubject<Album[]>([]);
+  searchAlbums$ = this.albums$.asObservable();
+
+  constructor(private http: HttpClient) { }
+
+  getAlbums(): Observable<Album[]> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => {
+        this.albums$.next(albums);
+        return albums;
+      })
+    );
+  }
+
+  getAlbum(id: string): Observable<Album | undefined> {
+    return this.http.get<Album[]>(`${this.apiUrl}/albums`).pipe(
+      map(albums => albums.find(album => album.id === id))
+    );
+  }
+
+  // ...
+
+  searchAlbums(keyword: string): void {
+    const filteredAlbums = this.albums$.getValue().filter(album =>
+      album.ref.toLowerCase().includes(keyword.trim().toLowerCase())
+    );
+    this.albums$.next(filteredAlbums);
+  }
+}
+```
+
+Avec cette structure, le composant `AlbumDescriptionComponent` utilise l'Observable renvoyé par la méthode `getAlbum` pour réagir aux changements des paramètres de l'URL et récupérer les informations de l'album à afficher.
