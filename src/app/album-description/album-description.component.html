@@ -9,7 +9,7 @@
                   <span> : {{ album.title }}</span>
             </h1>
             <p class="card-text" style="font-size: 1.2rem;">{{album.description}}</p>
-            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Duration</small><strong> : {{album.duration || 0 }} min </strong>
+            <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Duration</small><strong> : {{album.duration || 0 }} </strong>
                   min</p>
             <p><small class="fw-bold fs-4 text-decoration-underline text-warning">Like</small><strong> :  {{ album.like || 'Pas de Likes'}} </strong> </p>
             <ul class="list-group list-group-horizontal py-2 col-sm-3 mb-3 fw-bold" style="font-size: 1rem;"  *ngIf="album.tags">
