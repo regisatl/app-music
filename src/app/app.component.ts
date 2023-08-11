@@ -1,5 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { interval, map, Observable, take } from 'rxjs';
+import { AlbumService } from './album.service';
 
 @Component({
       selector: 'app-root',
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
       darkMode: boolean = false;
 
 
-      constructor() {
+      constructor(
+            private albumService : AlbumService
+      ) {
       }
 
       ngOnInit(): void {
@@ -40,4 +43,9 @@ export class AppComponent implements OnInit {
       parentReceive($event: string) {
             this.receivedText = $event;
       }
+
+      valueAlbums () : void {
+           console.log(this.albumService.count());
+      }
+
 }

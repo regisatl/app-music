@@ -13,12 +13,12 @@ import { AlbumComponent } from './admin/album/album.component';
 const albumsRoutes: Routes = [
       { path: '', redirectTo: '/albums', pathMatch: 'full' },
       { path: 'albums', component: AlbumsComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'logout', component: LoginComponent },
-      { path: 'forgetPassword', component: FirstComponent },
       { path: 'album/:albumId', component: AlbumDescriptionComponent },
-      { path: 'openClose', component: OpenCloseComponent },
       { path: 'admin', component: AlbumComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'forgetPassword', component: FirstComponent },
+      { path: 'logout', component: LoginComponent },
+      { path: 'openClose', component: OpenCloseComponent },
 
 
       // Redirection vers PageNotFoundComponent pour toutes les autres routes
@@ -28,8 +28,8 @@ const albumsRoutes: Routes = [
 @NgModule({
       declarations: [],
       imports: [
-            CommonModule,
             RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application 
+            CommonModule,
       ],
       exports: [RouterModule],
 })

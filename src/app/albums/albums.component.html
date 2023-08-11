@@ -2,14 +2,14 @@
 
 <div class="row content fs-5" [@fadeInAnimation]>
 
-      <div class="col-sm-4 pt-4 video">
+      <div class="col-md-4 pt-4 video">
             <!-- onPlay méthode enfant et playParent méthode parent -->
             <app-album-details [album]="selectedAlbum" (onPlay)="playParent($event)"
                   (onHide)="resetSelectedAlbum()"></app-album-details>
             <!-- AlbumDetails communication parent vers enfant -->
       </div>
 
-      <div class="col-sm-8">
+      <div class="col-md-8">
             <!-- section de titre principale -->
             <h1 class="fs-1 fw-bold text-white mt-4 mb-3 pt-0 position-relative">{{ titlePage }}
                   <button type="button"
@@ -30,23 +30,19 @@
                         <div class="card-header bg-warning text-black fs-4 fw-bold py-4 text-uppercase">
                               {{album.ref}}
                         </div>
-                        <div class="card-body mb-0 bg-black bg-gradient bg-opacity-100">
+                        <div class="card-body d-flex flex-wrap mb-0 bg-black bg-gradient bg-opacity-100">
 
-                              <h1 class="text-warning fw-bold fs-4 text-capitalize" *ngIf="status === album.id">
-                                    <div class="float-end"
-                                    [ngClass]="{ 'spinner-border text-warning': album.status === 'on' }"></div>
-                                    {{ i + 1 }} {{ album.title }}
-                              </h1>
                               <div class="mb-3 detailsLink">
                                     <a class="card-title fw-semibold fs-5 d-block py-2"
-                                          routerLink="/album/{{album.id}}">{{album.title}}</a>
+                                    routerLink="/album/{{album.id}}">{{album.title}}</a>
                               </div>
+                              <h1 class="text-warning fw-bold fs-4 text-capitalize" *ngIf="status === album.id">
+                                    <div [ngClass]="{ 'spinner-border float-end text-warning': album.status === 'on' }"></div>   
+                              </h1>
                               <p class="card-text text-light">{{album.description}}</p>
-                              <ul class="list-group list-group-horizontal py-1 col-sm-3" style="font-size: 1.2rem;"
+                              <ul class="list-group py-1 d-inline-block" style="font-size: 1.2rem;"
                                     *ngIf="album.tags">
-                                    <li class="list-group-item list-group-item-action shadow-lg fw-bold w3-warning badge mx-1 rounded border-0"
-                                          *ngFor="let listWord of album.tags"> {{ listWord }}
-                                    </li>
+                                          <a class="nav-item text-decoration-none text-white bg-gradient rounded mx-1 px-3 py-1" *ngFor="let listWord of album.tags"> {{ listWord }}</a>
                               </ul>
                         </div>
 

@@ -17,6 +17,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { PaginateComponent } from './paginate/paginate.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AdminModule } from './admin/admin.module';
+import { ShareModule } from './share/share.module';
 
 
 @NgModule({
@@ -32,15 +33,15 @@ import { AdminModule } from './admin/admin.module';
             FirstComponent,
             SecondComponent,
             AudioPlayerComponent,
-            PaginateComponent     
       ],
       imports: [
             BrowserModule,
             FormsModule,
             BrowserAnimationsModule,
-            AppRoutingModule,
             HttpClientModule,
-            AdminModule
+            AdminModule,
+            AppRoutingModule,
+            ShareModule,
       ],
       providers: [],
       bootstrap: [AppComponent],

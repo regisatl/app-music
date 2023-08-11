@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { map, Observable, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Album, List } from './album';
+import * as _ from "lodash";
 
 @Injectable({
       providedIn: 'root'
@@ -19,6 +20,24 @@ export class AlbumService {
       constructor(private http: HttpClient) { }
 
       /**
+       * private http: HttpClient | private db: Database
+       * 
+       * Avec firebase les https ne sont plus recommendé
+       * 
+       * Référence de la BDD
+       * 
+       * const albumRef = ref(this.db, 'albums');@angular/fire/firebase
+       * return objectVal<Album[]> (albumRef).pipe (
+       *  map((albums: Album[]) => {
+                        return albums.sort(
+                              (a: Album, b: Album) => b.duration - a.duration
+                        );
+                  })
+       * )
+       * 
+       */
+
+      /**
        * Fonction de recherche de tous les albums
        * @returns Retourne la liste de tous les albums
        */
@@ -31,6 +50,13 @@ export class AlbumService {
                   })
             );
       }
+      /**
+       *  const albumRef = ref (this.db,`albums/ ${id}`);
+       * return objectVal<Album>(albumRef) 
+       *          .pipe(
+                        map((album: Album) => album)
+                  );
+       */
 
       /**
        * Fonction de recherche d'un album particulier
@@ -51,6 +77,11 @@ export class AlbumService {
        * @returns La référence sera retourné si elle existe; undefined si l'id n'existe pas dans la liste.
        */
       getAlbumList(id: string): Observable<List> {
+
+            /**
+             * const albumListRef = ref(this.db, `albumList/ ${id}`);
+             * return objectVal<List>(albumListRef)
+             */
             return this.http.get<List>(this._albumListUrl + '/' + id);
       }
 
@@ -59,26 +90,46 @@ export class AlbumService {
        * @returns Le nombre d'albums
        */
       count(): Observable<number> {
+
+            /**
+             * const albumsRef = ref (this.db, `albums`);
+             * return objectVal<Album[]>(albumsRef)
+             * .pipe(
+                  map((albums: Album[]) => albums.length)
+            );
+             */
             return this.http.get<Album[]>(this._albumsUrl).pipe(
                   map((albums: Album[]) => albums.length)
             );
       }
 
-
-      // order(callback: SortAlbumCallback): AlbumService {
-      //   this._albums.sort(callback);
-      //   return this; // retourne le service pour permettre le chainage de méthodes
-      // }
-
-      // limit(start: number, end: number): AlbumService {
-      //   this._albums = this._albums.slice(start, end)
-      //   return this; // retourne le service pour permettre le chainage de méthodes
-      // }
-
       paginate(start: number, end: number): Observable<Album[]> {
-            return this.http.get<Album[]>(this._albumsUrl).pipe(
+
+            /**
+             * const albumPaginate = ref(this.db, `albums`)
+             * return objectVal<Album[]>(albumPaginate).pipe(
+
+                  map((albums: Album[]) => {
+                        const res = _.values(albums);
+                        return res;
+                  }),
+
                   map(
-                        (albums) => albums.sort(
+                        (albums: Album[]) => albums.sort(
+                              (a, b) => b.duration - a.duration
+                        ).slice(start, end)
+                  )
+            ); 
+             */
+            return this.http.get<Album[]>(this._albumsUrl).pipe(
+
+                  map((albums: Album[]) => {
+                        const res = _.values(albums);
+                        return res;
+                  }),
+
+                  map(
+                        (albums: Album[]) => albums.sort(
                               (a, b) => b.duration - a.duration
                         ).slice(start, end)
                   )
@@ -92,6 +143,23 @@ export class AlbumService {
        * put  => m-à-j une resource
        */
       search(word: string): Observable<Album[]> {
+
+            /**
+             * const albumSearch = ref(this.db, `albums`);
+             * return objectVal<Album[]>(albumSearch).pipe(
+                  map((albums: Album[]) => {
+                        // parcourir le tableau d'albums
+                        return albums.filter(album => {
+                              // retourner ceux contenant le string de la variable "word"
+                              return album.ref
+                                    .toLowerCase()
+                                    .includes(word.trim().toLowerCase());
+                        });
+
+                  })
+            )
+             */
+
             return this.http.get<Album[]>(this._albumsUrl).pipe(
                   map((albums: Album[]) => {
                         // parcourir le tableau d'albums
@@ -144,6 +212,13 @@ export class AlbumService {
       switchOn(album: Album): void {
             album.status = "on";
             // le code ci-dessous s'exécute car on y souscrit
+
+            /**
+             * const albumSwitchOn = ref(this.db, `albums/ ${album.id}`);
+             * update(albumSwitchOn) 
+             *   
+             */
+
             this.http.put<void>(this._albumsUrl + '/' + album.id, album)
                   .subscribe({
                         next: (data) => console.log(data),
@@ -158,6 +233,11 @@ export class AlbumService {
         */
       switchOff(album: Album): void {
             album.status = "off";
+
+            /**
+             * update(ref(this.db, `albums/ ${album.id}`));
+             *
+             */
             /**
              * renvoi un observable, est ne s'exécute
              * donc qu'à la souscription. Du coup,
