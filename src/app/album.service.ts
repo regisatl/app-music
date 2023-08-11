@@ -70,7 +70,6 @@ export class AlbumService {
                   );
       }
 
-
       /**
        * Fonction de recherche des sons d'un albums
        * @param id identifiant de l'album à rechercher
