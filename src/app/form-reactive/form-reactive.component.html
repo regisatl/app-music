@@ -1,0 +1,68 @@
+<div class="container-sm mt-3">
+      <div class="d-flex justify-content-between mt-3 mb-3">
+            <h2 class="fs-1 fw-bold">Dashboard</h2>
+            <p><button routerLink="../" class="btn btn-warning py-3 px-5 fs-5 fw-bold"><span
+                              class="fas fa-record-vinyl"></span> Albums</button>
+            </p>
+      </div>
+
+      <div class="text-white mb-5 fw-bold">
+            <table class="table table-hover text-center" [@fadeInAnimation]>
+                  <thead class="fw-bold fs-4">
+                        <tr>
+                              <th scope="col">Album Name : </th>
+                              <th scope="col">Author Name : </th>
+                              <th scope="col">Music Style : </th>
+                        </tr>
+                  </thead>
+                  <tbody class="fw-bold fs-5">
+                        <tr>
+                              <td> {{ musicForm.get('name')?.value }} </td>
+                              <td> {{ musicForm.get('author')?.value }} </td>
+                              <td> {{ musicForm.get('style')?.value }} </td>
+                        </tr>
+                  </tbody>
+            </table>
+      </div>
+
+      <form class="fw-bold" [formGroup]="musicForm" (ngSubmit)="onSubmit()" [@fadeInAnimation]>
+
+            <div class="form-floating mb-3">
+                        <input type="text" class="form-control fw-bold" id="name" name="name" formControlName="name" required>
+                        <label for="name">Enter the album name</label>
+                  </div>
+                  <div class="alert alert-danger mt-3" *ngIf="name?.dirty && (name?.invalid || name?.pristine)">
+                        <div *ngIf="name?.errors?.['required']"> Name is required </div>
+                        <div *ngIf="name?.errors?.['minlength']">
+                              Name must be at least 
+                              <span> {{ name?.errors?.['minlength']?.['requiredLength'] }} </span>
+                               characters long. You give now  
+                              <span> {{ name?.errors?.['minlength']?.['actualLength'] }} characters </span>
+                        </div>
+                  </div>
+                  <div class="alert alert-success mt-3" *ngIf="!(name?.dirty) && !(name?.valid || name?.pristine)">
+                        <div> Name is valid </div>
+                  </div>
+
+                  <div class="form-floating mb-3">
+                        <input type="text" class="form-control fw-bold" id="author" name="author" formControlName="author"
+                        required>
+                        <label for="author">Enter the author name</label>
+                  </div>
+                  <div class="alert alert-danger mb-3" *ngIf="name?.dirty && (name?.invalid || name?.pristine)">Name author
+                        is required</div>
+
+            <div class="form-floating mb-3">
+                  <select class="form-select fw-bold" id="style" aria-label="Floating label select example"
+                        formControlName="style">
+                        <option disabled>Choose your style music</option>
+                        <option *ngFor="let style of styleMusic" [value]="style">{{ style }}</option>
+                  </select>
+                  <label for="style">Choose your style music</label>
+            </div>
+
+            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3" [disabled]="musicForm.invalid">Add
+                  Album</button>
+      </form>
+
+</div>

@@ -31,8 +31,13 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
       ngOnChanges(): void {
             if (this.album) {
                   this.albumService.getAlbumList(this.album.id).subscribe(
-                        (albumList) => { this.songs = albumList.list }
+                        (albumList) => {
+                              this.songs = albumList.list
+                              console.log(this.songs)
+
+                        }
                   );
+
             }
 
       }

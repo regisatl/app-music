@@ -1,41 +1,61 @@
-<div class="col-md-12 mb-3 video shadow-lg position-relative overflow-hidden bg-black bg-gradient bg-opacity-100 rounded">
+<!-- div qui permet d'afficher les details d'un album -->
+<div
+      class="col-md-12 mb-3 video shadow-lg position-relative overflow-hidden bg-black bg-gradient bg-opacity-100 rounded">
 
       <h2 class="fs-4 fw-bold w3-text-white w3-black rounded m-1 p-4">Détails de chaque album:</h2>
 
       <div class="card details bg-black bg-gradient bg-opacity-100" *ngIf="album">
+
+            <!-- div button hide section start -->
             <div class="position-absolute top-0 end-0 rounded px-4 py-3">
                   <button type="button" (click)="hide(album)" class="btn-close white" data-bs-dismiss="card"
-                        aria-label="Close"></button>
+                        aria-label="Close">
+                  </button>
             </div>
+            <!-- div button hide section end -->
+
             <img class="card-img-top rounded-bottom img-fluid p-0" src="{{ album.url }}" alt="Group Music">
+
+            <!-- div card body details -->
             <div class="card-body">
                   <h5 class="card-title fs-4 fw-bold text-warning"> {{ album.title }} </h5>
                   <p class="card-text text-light fw-semibold"> {{ album.name }} </p>
                   <div class="d-flex justify-content-between">
+
+                        <!-- div button play section start -->
                         <div class="button-group mt-1">
-                              <button class="btn btn-primary fw-bold text-uppercase shadow-lg px-5"
+                              <button class="btn btn-primary fw-bold text-uppercase shadow-lg px-5 py-3"
                                     (click)="play(album)" [ngClass]="{'fa 1x': !isPlaying, 'fa-1x': isPlaying}">
                                     <!-- Affichez le tag [play] uniquement lorsque le bouton est inactif (isPlaying = false) -->
                                     <span *ngIf="!isPlaying"> Play <i class="fas fa-pause-circle"></i></span>
                                     <span *ngIf="isPlaying"> Stop <i class="fas fa-play-circle"></i></span>
                               </button>
                         </div>
+                        <!-- div button play section end -->
+
+                        <!-- div button shuffle section start -->
                         <div class="button-group mt-1">
-                              <button class="btn btn-warning fw-bold text-uppercase shadow-lg px-4">
+                              <button class="btn btn-warning fw-bold text-uppercase shadow-lg px-4 py-3">
                                     <span *ngIf="songs" (click)="shuffleAlbum(songs)" class="text-dark"> Shuffle <i
                                                 class="fas fa-random"></i></span>
                               </button>
                         </div>
+                        <!-- div button shuffle section end -->
+
                   </div>
             </div>
+            <!-- div card body details end -->
+
             <div *ngIf="songs; then ifBlock; else elseBlock"></div>
+
             <ng-template #ifBlock>
-            <ul class="list-group rounded-bottom m-0 border-0">
+                  <ul class="list-group rounded-bottom m-0 border-0">
                         <li class="list-group-item list-group-item-action text-light bg-black bg-gradient bg-opacity-100 border-top-0 border-bottom-1 fw-semibold"
                               *ngFor="let song of songs"> {{song}}
                         </li>
                   </ul>
             </ng-template>
+
             <!-- Au cas où nous n'avons pas de détails lists -->
             <ng-template #elseBlock>
                   <ul class="list-group rounded-bottom m-0 border border-0">

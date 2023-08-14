@@ -1,33 +1,50 @@
-<div class="container mt-3">
+<div class="container-sm mt-3">
       <div class="d-flex justify-content-between mt-3 mb-3">
-            <h2>Dashboard</h2>
-            <p><button routerLink="/admin/add" class="btn btn-primary fw-bold"><span class="fas fa-plus-circle"></span>
-                        Add
-                        Album</button>
+            <h2 class="fs-1 fw-bold">Dashboard</h2>
+            <p><button routerLink="/admin" class="btn btn-warning py-3 px-5 fs-5 fw-bold"><span
+                              class="fas fa-record-vinyl"></span>
+                        Albums</button>
             </p>
       </div>
 
-      <form action="" method="post">
-            <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="name" placeholder="name">
+      <form action="" method="post" [@fadeInAnimation]>
+            <div class="form-floating mb-3 fw-bold">
+                  <input type="text" formControlName="name" class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
+                        id="name" placeholder="name">
                   <label for="floatingInput">Enter the name</label>
             </div>
-            <div class="form-floating mb-3">
-                  <input type="text" class="form-control" id="title" placeholder="title">
+            <div class="form-floating mb-3 fw-bold">
+                  <input type="text" formControlName="ref" class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
+                        id="ref" placeholder="ref">
+                  <label for="floatingInput">Enter the reference</label>
+            </div>
+            <div class="form-floating mb-3 fw-bold">
+                  <input type="text"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
+                        id="title" placeholder="title">
                   <label for="floatingInput">Enter the title</label>
             </div>
-            <div class="form-floating mb-3">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+            <div class="form-floating mb-3 fw-bold">
+                  <textarea
+                        class="form-control form-control-lg bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold text-white"
+                        placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
                   <label for="floatingTextarea">Enter the description</label>
             </div>
-            <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="duration" placeholder="duration">
+            <div class="form-floating mb-3 fw-bold">
+                  <input type="number"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
+                        id="duration" placeholder="duration">
                   <label for="floatingInput">Enter the duration</label>
             </div>
-            <div class="form-floating mb-3">
-                  <input type="number" class="form-control" id="like" placeholder="like">
+            <div class="form-floating mb-3 fw-bold">
+                  <input type="number"
+                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
+                        id="like" placeholder="like">
                   <label for="floatingInput">Enter the like</label>
             </div>
+            <button type="submit"
+                  class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3">Update Album
+            </button>
 
       </form>
 

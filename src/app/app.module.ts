@@ -3,7 +3,7 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { SearchComponent } from './search/search.component';
@@ -14,10 +14,11 @@ import { FirstComponent } from './first-comp/first-comp.component';
 import { SecondComponent } from './second-comp/second-comp.component';
 import { AudioPlayerComponent } from './audio-player/audio-player.component';
 import { HttpClientModule } from "@angular/common/http";
-import { PaginateComponent } from './paginate/paginate.component';
-import { AppRoutingModule } from './app-routing.module';
-import { AdminModule } from './admin/admin.module';
 import { ShareModule } from './share/share.module';
+import { FormTemplateComponent } from './form-template/form-template.component';
+import { FormReactiveComponent } from './form-reactive/form-reactive.component';
+import { AdminModule } from './admin/admin.module';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -33,15 +34,18 @@ import { ShareModule } from './share/share.module';
             FirstComponent,
             SecondComponent,
             AudioPlayerComponent,
+            FormTemplateComponent,
+            FormReactiveComponent,
       ],
       imports: [
             BrowserModule,
             FormsModule,
+            ReactiveFormsModule,
             BrowserAnimationsModule,
             HttpClientModule,
             AdminModule,
-            AppRoutingModule,
             ShareModule,
+            AppRoutingModule,
       ],
       providers: [],
       bootstrap: [AppComponent],

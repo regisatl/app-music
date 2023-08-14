@@ -8,6 +8,8 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 import { OpenCloseComponent } from './open-close/open-close.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AlbumComponent } from './admin/album/album.component';
+import { FormReactiveComponent } from './form-reactive/form-reactive.component';
+import { FormTemplateComponent } from './form-template/form-template.component';
 
 
 const albumsRoutes: Routes = [
@@ -19,7 +21,8 @@ const albumsRoutes: Routes = [
       { path: 'forgetPassword', component: FirstComponent },
       { path: 'logout', component: LoginComponent },
       { path: 'openClose', component: OpenCloseComponent },
-
+      { path: 'reactive', component: FormReactiveComponent },
+      { path: 'template', component: FormTemplateComponent },
 
       // Redirection vers PageNotFoundComponent pour toutes les autres routes
       { path: '**', component: PageNotFoundComponent }
@@ -28,8 +31,8 @@ const albumsRoutes: Routes = [
 @NgModule({
       declarations: [],
       imports: [
-            RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application 
             CommonModule,
+            RouterModule.forRoot(albumsRoutes), // chargement des routes dans l'application 
       ],
       exports: [RouterModule],
 })

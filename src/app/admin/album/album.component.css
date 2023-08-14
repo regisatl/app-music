@@ -1,0 +1,8 @@
+td a {
+      text-decoration: none;
+      color: #ffc107;
+}
+
+td a:hover {
+      text-decoration: 0.1rem solid underline;
+}

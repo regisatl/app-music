@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Album } from 'src/app/album';
 import { AlbumService } from 'src/app/album.service';
+import { fadeInAnimation } from 'src/app/animation.module';
 
 @Component({
       selector: 'app-album',
       templateUrl: './album.component.html',
-      styleUrls: ['./album.component.css']
+      styleUrls: ['./album.component.css'],
+      animations: [fadeInAnimation]
 })
 export class AlbumComponent implements OnInit {
 

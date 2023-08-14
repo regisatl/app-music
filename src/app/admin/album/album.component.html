@@ -1,12 +1,13 @@
 <div class="container mt-3">
       <div class="d-flex justify-content-between mt-3 mb-3">
-            <h2>Dashboard</h2>
-            <p><button routerLink="/admin/add" class="btn btn-primary fw-bold"><span class="fas fa-plus-circle"></span> Add
+            <h2 class="fs-1 fw-bold">Dashboard</h2>
+            <p><button routerLink="/admin/add" class="btn btn-warning py-3 px-4 fw-bold fs-5"><span
+                              class="fas fa-plus-circle"></span> Add
                         Album</button>
             </p>
       </div>
-      <table class="table table-dark table-striped-columns table-hover rounded">
-            <thead class="fw-bold rounded py-4">
+      <table class="table table-dark table-striped-columns table-hover rounded fw-bold"  [@fadeInAnimation]>
+            <thead class="rounded py-4">
                   <tr class="table-group">
                         <th scope="col" class="text-center">Id</th>
                         <th>Reference</th>
@@ -17,10 +18,10 @@
                         <th>Delete</th>
                   </tr>
             </thead>
-            <tbody class="table-group-divider fw-semibold">
+            <tbody class="table-group-divider fw-bold">
                   <tr *ngFor="let album of albums">
                         <th class="text-center"> {{ album.id }} </th>
-                        <td class=""> {{ album.ref }} </td>
+                        <td class=""><a href="" routerLink="/album/{{album.id}}"> {{ album.ref }} </a></td>
                         <td class=""> {{ album.name }} </td>
                         <td class=""> {{ album.title }} </td>
                         <td class=""> {{ album.duration }} </td>

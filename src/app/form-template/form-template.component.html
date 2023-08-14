@@ -1,0 +1,77 @@
+<div class="container-sm mt-3" [hidden]="submitted">
+      <div class="d-flex justify-content-between mt-3 mb-3">
+            <h2 class="fs-1 fw-bold">Dashboard</h2>
+            <p><button routerLink="/" class="btn btn-warning py-3 px-5 fs-5 fw-bold"><span
+                              class="fas fa-record-vinyl"></span>
+                        Albums</button>
+            </p>
+      </div>
+
+      <!-- <pre> {{ musicModel | json }} </pre> -->
+
+      <form #musicForm="ngForm" (ngSubmit)="onSubmit(musicForm)" class="fw-bold"  [@fadeInAnimation]>
+            <!-- <ng-container> -->
+            <div class="form-floating mb-3">
+                  <input type="text" class="form-control form-control-lg fw-bold" id="name" placeholder="name"
+                        name="name" #name="ngModel" [(ngModel)]='musicModel.name' required>
+                  <label for="floatingInput">Enter the album name</label>
+                  <div *ngIf="(name.invalid || name.pristine) && name.touched" class="alert alert-danger mt-3">Name
+                        album is required</div>
+            </div>
+            <!-- </ng-container> -->
+            <!-- <ng-template #success>
+                  <div class="alert alert-success mt-3">Name album valid</div>
+            </ng-template> -->
+
+            <div class="form-floating mb-3">
+                  <input type="text" class="form-control form-control-lg fw-bold" id="author" placeholder="author"
+                        name="author" [(ngModel)]='musicModel.author' required>
+                  <div *ngIf="(name.invalid || name.pristine) && name.touched" class="alert alert-danger mt-3">Name
+                        author is required</div>
+                  <label for="floatingInput">Enter the author name</label>
+            </div>
+
+            <div class="form-floating mb-3">
+                  <select class="form-select form-select-lg border-warning border border-1 focus-ring focus-ring-warning fw-bold" id="style"
+                        aria-label="Floating label select example" name="style" [(ngModel)]='musicModel.style'>
+                        <option disabled>Choose your style music</option>
+                        <option *ngFor="let style of styleMusic" [value]="style">{{ style }}</option>
+                  </select>
+
+                  <label for="floatingSelect">Choose your style music</label>
+            </div>
+
+            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3"
+                  [disabled]="musicForm.invalid">Add Album
+            </button>
+      </form>
+</div>
+
+<div class="container-sm text-light" [hidden]="!submitted">
+      <div class="d-flex justify-content-between mt-3 mb-3">
+            <h2 class="fs-1 fw-bold">Dashboard</h2>
+            <p><button routerLink="/" class="btn btn-warning py-3 px-5 fs-5 fw-bold"><span
+                              class="fas fa-record-vinyl"></span>
+                        Albums</button>
+            </p>
+      </div>
+      <h2 class="fw-bold fs-5 mb-3 mt-3 text-center">Vous avez soumis l'album suivant : </h2>
+
+      <table class="table table-hover text-center rounded" [@fadeInAnimation]>
+            <thead class="fw-bold fs-4">
+                  <tr>
+                        <th scope="col">Album Name : </th>
+                        <th scope="col">Author Name : </th>
+                        <th scope="col">Music Style :</th>
+                  </tr>
+            </thead>
+            <tbody class="fw-bold fs-5">
+                  <tr>
+                        <td> {{ musicModel.name}} </td>
+                        <td>{{ musicModel.author}}</td>
+                        <td>{{ musicModel.style}}</td>
+                  </tr>
+            </tbody>
+      </table>
+
+</div>

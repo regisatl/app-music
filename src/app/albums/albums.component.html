@@ -10,46 +10,48 @@
       </div>
 
       <div class="col-md-8">
-            <!-- section de titre principale -->
-            <h1 class="fs-1 fw-bold text-white mt-4 mb-3 pt-0 position-relative">{{ titlePage }}
+            <!-- section de titre principale start-->
+            <h1 class="mt-4 mb-3 pt-0 position-relative fs-1 fw-bold text-white">{{ titlePage }}
                   <button type="button"
-                        class="float-end border border-2 rounded shadow w3-black position-relative fw-bold fs-5 px-4 py-2">
+                        class="float-end border border-2 rounded shadow w3-black position-relative fw-bold fs-5 px-4 py-2"><i class="fas fa-record-vinyl"></i>
                         Albums <span
-                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black fw-bold fs-5 px-3 py-2">
-                        </span>
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black fw-bold fs-5 px-3 py-2"></span>
                   </button>
             </h1>
+            <!-- section de titre principale end -->
 
             <app-paginate (setPaginate)="onSetPaginate($event)"></app-paginate>
 
             <!-- la div card qui permet d'afficher la liste des différentes albums -->
             <ng-container *ngIf="albums; else noAlbumsFound">
-                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0"
-                        *ngFor="let album of albums; let i = index;">
+                  <div class="card shadow-lg mb-5 bg-body-tertiary w3-white border-0" *ngFor="let album of albums;">
 
+                        <!-- card-header start -->
                         <div class="card-header bg-warning text-black fs-4 fw-bold py-4 text-uppercase">
                               {{album.ref}}
                         </div>
-                        <div class="card-body d-flex flex-wrap mb-0 bg-black bg-gradient bg-opacity-100">
 
+                        <!-- card-body -->
+                        <div class="card-body d-flex flex-wrap mb-0 bg-black bg-gradient bg-opacity-100">
                               <div class="mb-3 detailsLink">
                                     <a class="card-title fw-semibold fs-5 d-block py-2"
-                                    routerLink="/album/{{album.id}}">{{album.title}}</a>
+                                          routerLink="/album/{{album.id}}">{{album.title}}</a>
                               </div>
-                              <h1 class="text-warning fw-bold fs-4 text-capitalize" *ngIf="status === album.id">
-                                    <div [ngClass]="{ 'spinner-border float-end text-warning': album.status === 'on' }"></div>   
+                              <h1 class="float-end fw-bold fs-4 text-capitalize text-warning"
+                                    *ngIf="status === album.id">
+                                    <div [ngClass]="{ 'spinner-border text-warning': album.status === 'on' }"></div>
                               </h1>
                               <p class="card-text text-light">{{album.description}}</p>
-                              <ul class="list-group py-1 d-inline-block" style="font-size: 1.2rem;"
-                                    *ngIf="album.tags">
-                                          <a class="nav-item text-decoration-none text-white bg-gradient rounded mx-1 px-3 py-1" *ngFor="let listWord of album.tags"> {{ listWord }}</a>
+                              <ul class="list-group py-1 d-inline-block" *ngIf="album.tags">
+                                    <a class="nav-item text-decoration-none text-white bg-gradient rounded mx-1 px-3 py-1"
+                                          *ngFor="let listWord of album.tags"> {{ listWord }}</a>
                               </ul>
                         </div>
 
+                        <!-- card-footer -->
                         <div class="card-footer">
-
                               <a class="btn btn-outline-dark fw-semibold px-4 py-1 border-3" href="#" role="button">
-                                    <i class="fas fa-globe fa-2x"></i>
+                                    <i class="fa fa-language fa-2x"></i>
                               </a>
                               <ng-container *ngIf="album.like">
                                     <img class="glyph-icon mx-1 img-fluid" width="20px" height="auto"
@@ -64,8 +66,12 @@
                               <a class="btn btn-warning rounded fw-bold px-4 py-2 mx-2 fs-5" role="button"
                                     (click)="onSelect(album)">Details</a>
                         </div>
+
                   </div>
             </ng-container>
+            <!-- end de la div qui permet d'afficher les albums -->
+
+            <!-- message qui s'affiche lorsqu'un albums n'existe pas -->
             <ng-template #noAlbumsFound class="position-relative">
                   <div class="message" [@fadeInAnimation]>
                         <div class="text-white list-group d-flex align-items-center notif">
@@ -77,7 +83,9 @@
                         </div>
                   </div>
             </ng-template>
-            <!-- end div albums -->
+            <!-- fin de la balise du message qui s'affiche lorsqu'un albums n'existe pas -->
+
       </div>
+      <!-- end div albums -->
 
 </div>

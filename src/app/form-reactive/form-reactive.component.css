@@ -1,0 +1,14 @@
+.ng-valid[required],
+.ng-valid.required {
+      border-left: 0.3rem solid #ffc107;
+      border-right: 0.3rem solid #ffc107;
+}
+
+.ng-invalid:not(form) {
+      border-left: 0.3rem solid #cd1e1e;
+      border-right: 0.3rem solid #cd1e1e;
+}
+
+table {
+      border-radius: 0.5rem;
+}
