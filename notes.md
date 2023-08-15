@@ -2103,3 +2103,113 @@ export class AlbumService {
 - `this.http.delete<void>(`${this.albumsUrl}/${id}`)` envoie une requête HTTP DELETE au serveur pour supprimer l'album spécifié par son ID. L'URL inclut l'ID de l'album à supprimer. Encore une fois, nous attendons un `Observable<void>` en réponse.
 
 En utilisant ces méthodes dans le service `AlbumService`, vous pouvez effectuer des opérations de gestion complètes pour ajouter, mettre à jour et supprimer des albums via des appels HTTP vers votre API backend. Assurez-vous que les URLs et les méthodes de l'API correspondent à ce que votre backend attend.
+
+<!-- Les requêtes -->
+
+Bien sûr, voici un résumé détaillé sur les requêtes HTTP avec `HttpClient` en Angular :
+
+### Introduction à `HttpClient` :
+
+`HttpClient` est un module d'Angular qui fournit un moyen facile et puissant d'effectuer des requêtes HTTP vers des serveurs. Il simplifie les opérations liées aux communications HTTP en fournissant des méthodes pour effectuer des requêtes GET, POST, PUT, DELETE, etc. Il gère également automatiquement la sérialisation et la désérialisation des données, les en-têtes HTTP, les paramètres de requête et les options.
+
+### Importation et Injection de `HttpClient` :
+
+Pour utiliser `HttpClient`, vous devez l'importer depuis `@angular/common/http` et l'injecter dans le constructeur de votre service ou composant.
+
+```typescript
+import { HttpClient } from '@angular/common/http';
+
+// ...
+
+constructor(private http: HttpClient) { }
+```
+
+### Effectuer des Requêtes HTTP :
+
+#### Requête GET :
+
+```typescript
+this.http.get<T>(url, options);
+```
+
+- `url` : L'URL vers laquelle la requête GET sera envoyée.
+- `options` : (facultatif) Les options de la requête, telles que les en-têtes, les paramètres de requête, etc.
+- Renvoie un `Observable<T>` qui émet les données de la réponse.
+
+#### Requête POST :
+
+```typescript
+this.http.post<T>(url, data, options);
+```
+
+- `url` : L'URL vers laquelle la requête POST sera envoyée.
+- `data` : Les données à envoyer dans la requête POST (peut être un objet JSON, FormData, etc.).
+- `options` : (facultatif) Les options de la requête.
+- Renvoie un `Observable<T>` qui émet la réponse de la requête.
+
+#### Requête PUT :
+
+```typescript
+this.http.put<T>(url, data, options);
+```
+
+- `url` : L'URL vers laquelle la requête PUT sera envoyée.
+- `data` : Les données à envoyer dans la requête PUT.
+- `options` : (facultatif) Les options de la requête.
+- Renvoie un `Observable<T>` qui émet la réponse de la requête.
+
+#### Requête DELETE :
+
+```typescript
+this.http.delete<T>(url, options);
+```
+
+- `url` : L'URL vers laquelle la requête DELETE sera envoyée.
+- `options` : (facultatif) Les options de la requête.
+- Renvoie un `Observable<T>` qui émet la réponse de la requête.
+
+### Gestion des Réponses :
+
+Les réponses des requêtes HTTP sont des `Observable` qui peuvent être souscrits pour obtenir les données ou gérer les erreurs.
+
+```typescript
+this.http.get(url).subscribe(
+  data => {
+    console.log('Données reçues :', data);
+  },
+  error => {
+    console.error('Erreur :', error);
+  }
+);
+```
+
+### Gestion des En-têtes et Options :
+
+Vous pouvez spécifier des en-têtes HTTP et des options personnalisées pour les requêtes. Par exemple :
+
+```typescript
+const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+const options = { headers: headers };
+
+this.http.post(url, data, options).subscribe(/* ... */);
+```
+
+### Manipulation des Réponses :
+
+`HttpClient` fournit des opérateurs pour manipuler les réponses avant qu'elles ne soient renvoyées. Par exemple :
+
+```typescript
+this.http.get(url).pipe(
+  map(data => data['items']),
+  catchError(error => {
+    console.error('Erreur :', error);
+    return throwError('Une erreur est survenue.');
+  })
+).subscribe(data => {
+  console.log('Données traitées :', data);
+});
+```
+
+### Conclusion :
+
+`HttpClient` en Angular simplifie grandement l'interaction avec des services web en fournissant des méthodes simples pour envoyer des requêtes HTTP et gérer les réponses. Cela vous permet de construire des applications web robustes et dynamiques qui communiquent efficacement avec les serveurs.
