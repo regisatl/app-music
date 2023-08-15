@@ -2213,3 +2213,89 @@ this.http.get(url).pipe(
 ### Conclusion :
 
 `HttpClient` en Angular simplifie grandement l'interaction avec des services web en fournissant des méthodes simples pour envoyer des requêtes HTTP et gérer les réponses. Cela vous permet de construire des applications web robustes et dynamiques qui communiquent efficacement avec les serveurs.
+<!-- Pour uploader une image -->
+
+Il semble que vous vouliez ajouter une fonctionnalité d'upload d'image à votre application Angular. Cependant, veuillez noter que l'upload d'images nécessite généralement l'utilisation d'un service de stockage cloud (comme Firebase Storage) pour stocker les fichiers, et non directement dans une base de données. Je vais vous montrer comment implémenter cela en utilisant Firebase Storage comme exemple.
+
+Tout d'abord, assurez-vous d'installer Firebase et d'initialiser l'application Firebase dans votre projet Angular. Vous devrez également ajouter la configuration d'accès à Firebase dans votre application.
+
+Ensuite, voici comment vous pourriez implémenter l'upload d'une image dans Firebase Storage à l'aide d'un service dédié :
+
+1. Créez un service pour gérer l'upload d'images :
+
+```typescript
+import { Injectable } from '@angular/core';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ImageUploadService {
+
+  constructor(private storage: AngularFireStorage) { }
+
+  uploadImage(file: File, path: string): Observable<string> {
+    const storageRef = this.storage.ref(path);
+    const uploadTask = storageRef.put(file);
+
+    return new Observable<string>(observer => {
+      uploadTask.snapshotChanges().subscribe(
+        snapshot => {
+          if (snapshot.state === 'success') {
+            storageRef.getDownloadURL().subscribe(url => {
+              observer.next(url);
+              observer.complete();
+            });
+          }
+        },
+        error => {
+          observer.error(error);
+          observer.complete();
+        }
+      );
+    });
+  }
+}
+```
+
+2. Utilisez ce service dans votre composant pour gérer l'upload :
+
+```typescript
+import { Component } from '@angular/core';
+import { ImageUploadService } from './image-upload.service';
+
+@Component({
+  selector: 'app-upload',
+  template: `
+    <input type="file" (change)="onFileSelected($event)">
+    <button (click)="uploadImage()">Upload</button>
+  `
+})
+export class UploadComponent {
+
+  selectedFile: File | null = null;
+
+  constructor(private imageUploadService: ImageUploadService) { }
+
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+  }
+
+  uploadImage(): void {
+    if (this.selectedFile) {
+      const uploadPath = `uploads/${new Date().getTime()}_${this.selectedFile.name}`;
+      this.imageUploadService.uploadImage(this.selectedFile, uploadPath).subscribe(
+        url => {
+          console.log('Image uploaded successfully. URL:', url);
+        },
+        error => {
+          console.error('Error uploading image:', error);
+        }
+      );
+    }
+  }
+}
+```
+
+Assurez-vous d'adapter cela à votre application Firebase et de personnaliser le chemin d'upload et le comportement en fonction de vos besoins.
