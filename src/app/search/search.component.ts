@@ -4,36 +4,32 @@ import { Album } from '../album';
 import { AlbumService } from '../album.service';
 
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+    selector: 'app-search',
+    templateUrl: './search.component.html',
+    styleUrls: ['./search.component.css']
 })
 export class SearchComponent {
-  word: string = '';
+    word: string = '';
 
-  @Output() searchAlbums: EventEmitter<Album[]> = new EventEmitter(); // émetteur d'évenement
-  constructor(
-    private albumService: AlbumService
-  ) {}
+    @Output() searchAlbums: EventEmitter<Album[]> = new EventEmitter(); // émetteur d'évenement
+    constructor(
+        private albumService: AlbumService
+    ) { }
 
-  onSubmit(form: NgForm) {
-    const results = this
-          .albumService.search(form.value.word)
-          .subscribe({
-            next: (alb: Album[]) => {
-              if( alb.length > 0) {
-                this.searchAlbums.emit(alb);
-              }
-            }
-          });
-  }
+    onSubmit(form: NgForm) {
+        this.albumService.search(form.value.word).subscribe(albums => {
+          if (albums.length > 0) {
+            this.searchAlbums.emit(albums);
+          }
+        });
+      }
 
-  onChangeEmit($event: string) {
-    const results = this.albumService.search($event)
-          .subscribe(
-            (alb: Album[]) => {
-              this.searchAlbums.emit(alb);
-            }
-          )
-  }
+    onChangeEmit($event: string) {
+        const results = this.albumService.search($event)
+            .subscribe(
+                (alb: Album[]) => {
+                    this.searchAlbums.emit(alb);
+                }
+            )
+    }
 }

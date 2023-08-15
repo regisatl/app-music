@@ -37,6 +37,18 @@ export class AlbumService {
        * 
        */
 
+      // Méthode pour obtenir le nombre total d'albums en fonction de la pagination et de la recherche
+      getTotalAlbumsCount(paginationStart: number, paginationEnd: number, searchTerm?: string): Observable<number> {
+            return this.http.get<Album[]>(this._albumsUrl).pipe(
+                  map(albums => {
+                        if (searchTerm) {
+                              albums = albums.filter(album => album.ref.toLowerCase().includes(searchTerm.trim().toLowerCase()));
+                        }
+                        return albums.slice(paginationStart, paginationEnd).length;
+                  })
+            );
+      }
+
       /**
        * Fonction de recherche de tous les albums
        * @returns Retourne la liste de tous les albums

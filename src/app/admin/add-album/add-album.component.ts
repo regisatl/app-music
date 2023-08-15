@@ -25,8 +25,7 @@ export class AddAlbumComponent implements OnInit {
                         Validators.minLength(5)
                   ]),
             })
-            // get name() {
-            // return this.albumForm.get('name');
+
       }
 
 

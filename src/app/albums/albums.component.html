@@ -15,7 +15,7 @@
                   <button type="button"
                         class="float-end border border-2 rounded shadow w3-black position-relative fw-bold fs-5 px-4 py-2"><i class="fas fa-record-vinyl"></i>
                         Albums <span
-                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black fw-bold fs-5 px-3 py-2"></span>
+                              class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning text-black fw-bold fs-5 px-3 py-2"> {{ totalAlbums }} </span>
                   </button>
             </h1>
             <!-- section de titre principale end -->
@@ -44,7 +44,7 @@
                               <p class="card-text text-light">{{album.description}}</p>
                               <ul class="list-group py-1 d-inline-block" *ngIf="album.tags">
                                     <a class="nav-item text-decoration-none text-white bg-gradient rounded mx-1 px-3 py-1"
-                                          *ngFor="let listWord of album.tags"> {{ listWord }}</a>
+                                          *ngFor="let listWord of album.tags" style="font-size: 1rem"> {{ listWord }}</a>
                               </ul>
                         </div>
 

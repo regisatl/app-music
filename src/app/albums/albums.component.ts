@@ -14,19 +14,17 @@ export class AlbumsComponent implements OnInit {
       albums!: Album[];
       selectedAlbum: Album | undefined; // je suis sur qu'une valeur sera passé au moment opportun
       status: string | null = null;
+      totalAlbums: number = 0;
+      searchTerm: string = '';
+      start: number = 0;
+      end: number = this.albumService.paginateNumberPage();
 
       constructor(
             private albumService: AlbumService
       ) { }
 
       ngOnInit(): void {
-            this.albumService
-                  .paginate(0, this.albumService.paginateNumberPage())
-                  .subscribe({
-                        next: (alb: Album[]) => {
-                              this.albums = alb
-                        }
-                  });
+            this.updateTotalAlbumsCount();
       }
 
       onSelect(album: Album) {
@@ -54,4 +52,32 @@ export class AlbumsComponent implements OnInit {
                         next: (alb: Album[]) => this.albums = alb
                   });
       }
+
+      onPageChange(pageNumber: number) {
+            this.start = (pageNumber - 1) * this.albumService.paginateNumberPage();
+            this.end = this.start + this.albumService.paginateNumberPage();
+
+            // Mettre à jour le nombre total d'albums
+            this.updateTotalAlbumsCount();
+
+            // ... Autres actions liées à la pagination ...
+      }
+
+      onSearch(searchTerm: string) {
+            this.searchTerm = searchTerm;
+            this.start = 0;
+            this.end = this.albumService.paginateNumberPage();
+            // Mettre à jour le nombre total d'albums en fonction de la recherche
+            this.updateTotalAlbumsCount();
+      }
+
+      private updateTotalAlbumsCount() {
+            this.albumService.count().subscribe(count => {
+                  this.totalAlbums = count;
+                  this.albumService.paginate(this.start, this.end).subscribe(albums => {
+                        this.albums = albums;
+                  });
+            });
+      }
+
 }
