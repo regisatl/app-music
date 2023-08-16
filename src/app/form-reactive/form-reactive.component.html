@@ -28,29 +28,29 @@
       <form class="fw-bold" [formGroup]="musicForm" (ngSubmit)="onSubmit()" [@fadeInAnimation]>
 
             <div class="form-floating mb-3">
-                        <input type="text" class="form-control fw-bold" id="name" name="name" formControlName="name" required>
-                        <label for="name">Enter the album name</label>
+                  <input type="text" class="form-control fw-bold" id="name" name="name" formControlName="name" required>
+                  <label for="name">Enter the album name</label>
+            </div>
+            <div class="alert alert-danger mt-3" *ngIf="name?.dirty && (name?.invalid || name?.pristine)">
+                  <div *ngIf="name?.errors?.['required']"> Name is required </div>
+                  <div *ngIf="name?.errors?.['minlength']">
+                        Name must be at least
+                        <span> {{ name?.errors?.['minlength']?.['requiredLength'] }} </span>
+                        characters long. You give now
+                        <span> {{ name?.errors?.['minlength']?.['actualLength'] }} characters </span>
                   </div>
-                  <div class="alert alert-danger mt-3" *ngIf="name?.dirty && (name?.invalid || name?.pristine)">
-                        <div *ngIf="name?.errors?.['required']"> Name is required </div>
-                        <div *ngIf="name?.errors?.['minlength']">
-                              Name must be at least 
-                              <span> {{ name?.errors?.['minlength']?.['requiredLength'] }} </span>
-                               characters long. You give now  
-                              <span> {{ name?.errors?.['minlength']?.['actualLength'] }} characters </span>
-                        </div>
-                  </div>
-                  <div class="alert alert-success mt-3" *ngIf="!(name?.dirty) && !(name?.valid || name?.pristine)">
-                        <div> Name is valid </div>
-                  </div>
+            </div>
+            <div class="alert alert-success mt-3" *ngIf="!(name?.dirty) && !(name?.valid || name?.pristine)">
+                  <div> Name is valid </div>
+            </div>
 
-                  <div class="form-floating mb-3">
-                        <input type="text" class="form-control fw-bold" id="author" name="author" formControlName="author"
+            <div class="form-floating mb-3">
+                  <input type="text" class="form-control fw-bold" id="author" name="author" formControlName="author"
                         required>
-                        <label for="author">Enter the author name</label>
-                  </div>
-                  <div class="alert alert-danger mb-3" *ngIf="name?.dirty && (name?.invalid || name?.pristine)">Name author
-                        is required</div>
+                  <label for="author">Enter the author name</label>
+            </div>
+            <div class="alert alert-danger mb-3" *ngIf="name?.dirty && (name?.invalid || name?.pristine)">Name author
+                  is required</div>
 
             <div class="form-floating mb-3">
                   <select class="form-select fw-bold" id="style" aria-label="Floating label select example"
@@ -61,7 +61,8 @@
                   <label for="style">Choose your style music</label>
             </div>
 
-            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3" [disabled]="musicForm.invalid">Add
+            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3"
+                  [disabled]="musicForm.invalid">Add
                   Album</button>
       </form>
 

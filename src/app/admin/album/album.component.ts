@@ -23,6 +23,7 @@ export class AlbumComponent implements OnInit {
            .subscribe({
                   next: (alb: Album[]) => { this.albums = alb }
             });
+            
       }
 
       onSetPaginate($event: { start: number, end: number }) {

@@ -8,24 +8,43 @@ h5 {
 }
 
 
-ul.navbar-nav a {
-      padding: 0.5rem 1.5rem;
-      margin: 1rem;
+ul.navbar-nav a.nav-link {
+      padding: 1rem 1.5rem;
       display: block;
       color: white;
       border-radius: 0.5rem;
+      margin-inline: 0.5rem;
+      transition: all 1s;
 
 }
 
 ul.navbar-nav a:hover {
       background-color: white;
-      color: #212529;
+      color: black;
 }
 
 ul.navbar-nav a.active {
       background-color: white;
-      color: #212529;
+      color: black;
 }
+
+ul li a.dropdown-link {
+      color: black;
+      display: block;
+      padding-block: 1rem;
+      text-align: center;
+      transition: all 1s;
+} 
+
+ul li a.dropdown-link:hover {
+      background-color: black;
+      color: white;
+} 
+
+ul li a.dropdown-link:active {
+      background-color: black;
+      color: white;
+} 
 
 div a.link {
       color: #2196f3;

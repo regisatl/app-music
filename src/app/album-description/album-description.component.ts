@@ -15,14 +15,14 @@ export class AlbumDescriptionComponent implements OnInit {
       album: Album | undefined;
       constructor(
             private route: ActivatedRoute,
-            private aS: AlbumService // service
+            private albumService: AlbumService // service
       ) { }
 
       ngOnInit(): void {
             // permet de récupérer l'identifiant
             const id: string = this.route.snapshot.params["albumId"];
             // const id = this.route.snapshot.paramMap.get('albumId');
-            this.aS.getAlbum(id)?.subscribe(album => {
+            this.albumService.getAlbum(id)?.subscribe(album => {
                   this.album = album;
             });
       }

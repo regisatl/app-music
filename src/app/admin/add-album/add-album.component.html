@@ -1,4 +1,4 @@
-<div class="container-sm mt-3">
+<div class="container-sm mt-3" [@fadeInAnimation]>
       <div class="d-flex justify-content-between mt-3 mb-3">
             <h2 class="fs-1 fw-bold">Dashboard</h2>
             <p><button routerLink="/admin" class="btn btn-warning py-3 px-5 fs-5 fw-bold"><span
@@ -7,46 +7,79 @@
             </p>
       </div>
 
-      <form action="" method="post" [@fadeInAnimation]>
-            <div class="form-floating mb-3 fw-bold">
-                  <input type="text" formControlName="name" class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
-                        id="name" placeholder="name">
-                  <label for="floatingInput">Enter the name</label>
+      <form [formGroup]='albumForm' (ngSubmit)="onSubmit()">
+
+            <!-- section name -->
+            <div class="alert alert-danger mt-3" *ngIf="name?.invalid && name?.touched">
+                  <div *ngIf="name?.errors?.['required']"> The name is required </div>
+                  <div *ngIf="name?.errors?.['minlength']">
+                        The name must be at least
+                        <span> {{ name?.errors?.['minlength']?.['requiredLength'] }} </span>
+                        characters long. You give now
+                        <span> {{ name?.errors?.['minlength']?.['actualLength'] }} characters </span>
+                  </div>
             </div>
             <div class="form-floating mb-3 fw-bold">
-                  <input type="text" formControlName="ref" class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
-                        id="ref" placeholder="ref">
+                  <input type="text" formControlName="name"
+                        class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
+                        id="name" placeholder="name" required>
+                  <label for="floatingInput">Enter the album name</label>
+            </div>
+            <!-- section name -->
+
+            <!-- section ref -->
+            <div class="alert alert-danger mt-3" *ngIf="ref?.invalid && ref?.touched">
+                  <div *ngIf="ref?.errors?.['required']"> The ref is required </div>
+            </div>
+            <div class="form-floating mb-3 fw-bold">
+                  <input type="text" formControlName="ref"
+                        class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
+                        id="ref" placeholder="ref" required>
                   <label for="floatingInput">Enter the reference</label>
+            </div>
+            <!-- section ref -->
+
+            <!-- section title -->
+            <div class="alert alert-danger mt-3" *ngIf="title?.invalid && title?.touched">
+                  <div *ngIf="title?.errors?.['required']"> The title is required </div>
             </div>
             <div class="form-floating mb-3 fw-bold">
                   <input type="text"
-                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
-                        id="title" placeholder="title">
+                        class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
+                        id="title" placeholder="title" formControlName="title" required>
                   <label for="floatingInput">Enter the title</label>
+            </div>
+            <!-- section title -->
+
+            <!-- section description -->
+            <div class="alert alert-danger mt-3" *ngIf="description?.touched && description?.invalid">
+                  <div *ngIf="description?.errors?.['required']"> The description is required </div>
             </div>
             <div class="form-floating mb-3 fw-bold">
                   <textarea
-                        class="form-control form-control-lg bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold text-white"
-                        placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"></textarea>
+                        class="form-control form-control-lg px-3 focus-ring focus-ring-warning fw-bold text-black"
+                        placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"
+                        formControlName="description" required></textarea>
                   <label for="floatingTextarea">Enter the description</label>
             </div>
+            <!-- section description -->
+
+            <!-- section duration -->
+            <div class="alert alert-danger mt-3" *ngIf="duration?.touched && duration?.invalid">
+                  <div *ngIf="duration?.errors?.['required']"> The description is required </div>
+            </div>
             <div class="form-floating mb-3 fw-bold">
                   <input type="number"
-                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
-                        id="duration" placeholder="duration">
+                        class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
+                        id="duration" placeholder="duration" formControlName="duration" required>
                   <label for="floatingInput">Enter the duration</label>
             </div>
-            <div class="form-floating mb-3 fw-bold">
-                  <input type="number"
-                        class="form-control form-control-lg text-light bg-black border-warning border border-1 px-3 focus-ring focus-ring-warning fw-bold"
-                        id="like" placeholder="like">
-                  <label for="floatingInput">Enter the like</label>
-            </div>
-            <button type="submit"
-                  class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3">Update Album
+            <!-- section duration -->
+
+            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3" [disabled]="albumForm.invalid">Add
+                  Album
             </button>
 
       </form>
-
 
 </div>

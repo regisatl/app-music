@@ -1,42 +1,55 @@
 <div class="container-fuild principal mb-5">
-      <nav
-            class="navbar navbar-expand-sm bg-black bg-gradient bg-opacity-100 px-4 py-4 fw-bold mb-4 position-sticky top-0 z-1 shadow rounded">
+      <nav class="navbar navbar-expand-sm bg-black bg-gradient bg-opacity-100 px-4 py-4 fw-bold mb-4 position-sticky top-0 z-1 shadow rounded">
             <div class="navbar-brand">
                   <a class="nav-link text-warning" routerLink="./"><span class="fas fa-music fa-2x"></span></a>
             </div>
-            <button class="navbar-toggler  text-white border border-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+            <button class="navbar-toggler  text-white border border-2" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#collapsibleNavbar">
                   <span class="navbar-toggler-icon text-light"></span>
             </button>
             <div class="container-fluid">
                   <div class="collapse navbar-collapse" id="collapsibleNavbar">
                         <ul class="navbar-nav d-flex flex-wrap text-center">
                               <li class="nav-item">
-                                    <a class="nav-link mx-1 my-0 py-3" routerLink="/albums" routerLinkActive="active"> <span
-                                                class="fas fa-home"></span> Home</a>
+                                    <a class="nav-link" routerLink="/albums" routerLinkActive="active">
+                                          <span class="fas fa-home"></span> Home</a>
                               </li>
                               <li class="nav-item">
-                                    <a class="nav-link mx-1 my-0 py-3" routerLink="/login" routerLinkActive="active"> <span
-                                                class="fas fa-sign-in-alt"></span> Sign In</a>
+                                    <a class="nav-link" routerLink="/login" routerLinkActive="active">
+                                          <span class="fas fa-sign-in-alt"></span> Sign In</a>
                               </li>
-                              <li class="nav-item">
-                                    <a class="nav-link mx-1 my-0 py-3" routerLink="/logout" routerLinkActive="active"> <span
-                                                class="fas fa-sign-out-alt"></span>
-                                          Sign out</a>
+                              <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle active" routerLinkActive="active" role="button" data-bs-toggle="dropdown"
+                                          aria-expanded="false">
+                                          Dashbord
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                          <li>
+                                                <a class="dropdown-item fw-bold dropdown-link" routerLink="/admin" routerLinkActive="active">
+                                                      <span class="fas fa-user-circle"></span>&nbsp;Admin</a>
+                                          </li>
+                                          <li>
+                                                <a class="dropdown-item fw-bold dropdown-link active" routerLink="/logout" routerLinkActive="active">
+                                                      <span class="fas fa-sign-out-alt"></span>&nbsp; Sign out</a>
+                                          </li>
+                                    </ul>
                               </li>
-                              <li class="nav-item">
-                                    <a class="nav-link mx-1 my-0 py-3" routerLink="/admin" routerLinkActive="active"> <span
-                                                class="fas fa-user-circle"></span>
-                                          Admin</a>
-                              </li>
-                              <li class="nav-item">
-                                    <a class="nav-link mx-1 my-0 py-3" routerLink="./template" routerLinkActive="active"> <span
-                                                class="fas fa-dot-circle"></span>
-                                          Template</a>
-                              </li>
-                              <li class="nav-item">
-                                    <a class="nav-link mx-1 my-0 py-3" routerLink="/reactive" routerLinkActive="active"> <span
-                                                class="far fa-dot-circle"></span>
-                                          Reactive</a>
+                              <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle"  routerLinkActive="active" role="button" data-bs-toggle="dropdown"
+                                          aria-expanded="false">
+                                          Other link
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                          <li>
+                                                <a class="dropdown-item fw-bold dropdown-link active" routerLink="./template"
+                                                      routerLinkActive="active"><span
+                                                            class="fas fa-dot-circle"> </span>&nbsp;Template</a>
+                                          </li>
+                                          <li>
+                                                <a class="dropdown-item fw-bold dropdown-link active" routerLink="/reactive" routerLinkActive="active">
+                                                      <span class="far fa-dot-circle"> </span>&nbsp; Reactive</a>
+                                          </li>
+                                    </ul>
                               </li>
                         </ul>
                   </div>

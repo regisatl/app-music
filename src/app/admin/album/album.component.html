@@ -21,16 +21,16 @@
             <tbody class="table-group-divider fw-bold">
                   <tr *ngFor="let album of albums">
                         <th class="text-center"> {{ album.id }} </th>
-                        <td class=""><a href="" routerLink="/album/{{album.id}}"> {{ album.ref }} </a></td>
-                        <td class=""> {{ album.name }} </td>
-                        <td class=""> {{ album.title }} </td>
-                        <td class=""> {{ album.duration }} </td>
-                        <td class="">
+                        <td><a href="" routerLink="/album/{{album.id}}"> {{ album.ref }} </a></td>
+                        <td> {{ album.name }} </td>
+                        <td> {{ album.title }} </td>
+                        <td> {{ album.duration }} </td>
+                        <td>
                               <button type="button" class="btn btn-success px-4">
                                     <span class="fas fa-edit"></span>
                               </button>
                         </td>
-                        <td class="">
+                        <td>
                               <button type="button" class="btn btn-danger px-4">
                                     <span class="fas fa-trash"></span>
                               </button>

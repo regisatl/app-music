@@ -257,4 +257,37 @@ export class AlbumService {
             this.http.put<void>(`${this._albumsUrl}/${album.id}`, album)
                   .subscribe(() => { });
       }
+
+      /**
+       * 
+       * @param album 
+       * @returns qui ajoute un album
+       */
+
+      addAlbum(album: Album): Observable<void> {
+            return this.http.post<void>(this._albumsUrl, album);
+      }
+
+      /**
+       * 
+       * @param id d'un album 
+       * @param album  un album
+       * @returns qui met à jour un album
+       */
+
+      updateAlbum(id: string, album: Album): Observable<void> {
+            return this.http.put<void>(`${this._albumsUrl}/${id}`, album);
+      }
+
+      /**
+       * 
+       * @param id d'un album
+       * @returns qui supprime un album en fonction de son id uniquement
+       */
+
+      deleteAlbum(id: string): Observable<void> {
+            return this.http.delete<void>(`${this._albumsUrl}/${id}`);
+      }
+
+
 }

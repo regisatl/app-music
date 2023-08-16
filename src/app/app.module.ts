@@ -3,7 +3,7 @@ import { AlbumDescriptionComponent } from './album-description/album-description
 import { AlbumDetailsComponent } from './album-details/album-details.component';
 import { AppComponent } from './app.component';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { NgModule } from '@angular/core';
 import { SearchComponent } from './search/search.component';
@@ -40,7 +40,6 @@ import { AppRoutingModule } from './app-routing.module';
       imports: [
             BrowserModule,
             FormsModule,
-            ReactiveFormsModule,
             BrowserAnimationsModule,
             HttpClientModule,
             AdminModule,

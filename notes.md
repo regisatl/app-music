@@ -2299,3 +2299,5 @@ export class UploadComponent {
 ```
 
 Assurez-vous d'adapter cela à votre application Firebase et de personnaliser le chemin d'upload et le comportement en fonction de vos besoins.
+
+
