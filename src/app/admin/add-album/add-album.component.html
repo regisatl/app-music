@@ -7,6 +7,11 @@
             </p>
       </div>
 
+      <div class="alert alert-success mt-3 fw-bold" *ngIf="!albumForm?.invalid">
+           <div> {{ msgSuccess }} 
+            <button (click)="msgSuccess = undefined" class="btn-close position-absolute end-0 me-2 fs-5"></button>
+           </div>
+      </div>
       <form [formGroup]='albumForm' (ngSubmit)="onSubmit()">
 
             <!-- section name -->
@@ -23,7 +28,7 @@
                   <input type="text" formControlName="name"
                         class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
                         id="name" placeholder="name" required>
-                  <label for="floatingInput">Enter the album name</label>
+                  <label for="name">Enter the album name</label>
             </div>
             <!-- section name -->
 
@@ -35,7 +40,7 @@
                   <input type="text" formControlName="ref"
                         class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
                         id="ref" placeholder="ref" required>
-                  <label for="floatingInput">Enter the reference</label>
+                  <label for="ref">Enter the album reference</label>
             </div>
             <!-- section ref -->
 
@@ -47,7 +52,7 @@
                   <input type="text"
                         class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
                         id="title" placeholder="title" formControlName="title" required>
-                  <label for="floatingInput">Enter the title</label>
+                  <label for="title">Enter the album title</label>
             </div>
             <!-- section title -->
 
@@ -56,27 +61,49 @@
                   <div *ngIf="description?.errors?.['required']"> The description is required </div>
             </div>
             <div class="form-floating mb-3 fw-bold">
-                  <textarea
-                        class="form-control form-control-lg px-3 focus-ring focus-ring-warning fw-bold text-black"
+                  <textarea class="form-control form-control-lg px-3 focus-ring focus-ring-warning fw-bold text-black"
                         placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px"
                         formControlName="description" required></textarea>
-                  <label for="floatingTextarea">Enter the description</label>
+                  <label for="description">Enter the album description</label>
             </div>
             <!-- section description -->
 
             <!-- section duration -->
             <div class="alert alert-danger mt-3" *ngIf="duration?.touched && duration?.invalid">
-                  <div *ngIf="duration?.errors?.['required']"> The description is required </div>
+                  <div *ngIf="duration?.errors?.['required']"> The duration is required </div>
             </div>
             <div class="form-floating mb-3 fw-bold">
                   <input type="number"
                         class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
                         id="duration" placeholder="duration" formControlName="duration" required>
-                  <label for="floatingInput">Enter the duration</label>
+                  <label for="duration">Enter the album duration</label>
             </div>
             <!-- section duration -->
 
-            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3" [disabled]="albumForm.invalid">Add
+            <!-- section tags albums -->
+            <div class="alert alert-danger mt-3" *ngIf="tags?.touched && tags?.invalid">
+                  <div *ngIf="tags?.errors?.['required']"> The tags is required </div>
+            </div>
+            <div class="form-group col-sm-12" formArrayName="tags">
+                  <div class="row mt-3 mb-3">
+                        <div class="form-floating mb-3 fw-bold col-sm-10" *ngFor="let tag of tags.controls;  let i = index">
+                              <input type="text" [formControlName]= 'i'
+                                    class="form-control form-control-lg text-black px-3 focus-ring focus-ring-warning fw-bold"
+                                    id="tag-{{i}}" placeholder="tags" required>
+                              <label for="tag-{{i}}" class="px-3 ms-2">Enter the tags</label>
+                        </div>
+                        <p class="col-sm-2 text-end">
+                              <button type="submit"
+                                    class="btn btn-outline-warning border-warning border border-2 fw-bold py-3"
+                                    (click)="addTag()"><span class="fas fa-plus-circle"></span> Add tags
+                              </button>
+                        </p>
+                  </div>
+            </div>
+            <!-- section tags albums -->
+
+            <button type="submit" class="btn btn-outline-warning border-warning border border-2 fw-bold w-100 py-3"
+                  [disabled]="albumForm.invalid">Add
                   Album
             </button>
 
