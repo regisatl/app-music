@@ -75,19 +75,5 @@ export class EditAlbumComponent {
             }
       }
 
-      onDelete() {
-            if (confirm('Êtes-vous sûr de vouloir supprimer cet album ?')) {
-                  this.albumService.deleteAlbum(this.albumId).subscribe(
-                        () => {
-                              alert('Album supprimé avec succès');
-                              // Redirigez vers une autre page après la suppression
-                              this.router.navigate(['/admin'], { queryParams: { message: 'success' } });
-                        },
-                        error => {
-                              console.error("Erreur lors de la suppression de l'album :", error);
-                        }
-                  );
-            }
-      }
 
 }

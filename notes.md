@@ -2300,4 +2300,142 @@ export class UploadComponent {
 
 Assurez-vous d'adapter cela à votre application Firebase et de personnaliser le chemin d'upload et le comportement en fonction de vos besoins.
 
+Bien sûr, voici comment vous pouvez implémenter les méthodes d'ajout, de mise à jour et de suppression d'albums en utilisant les informations que vous avez fournies :
+
+**1. Ajout d'un album :**
+
+```typescript
+// Dans le service AlbumService
+addAlbum(album: Album): Observable<void> {
+  return this.http.post<void>(this._albumsUrl + '/.json', album);
+}
+
+// Dans le composant AddAlbumComponent
+addAlbum() {
+  const newAlbum: Album = {
+    name: this.albumForm.value.name,
+    ref: this.albumForm.value.ref,
+    title: this.albumForm.value.title,
+    description: this.albumForm.value.description,
+    duration: this.albumForm.value.duration,
+    like: this.albumForm.value.like
+  };
+
+  this.albumService.addAlbum(newAlbum).subscribe(
+    () => {
+      this.router.navigate(['/admin'], { queryParams: { message: 'success' } });
+    },
+    error => {
+      console.error(error);
+    }
+  );
+}
+```
+
+**2. Mise à jour d'un album :**
+
+```typescript
+// Dans le service AlbumService
+updateAlbum(id: string, album: Album): Observable<void> {
+  return this.http.put<void>(`${this._albumsUrl}/${id}.json`, album);
+}
+
+// Dans le composant UpdateAlbumComponent (ou AddAlbumComponent si c'est le même formulaire)
+updateAlbum() {
+  const updatedAlbum: Album = {
+    name: this.albumForm.value.name,
+    ref: this.albumForm.value.ref,
+    title: this.albumForm.value.title,
+    description: this.albumForm.value.description,
+    duration: this.albumForm.value.duration,
+    like: this.albumForm.value.like
+  };
+
+  this.albumService.updateAlbum(this.albumId, updatedAlbum).subscribe(
+    () => {
+      this.router.navigate(['/admin'], { queryParams: { message: 'success' } });
+    },
+    error => {
+      console.error(error);
+    }
+  );
+}
+```
+
+**3. Suppression d'un album :**
+
+```typescript
+// Dans le service AlbumService
+deleteAlbum(id: string): Observable<void> {
+  return this.http.delete<void>(`${this._albumsUrl}/${id}.json`);
+}
+
+// Dans le composant AlbumsComponent
+onDelete(albumId: string) {
+  if (confirm('Are you sure you want to delete this album?')) {
+    this.albumService.deleteAlbum(albumId).subscribe(
+      () => {
+        this.updateTotalAlbumsCount();
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+}
+```
+
+Pour le HTML, vous pouvez utiliser les boutons "Update" et "Delete" dans votre tableau d'albums, tout comme vous l'avez montré dans votre code. Assurez-vous que les méthodes `addAlbum()`, `updateAlbum()` et `onDelete()` sont correctement liées aux événements click de ces boutons.
+
+N'oubliez pas d'importer les modules et classes nécessaires dans vos fichiers et de mettre à jour les templates HTML selon vos besoins.
+
+Bien sûr, voici comment vous pourriez implémenter le code HTML associé aux méthodes `addAlbum()`, `updateAlbum()` et `onDelete()` dans votre template Angular :
+
+```html
+<!-- add-album.component.html -->
+
+<div class="container-sm mt-3">
+  <!-- ... Votre formulaire pour ajouter ou mettre à jour un album ... -->
+  
+  <button type="submit" class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3"
+          (click)="addAlbum()">Add Album</button>
+</div>
+```
+
+```html
+<!-- update-album.component.html (ou add-album.component.html si c'est le même formulaire) -->
+
+<div class="container-sm mt-3">
+  <!-- ... Votre formulaire pour ajouter ou mettre à jour un album ... -->
+  
+  <button type="submit" class="btn btn-outline-warning border-warning border border-1 fw-bold w-100 py-3"
+          (click)="updateAlbum()">Update Album</button>
+</div>
+```
+
+```html
+<!-- albums.component.html -->
+
+<div class="container mt-3">
+  <!-- ... Le tableau d'albums ... -->
+  <tbody class="table-group-divider fw-bold">
+    <tr *ngFor="let album of albums">
+      <!-- ... Vos autres colonnes ... -->
+      <td>
+        <button type="button" class="btn btn-success px-4" (click)="updateAlbum(album.id)">
+          <span class="fas fa-edit"></span>
+        </button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-danger px-4" (click)="onDelete(album.id)">
+          <span class="fas fa-trash"></span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</div>
+```
+
+Cela devrait vous aider à intégrer les boutons "Add Album", "Update Album" et les boutons de suppression dans vos pages. Assurez-vous de lier les méthodes `addAlbum()`, `updateAlbum()` et `onDelete()` à ces boutons à l'aide de l'attribut `(click)`.
+
 
