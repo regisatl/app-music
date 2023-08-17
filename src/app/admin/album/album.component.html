@@ -13,6 +13,12 @@
             </div>
       </div>
 
+      <div class="alert alert-success mt-3 fw-bold" *ngIf="msgSuccess">
+            <div> {{ msgSuccess }} 
+             <button (click)="msgSuccess = undefined" class="btn-close position-absolute end-0 me-2 fs-5"></button>
+            </div>
+       </div>
+
       <table class="table table-dark table-striped-columns rounded fw-bold" [@fadeInAnimation]>
             <thead class="rounded py-4">
                   <tr class="table-group">
@@ -39,7 +45,7 @@
                         </td>
                         <td>
                               <button type="button" class="btn btn-danger px-4">
-                                    <span class="fas fa-trash" (click) = 'onDelete()' ></span>
+                                    <span class="fas fa-trash" (click) = 'onDelete(albumId)' ></span>
                               </button>
                         </td>
                   </tr>

@@ -33,8 +33,6 @@ export class AlbumDetailsComponent implements OnInit, OnChanges {
                   this.albumService.getAlbumList(this.album.id).subscribe(
                         (albumList) => {
                               this.songs = albumList.list
-                              console.log(this.songs)
-
                         }
                   );
 

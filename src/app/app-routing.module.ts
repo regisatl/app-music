@@ -24,7 +24,7 @@ const albumsRoutes: Routes = [
       { path: 'reactive', component: FormReactiveComponent },
       { path: 'template', component: FormTemplateComponent },
 
-      // Redirection vers PageNotFoundComponent pour toutes les autres routes
+      // Redirection vers PageNotFoundComponent pour toutes les autres routes incorrectes
       { path: '**', component: PageNotFoundComponent }
 ];
 

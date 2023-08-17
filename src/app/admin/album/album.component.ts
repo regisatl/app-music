@@ -15,6 +15,7 @@ export class AlbumComponent implements OnInit {
 
       albums!: Album[];
       messageSuccess: string | undefined = 'Album ajouté avec succès';
+      msgSuccess: string | undefined = 'Album supprimé avec succès';
       albumId!: string;
       albumForm!: FormGroup;
 
@@ -60,7 +61,8 @@ export class AlbumComponent implements OnInit {
                               ]
                         ],
                         description: [
-                              album.description],
+                              album.description
+                        ],
                         duration: [
                               album.duration,
                               [
@@ -81,13 +83,13 @@ export class AlbumComponent implements OnInit {
                   });
       }
 
-      onDelete() {
+    
+      onDelete(albumId: string) {
             if (confirm('Êtes-vous sûr de vouloir supprimer cet album ?')) {
-                  this.albumService.deleteAlbum(this.albumId).subscribe(
+                  this.albumService.deleteAlbum(albumId).subscribe(
                         () => {
-                              alert('Album supprimé avec succès');
                               // Redirigez vers une autre page après la suppression
-                              this.router.navigate(['/admin'], { queryParams: { message: 'success' } });
+                              this.router.navigate(['/admin'], { queryParams: { message: 'Album supprimé avec succès' } });
                         },
                         error => {
                               console.error("Erreur lors de la suppression de l'album :", error);
@@ -95,6 +97,5 @@ export class AlbumComponent implements OnInit {
                   );
             }
       }
-
 
 }
