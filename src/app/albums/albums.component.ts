@@ -60,7 +60,6 @@ export class AlbumsComponent implements OnInit {
             // Mettre à jour le nombre total d'albums
             this.updateTotalAlbumsCount();
 
-            // ... Autres actions liées à la pagination ...
       }
 
       onSearch(searchTerm: string) {
